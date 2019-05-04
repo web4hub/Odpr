@@ -1,39 +1,15 @@
-# {{ name }}
+# Vue-Django CI/CD template using GitLab, Cypress and Django Unit Tests, and Docker
 
-> {{ description }}
+> This is a Test App to test frontend and backend unit- and integration-tests automated on a CI/CD system.
 
 ## Build Setup
 
-``` bash
-# install dependencies
-npm install
+To come...
 
-# serve with hot reload at localhost:8080
-npm run dev
+## Template Source
 
-# build for production with minification
-npm run build
+The template is forked from: https://github.com/NdagiStanley/vue-django.git
 
-# build for production and view the bundle analyzer report
-npm run build --report
-{{#unit}}
-
-# run unit tests
-npm run unit
-{{/unit}}
-{{#e2e}}
-
-# run e2e tests
-npm run e2e
-{{/e2e}}
-{{#if_or unit e2e}}
-
-# run all tests
-npm test
-{{/if_or}}
-
-# deploy
-.deploy.sh
-```
+## More
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
