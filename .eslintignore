@@ -2,6 +2,6 @@
 /config/
 /dist/
 /*.js
-{{#unit}}
 /test/unit/coverage/
-{{/unit}}
+/src/_util/veeValidateRules.js
+/cypress/
