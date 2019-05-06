@@ -50,3 +50,5 @@ ENV/
 
 # Staticfiles
 staticfiles/
+static-vuedj/
+templates/
