@@ -1,10 +1,15 @@
 <template>
 	<div id="app">
-		<img class="logo" src="./assets/logo.png">
+		<img
+			class="logo"
+			src="./assets/logo.png"
+		>
 		<br>
-		<img class="logo" src="./assets/dj.png">
-		<router-view/>
-		<hello/>
+		<img
+			class="logo"
+			src="./assets/dj.png"
+		>
+		<router-view />
 		<p>
 			Welcome to your Django - Vue.js app!
 		</p>
@@ -12,14 +17,10 @@
 </template>
 
 <script>
-	import Hello from './components/Hello'
-
-	export default {
-		name: 'app',
-		components: {
-			Hello
-		}
-	}
+export default {
+	name: 'App',
+	components: {}
+}
 </script>
 
 <style lang="scss">

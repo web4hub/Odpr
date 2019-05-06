@@ -7,13 +7,18 @@ module.exports = {
 		sourceType: 'module'
 	},
 	env: {
+		"es6": true,
+		"node": true,
 		browser: true,
 	},
 	// https://github.com/standard/standard/blob/master/docs/RULES-en.md
-	extends: 'standard',
+	extends: [
+		'standard',
+		'plugin:vue/recommended'
+	],
 	// required to lint *.vue files
 	plugins: [
-		'vue'
+		'vue',
 	],
 	// add your custom rules here
 	'rules': {
@@ -28,6 +33,13 @@ module.exports = {
 		'indent': [
 			2,
 			'tab'
-		]
+		],
+		'vue/html-indent': ['error', 'tab', {
+			'attribute': 1,
+			'baseIndent': 1,
+			'closeBracket': 0,
+			'alignAttributesVertically': true,
+			'ignores': []
+		}]
 	}
 }
