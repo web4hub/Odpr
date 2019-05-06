@@ -3,11 +3,8 @@
     <img class="logo" src="./assets/logo.png">
     <br>
     <img class="logo" src="./assets/dj.png">
-    {{#router}}
     <router-view/>
-    {{else}}
     <hello/>
-    {{/router}}
     <p>
       Welcome to your Django - Vue.js app!
     </p>
@@ -15,16 +12,14 @@
 </template>
 
 <script>
-{{#unless router}}
-import Hello from './components/Hello'{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+import Hello from './components/Hello'
 
-{{/unless}}
 export default {
-  name: 'app'{{#router}}{{#if_eq lintConfig "airbnb"}},{{/if_eq}}{{else}},
+  name: 'app',
   components: {
-    Hello{{#if_eq lintConfig "airbnb"}},{{/if_eq}}
-  }{{#if_eq lintConfig "airbnb"}},{{/if_eq}}{{/router}}
-}{{#if_eq lintConfig "airbnb"}};{{/if_eq}}
+    Hello
+  }
+}
 </script>
 
 <style>
