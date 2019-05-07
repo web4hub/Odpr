@@ -1,5 +1,5 @@
 <template>
-	<div id="app">
+	<div id="App">
 		<img
 			class="logo"
 			src="./assets/logo.png"
@@ -35,7 +35,7 @@ body {
 	height: 100%;
 }
 
-#app {
+#App {
 	color: #2c3e50;
 	margin-top: -100px;
 	max-width: 600px;
@@ -43,7 +43,7 @@ body {
 	text-align: center;
 }
 
-#app a {
+#App a {
 	color: #42b983;
 	text-decoration: none;
 }
