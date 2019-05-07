@@ -3,14 +3,32 @@ import fileinput
 
 file = 'templates/index.html'
 
+# with open(file, "r+") as f:
+#     s = f.read()
+#     f.seek(0)
+#     f.write("{% load staticfiles %}\n" + s)
+#
+# for i, line in enumerate(fileinput.input(file, inplace=1)):
+#     sys.stdout.write(line.replace('/static-vuedj/', "{% static '"))
+# for i, line in enumerate(fileinput.input(file, inplace=1)):
+#     sys.stdout.write(line.replace('.css', ".css' %}"))
+# for i, line in enumerate(fileinput.input(file, inplace=1)):
+#     sys.stdout.write(line.replace('.js', ".js' %}"))
+
 with open(file, "r+") as f:
-    s = f.read()
-    f.seek(0)
-    f.write("{% load staticfiles %}\n" + s)
+	s = f.read()
+	f.seek(0)
+	f.write("{% load static %}\n" + s)
 
 for i, line in enumerate(fileinput.input(file, inplace=1)):
-    sys.stdout.write(line.replace('/static-vuedj/', "{% static '"))
+	sys.stdout.write(line.replace('href=/static-vuedj/', "href=\"{% static '"))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
-    sys.stdout.write(line.replace('.css', ".css' %}"))
+	sys.stdout.write(line.replace('href=/static/', "href=\"{% static '"))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
-    sys.stdout.write(line.replace('.js', ".js' %}"))
+	sys.stdout.write(line.replace('.css', ".css' %}\""))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('src=/static-vuedj/', "src=\"{% static '"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('src=/static/', "src=\"{% static '"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.js', ".js' %}\""))
