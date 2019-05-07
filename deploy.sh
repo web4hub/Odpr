@@ -1,9 +1,23 @@
+#!/bin/bash
+set -eo pipefail
+
+if [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
+	VBIN="Scripts"
+else
+	#elif [[ "$OSTYPE" == "linux-gnu" -o "$OSTYPE" == "darwin"* -o "$OSTYPE" == "freebsd"* ]]; then
+	# Linux or Mac or FreeBSD
+	alias python=python3
+	VBIN="bin"
+fi
+
+source .venv/"${VBIN}"/activate
+
 echo 'Run npm build'
 npm run build
 echo 'Done...'
 
 echo 'Format index.html as Jinja template'
-python3 format_index_html.py
+python format_index_html.py
 echo 'Done...'
 
 echo 'Install python modules'
@@ -11,13 +25,13 @@ pip install -r requirements.txt
 echo 'Done...'
 
 echo 'Collect static'
-python3 manage.py collectstatic --noinput
+python manage.py collectstatic --noinput
 echo 'Done...'
 
 echo 'Run migrations'
-python3 manage.py migrate
+python manage.py migrate
 echo 'Done...'
 
 export PORT=8000
 echo 'Server runnning on port ' $PORT
-python3 manage.py runserver
+python manage.py runserver
