@@ -53,3 +53,5 @@ body {
 	height: 100px
 }
 </style>
+
+<style lang="scss" src="@/style/Main.scss"></style>
