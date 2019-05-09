@@ -12,7 +12,7 @@ export default new Router({
 			component: () => import('@/components/Hello')
 		},
 		{ path: '*',
-			component: () => import('@/components/404NotFound')
+			component: () => import('@/components/NotFound')
 		}
 	]
 })

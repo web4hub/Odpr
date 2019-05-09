@@ -54,37 +54,37 @@ INSTALLED_APPS = [
 	'rest_auth.registration',
 	'api',
 	'app',
-	#'accounts',
+	'accounts',
 	'django_nose',
 ]
 
 
 SITE_ID = 1
-# AUTH_USER_MODEL = 'accounts.User'
-# ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
-# ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-#
-# ACCOUNT_EMAIL_REQUIRED = True
-# ACCOUNT_EMAIL_VERIFICATION = 'none'
-# ACCOUNT_UNIQUE_EMAIL = True
-# ACCOUNT_USERNAME_REQUIRED = True
-# ACCOUNT_USER_EMAIL_FIELD = 'email'
-# ACCOUNT_LOGOUT_ON_GET = True
-# ACCOUNT_FORMS = {"login": "accounts.forms.UserLoginForm"}
-# LOGIN_REDIRECT_URL = 'home'
-# LOGIN_URL = 'api/v1/accounts/login/'
-#
-# CSRF_COOKIE_NAME = "csrftoken"
-#
-# REST_AUTH_SERIALIZERS = {
-# 	"USER_DETAILS_SERIALIZER": "accounts.serializers.UserSerializer",
-# 	"LOGIN_SERIALIZER": "accounts.serializers.CustomUserLoginSerializer",
-# 	"PASSWORD_RESET_SERIALIZER": "accounts.serializers.CustomPasswordResetSerializer"
-# }
-#
-# REST_AUTH_REGISTER_SERIALIZERS = {
-# 	"REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
-# }
+AUTH_USER_MODEL = 'accounts.User'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_USER_EMAIL_FIELD = 'email'
+ACCOUNT_LOGOUT_ON_GET = True
+#  ACCOUNT_FORMS = {"login": "accounts.forms.UserLoginForm"}
+LOGIN_REDIRECT_URL = 'home'
+#  LOGIN_URL = 'api/v1/accounts/login/'
+
+CSRF_COOKIE_NAME = "csrftoken"
+
+REST_AUTH_SERIALIZERS = {
+	"USER_DETAILS_SERIALIZER": "accounts.serializers.UserSerializer",
+	#	 "LOGIN_SERIALIZER": "accounts.serializers.CustomUserLoginSerializer",
+	"PASSWORD_RESET_SERIALIZER": "accounts.serializers.CustomPasswordResetSerializer"
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+	"REGISTER_SERIALIZER": "accounts.serializers.CustomRegisterSerializer",
+}
 
 # Following is added to enable registration with email instead of username
 AUTHENTICATION_BACKENDS = (

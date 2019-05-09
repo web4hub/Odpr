@@ -1,15 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-if [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
-	VBIN="Scripts"
-else
-	#elif [[ "$OSTYPE" == "linux-gnu" -o "$OSTYPE" == "darwin"* -o "$OSTYPE" == "freebsd"* ]]; then
-	# Linux or Mac or FreeBSD
-	alias python=python3
-	VBIN="bin"
-fi
-
+source ./resolve_os.sh
 source .venv/"${VBIN}"/activate
 
 echo 'Run npm build'
