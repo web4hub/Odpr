@@ -10,7 +10,7 @@ from vuedj.constants import site_url, site_full_name, site_shortcut_name
 from rest_framework.views import APIView
 from rest_framework import parsers, renderers, status
 from rest_framework.response import Response
-from .serializers import CustomTokenSerializer, UserSerializer
+from .serializers import CustomTokenSerializer, UserSerializer, CustomRegisterSerializer
 from django_rest_passwordreset.models import ResetPasswordToken
 from django_rest_passwordreset.views import get_password_reset_token_expiry_time
 from django.utils import timezone
@@ -21,12 +21,23 @@ from .permissions import IsUnauthenticatedOrAdminOrStaff
 class CustomRegisterView(RegisterView):
 	queryset = get_user_model().objects.all()
 	permission_classes = register_permission_classes() + (IsUnauthenticatedOrAdminOrStaff, )
+	serializer_class = CustomRegisterSerializer
 
 	def get_response_data(self, user):
 		token = super(CustomRegisterView, self).get_response_data(user)
 		response = UserSerializer(instance=user).data
 		response.update(token)
 		return response
+
+	def perform_create(self, serializer):
+		user = super(CustomRegisterView, self).perform_create(serializer)
+		if self.queryset.count() == 1:  # TODO: write tests that only the first registration becomes superadmin.
+			user.is_superuser = True
+			user.is_staff = True
+			user.is_admin = True
+			user.user_type = get_user_model().ADMIN
+			user.save()
+		return user
 
 
 class CustomPasswordResetView:

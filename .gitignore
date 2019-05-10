@@ -53,3 +53,7 @@ staticfiles/
 static-vuedj/
 templates/
 static/
+
+accounts/migrations/
+api/migrations/
+app/migrations/

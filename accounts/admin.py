@@ -19,7 +19,7 @@ class Admin(BaseUserAdmin):
 	]
 	list_filter = ('is_admin', )
 	fieldsets = (
-		(None, {'fields': ('id', 'email', 'password')}),
+		(None, {'fields': ('id', 'email', 'username', 'password')}),
 		('Permissions', {'fields': ('is_admin', 'is_superuser', 'is_staff')}),
 	)
 	# add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -37,3 +37,6 @@ class Admin(BaseUserAdmin):
 		queryset = super(Admin, self).get_queryset(request)
 		#  queryset = queryset.annotate(models.Count('followers'))  TODO add things to be annotated
 		return queryset
+
+
+admin.site.register(get_user_model(), Admin)

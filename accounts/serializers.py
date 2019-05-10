@@ -5,7 +5,6 @@ from django.contrib.auth import get_user_model
 from allauth.account.forms import ResetPasswordForm
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
-from django.db import DEFAULT_DB_ALIAS
 
 
 class CustomRegisterSerializer(RegisterSerializer):
@@ -27,14 +26,6 @@ class CustomRegisterSerializer(RegisterSerializer):
 			'email': self.validated_data.get('email', ''),
 			'username': self.validated_data.get('username', ''),
 		}
-
-	def save(self, request):  # TODO: write test to verify that only the first user will be admin.
-		user = super(CustomRegisterSerializer, self).save(request)
-		if user.pk == 1:
-			user.is_admin = True
-			user.user_type = 0
-			get_user_model()._default_manager.db_manager(DEFAULT_DB_ALIAS).create_superuser(**user)
-		return user  # TODO: make hook earlier and try to get all users. if none exists, make new user like create_superuser does. else make user normally. (should be optional to be able to make more than one users)
 
 
 class CustomPasswordResetSerializer(PasswordResetSerializer):
