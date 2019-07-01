@@ -1,28 +1,30 @@
 #!/bin/bash
 set -eo pipefail
 
-source ./resolve_os.sh
-source .venv/"${VBIN}"/activate
+if [ "$1" != "run" ]; then
+	source ./resolve_os.sh
+	source .venv/"${VBIN}"/activate
 
-echo 'Run npm build'
-npm run build
-echo 'Done...'
+	echo 'Run npm build'
+	npm run build
+	echo 'Done...'
 
-echo 'Format index.html as Jinja template'
-python format_index_html.py
-echo 'Done...'
+	echo 'Format index.html as Jinja template'
+	python format_index_html.py
+	echo 'Done...'
 
-echo 'Install python modules'
-pip install -r requirements.txt
-echo 'Done...'
+	echo 'Install python modules'
+	pip install -r requirements.txt
+	echo 'Done...'
 
-echo 'Collect static'
-python manage.py collectstatic --noinput
-echo 'Done...'
+	echo 'Collect static'
+	python manage.py collectstatic --noinput
+	echo 'Done...'
 
-echo 'Run migrations'
-python manage.py migrate
-echo 'Done...'
+	echo 'Run migrations'
+	python manage.py migrate
+	echo 'Done...'
+fi
 
 export PORT=8000
 echo 'Server runnning on port ' $PORT
