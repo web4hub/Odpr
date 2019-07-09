@@ -3,7 +3,9 @@ set -eo pipefail
 
 if [ "$1" != "run" ]; then
 	source ./resolve_os.sh
-	source .venv/"${VBIN}"/activate
+	source ./backend/.venv/"${VBIN}"/activate
+
+	cd client
 
 	echo 'Run npm build'
 	npm run build
@@ -13,7 +15,10 @@ if [ "$1" != "run" ]; then
 	python format_index_html.py
 	echo 'Done...'
 
+	cd ../backend
+
 	echo 'Install python modules'
+	python -m pip install --upgrade pip
 	pip install -r requirements.txt
 	echo 'Done...'
 
