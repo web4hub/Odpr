@@ -8,6 +8,7 @@ if [ "$1" != "run" ]; then
 	cd client
 
 	echo 'Run npm build'
+	npm install
 	npm run build
 	echo 'Done...'
 

@@ -31,7 +31,7 @@ class CustomRegisterView(RegisterView):
 
 	def perform_create(self, serializer):
 		user = super(CustomRegisterView, self).perform_create(serializer)
-		if self.queryset.count() == 1:  # TODO: write tests that only the first registration becomes superadmin.
+		if self.queryset.count() == 1:
 			user.is_superuser = True
 			user.is_staff = True
 			user.is_admin = True

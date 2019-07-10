@@ -73,13 +73,13 @@ class CustomTokenSerializer(serializers.Serializer):
 		pass
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
 	ADMIN, STAFF, AUTHOR, VIEWER, GUEST = range(0, 5)
 	permission_type = GUEST  # defined by request.user (type and authentication=True/False)
 
 	class Meta:
 		model = get_user_model()
-		# Fields and readonly fields are defined by the overwritten methods below!
+		fields = ['id', 'username', 'email']
 
 	def create(self, validated_data):
 		validated_data.update(self.deserialize_nested_data_by_reuse_or_create(
