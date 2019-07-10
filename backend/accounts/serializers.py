@@ -16,7 +16,8 @@ class CustomRegisterSerializer(RegisterSerializer):
 
 	username = serializers.CharField(required=True)
 	email = serializers.EmailField(required=True)
-	password1 = serializers.CharField(write_only=True)
+	password1 = serializers.CharField(write_only=True, style={'input_type': 'password'})
+	password2 = serializers.CharField(write_only=True, style={'input_type': 'password'})
 
 	def get_cleaned_data(self):
 		super(CustomRegisterSerializer, self).get_cleaned_data()
