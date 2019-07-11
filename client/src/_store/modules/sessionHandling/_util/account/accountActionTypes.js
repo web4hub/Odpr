@@ -1,0 +1,6 @@
+'use strict'
+export const login = 'login'
+export const actionLogout = 'logout'
+export const register = 'register'
+export const passwordReset = 'passwordReset'
+export const updateUserData = 'updateUserData'
