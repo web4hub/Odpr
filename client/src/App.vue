@@ -3,12 +3,12 @@
 		<img
 			class="logo"
 			src="./assets/logo.png"
-		>
+			alt="">
 		<br>
 		<img
 			class="logo"
 			src="./assets/dj.png"
-		>
+			alt="">
 		<router-view />
 		<p>
 			Welcome to your Django - Vue.js app!
@@ -24,34 +24,34 @@ export default {
 </script>
 
 <style lang="scss">
-html {
-	height: 100%;
-}
+	html {
+		height: 100%;
+	}
 
-body {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 100%;
-}
+	body {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 100%;
+	}
 
-#App {
-	color: #2c3e50;
-	margin-top: -100px;
-	max-width: 600px;
-	font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
-	text-align: center;
-}
+	#App {
+		color: #2c3e50;
+		margin-top: -100px;
+		max-width: 600px;
+		font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
+		text-align: center;
+	}
 
-#App a {
-	color: #42b983;
-	text-decoration: none;
-}
+	#App a {
+		color: #42b983;
+		text-decoration: none;
+	}
 
-.logo {
-	width: 100px;
-	height: 100px
-}
+	.logo {
+		width: 100px;
+		height: 100px
+	}
 </style>
 
 <style lang="scss" src="@/style/Main.scss"></style>
