@@ -8,7 +8,8 @@ source ./backend/.venv/"${VBIN}"/activate
 cd client
 
 echo 'Run npm build'
-npm install
+npm set progress=false
+npm install -s --no-progress
 npm run build
 echo 'Done...'
 
