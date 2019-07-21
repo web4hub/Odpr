@@ -1,4 +1,4 @@
-FROM node:12.6-stretch
+FROM docker:stable
 
 COPY builder/node_modules_checksum.sh .
 COPY builder/pip_requirements_checksum.sh .
@@ -17,6 +17,12 @@ RUN apt-get update \
 		libxss1 \
 		libasound2 \
 		xvfb \
+		curl \
+		software-properties-common \
+	&& curl -sL https://deb.nodesource.com/setup_12.x | sudo bash - \
+	&& apt-get install -y nodejs \
+	&& node -v \
+	&& npm -v \
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
 	&& pip3 install --upgrade pip \
