@@ -14,5 +14,9 @@ RUN apt update \
 	&& cd backend \
 	&& pip3 install -r requirements.txt
 
-RUN cd /client && npm install
+RUN cd /client \
+	&& npm set progress=false \
+	&& npm install -s --no-progress \
+	&& npm audit fix \
+	&& node_modules/.bin/cypress verify
 
