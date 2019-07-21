@@ -5,12 +5,25 @@ stages:
   - deploy
 
 variables:
+  DOCKER_HOST: tcp://docker:2375/
+  # When using dind, it's wise to use the overlayfs driver for
+  # improved performance.
+  DOCKER_DRIVER: overlay2
   BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
+
+services:
+  - docker:dind
+
+before_script:
+  - docker info
 
 update-runner:
   stage: update
   image: "docker:latest"
   script:
+    - ls -la
+    - pwd
+    - find . -iname "*update_builder.sh*"
     - update_builder.sh
 
 verify-build:
