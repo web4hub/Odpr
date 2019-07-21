@@ -7,7 +7,7 @@ COPY client /client
 COPY backend /backend
 
 RUN apt update \
-	&& apt install python3-pip -y \
+	&& apt install python3-pip python3-venv -y \
 	&& pip3 install --upgrade pip \
 	&& cd backend \
 	&& python3 -m venv .venv \
