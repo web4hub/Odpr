@@ -29,3 +29,4 @@ RUN cd /client \
 	&& npm audit fix \
 	&& node_modules/.bin/cypress verify
 
+RUN chmod 755 node_modules_checksum.sh pip_requirements_checksum.sh

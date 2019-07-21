@@ -28,11 +28,14 @@ set -e
 if [ 0$NOT_FOUND -eq 1 ]; then
 	echo "No docker image found in registry, building from scratch..."
 	BUILD=1
-elif [ $(compare_images) -eq 1 ]; then
-	echo "Builder out of date, updating image..."
-	BUILD=1
 else
-	echo "Builder up to date, nothing to do in this stage."
+	compare_images
+	if [ $? -eq 1 ]; then
+		echo "Builder out of date, updating image..."
+		BUILD=1
+	else
+		echo "Builder up to date, nothing to do in this stage."
+	fi
 fi
 
 if [ 0$BUILD -eq 1 ]; then
