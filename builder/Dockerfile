@@ -1,4 +1,4 @@
-FROM docker:stable
+FROM docker.gitlab.electrocnic.com/dood/app/debian-dind:latest
 
 COPY builder/node_modules_checksum.sh .
 COPY builder/pip_requirements_checksum.sh .
