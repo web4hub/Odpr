@@ -6,8 +6,18 @@ COPY builder/pip_requirements_checksum.sh .
 COPY client /client
 COPY backend /backend
 
-RUN apt update \
-	&& apt install python3-pip python3-venv -y \
+RUN apt-get update \
+	&& apt-get install -y \
+		python3-pip \
+		python3-venv \
+		libgtk2.0-0 \
+		libnotify-dev \
+		libgconf-2-4 \
+		libnss3 \
+		libxss1 \
+		libasound2 \
+		xvfb
+
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
 	&& pip3 install --upgrade pip \
