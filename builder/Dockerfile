@@ -3,8 +3,8 @@ FROM node:12.6-stretch
 COPY builder/node_modules_checksum.sh .
 COPY builder/pip_requirements_checksum.sh .
 
-COPY ../client /client
-COPY ../backend /backend
+COPY client /client
+COPY backend /backend
 
 RUN apt update \
 	&& apt install python3-pip \
