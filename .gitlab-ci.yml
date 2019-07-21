@@ -1,27 +1,27 @@
 stages:
-	- update
+  - update
   - build
   - test
   - deploy
 
 variables:
-	BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
+  BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
 
 update-runner:
-	stage: update
-	image: "docker:latest"
-	script:
-		- update_builder.sh
+  stage: update
+  image: "docker:latest"
+  script:
+    - update_builder.sh
 
 verify-build:
   stage: build
   before_script:
-  	- docker pull $BUILDER_IMAGE
+    - docker pull $BUILDER_IMAGE
   image: $BUILDER_IMAGE
   script:
-  	- build.sh
+    - build.sh
 
 run-tests:
   stage: test
   script:
-  	- run_tests.sh
+    - run_tests.sh
