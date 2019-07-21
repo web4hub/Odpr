@@ -21,14 +21,12 @@ before_script:
 
 update-runner:
   stage: update
-  image: "docker:dind"
+  image: "docker:stable"
   script:
     - sh update_builder.sh
 
 verify-build:
   stage: build
-  before_script:
-    - docker pull $BUILDER_IMAGE
   image: $BUILDER_IMAGE
   script:
     - sh build.sh
