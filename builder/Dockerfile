@@ -9,7 +9,7 @@ COPY backend /backend
 RUN apt update \
 	&& apt install python3-pip python3-venv -y \
 	&& python3 -m venv .venv \
-	&& source .venv/bin/activate \
+	&& . .venv/bin/activate \
 	&& pip3 install --upgrade pip \
 	&& cd backend \
 	&& pip3 install -r requirements.txt
