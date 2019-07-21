@@ -1,9 +1,9 @@
 #!/bin/bash
-set -eo pipefail
+#set -eo pipefail
 
 
-source ./resolve_os.sh
-source ./backend/.venv/"${VBIN}"/activate
+. ./resolve_os.sh
+. ./backend/.venv/"${VBIN}"/activate
 
 cd client
 
