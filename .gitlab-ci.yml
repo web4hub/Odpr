@@ -16,15 +16,13 @@ services:
 
 before_script:
   - docker info
+  - chmod 755 *.sh
 
 update-runner:
   stage: update
-  image: "docker:latest"
+  image: "docker:dind"
   script:
-    - ls -la
-    - pwd
-    - find . -iname "*update_builder.sh*"
-    - update_builder.sh
+    - sh update_builder.sh
 
 verify-build:
   stage: build
@@ -32,9 +30,9 @@ verify-build:
     - docker pull $BUILDER_IMAGE
   image: $BUILDER_IMAGE
   script:
-    - build.sh
+    - sh build.sh
 
 run-tests:
   stage: test
   script:
-    - run_tests.sh
+    - sh run_tests.sh
