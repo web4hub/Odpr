@@ -16,6 +16,7 @@ RUN apt-get update \
 		libnss3 \
 		libxss1 \
 		libasound2 \
+		libpq-dev \
 		xvfb \
 		curl \
 		software-properties-common \
