@@ -16,8 +16,7 @@ RUN apt-get update \
 		libnss3 \
 		libxss1 \
 		libasound2 \
-		xvfb
-
+		xvfb \
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
 	&& pip3 install --upgrade pip \
