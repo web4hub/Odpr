@@ -1,8 +1,5 @@
 FROM docker.gitlab.electrocnic.com/dood/app/debian-dind:latest
 
-COPY builder/node_modules_checksum.sh .
-COPY builder/pip_requirements_checksum.sh .
-
 COPY . /builds/dood/app
 
 WORKDIR /builds/dood/app
@@ -37,4 +34,4 @@ RUN cd /builds/dood/app/client/ \
 	&& npm audit fix \
 	&& node_modules/.bin/cypress verify
 
-RUN chmod 755 node_modules_checksum.sh pip_requirements_checksum.sh
+RUN chmod 755 builder/node_modules_checksum.sh builder/pip_requirements_checksum.sh
