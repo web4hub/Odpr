@@ -27,7 +27,7 @@ update-runner:
   stage: update
   image: "docker:stable"
   script:
-    - sh update_builder.sh
+    - sh /builds/dood/app/update_builder.sh
 
 verify-build:
   stage: build
