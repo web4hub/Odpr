@@ -3,7 +3,12 @@
 
 
 . ./resolve_os.sh
-. ./backend/.venv/"${VBIN}"/activate
+pwd
+ls -la
+ls -la /backend
+ls -la /backend/.venv
+ls -la /backend/.venv/bin
+. /backend/.venv/"${VBIN}"/activate
 
 cd client
 
