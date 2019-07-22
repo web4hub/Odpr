@@ -19,7 +19,7 @@ before_script:
   - docker info
   - pwd
   - ls -la
-  - ls -la backend
+  - ls -la backend || echo "backend not found"
   - chmod 755 *.sh || echo "Did not find any scripts to set execute permissions."
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
 
