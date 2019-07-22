@@ -5,6 +5,7 @@ stages:
   - deploy
 
 variables:
+  CI_BUILDS_DIR: /
   DOCKER_HOST: tcp://docker:2375/
   # When using dind, it's wise to use the overlayfs driver for
   # improved performance.
