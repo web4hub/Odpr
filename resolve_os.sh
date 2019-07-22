@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [[ "$OSTYPE" == "cygwin" ]] || [[ "$OSTYPE" == "msys" ]] || [[ "$OSTYPE" == "win32" ]]; then
+if [ "$OSTYPE" = "cygwin" -o "$OSTYPE" = "msys" -o "$OSTYPE" = "win32" ]; then
 	export VBIN="Scripts"
 else
 	#elif [[ "$OSTYPE" == "linux-gnu" -o "$OSTYPE" == "darwin"* -o "$OSTYPE" == "freebsd"* ]]; then

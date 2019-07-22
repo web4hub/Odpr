@@ -24,10 +24,10 @@ RUN apt-get update \
 	&& apt-get install -y nodejs \
 	&& node -v \
 	&& npm -v \
+	&& cd /backend \
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
 	&& pip3 install --upgrade pip \
-	&& cd backend \
 	&& pip3 install -r requirements.txt
 
 RUN cd /client \
