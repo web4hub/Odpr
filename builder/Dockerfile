@@ -1,8 +1,8 @@
 FROM docker.gitlab.electrocnic.com/dood/app/debian-dind:latest
 
-COPY . /builds/dood/app
+COPY . /
 
-WORKDIR /builds/dood/app
+WORKDIR /
 
 RUN apt-get update \
 	&& apt-get install -y \
@@ -22,16 +22,16 @@ RUN apt-get update \
 	&& apt-get install -y nodejs \
 	&& node -v \
 	&& npm -v \
-	&& cd /builds/dood/app/backend/ \
+	&& cd /backend/ \
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
 	&& pip3 install --upgrade pip \
 	&& pip3 install -r requirements.txt
 
-RUN cd /builds/dood/app/client/ \
+RUN cd /client/ \
 	&& npm set progress=false \
 	&& npm install -s --no-progress \
 	&& npm audit fix \
 	&& node_modules/.bin/cypress verify
 
-RUN chmod 755 builder/node_modules_checksum.sh builder/pip_requirements_checksum.sh
+RUN chmod 755 /builder/node_modules_checksum.sh /builder/pip_requirements_checksum.sh
