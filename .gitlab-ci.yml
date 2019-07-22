@@ -11,8 +11,8 @@ variables:
   DOCKER_DRIVER: overlay2
   BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
   APP_IMAGE: "docker.gitlab.electrocnic.com/dood/app/app:latest"
-  $NGINX_IMAGE: "docker.gitlab.electrocnic.com/dood/app/nginx:latest"
-  $POSTGRES_IMAGE: "docker.gitlab.electrocnic.com/dood/app/postgres:latest"
+  NGINX_IMAGE: "docker.gitlab.electrocnic.com/dood/app/nginx:latest"
+  POSTGRES_IMAGE: "docker.gitlab.electrocnic.com/dood/app/postgres:latest"
 
 services:
   - docker:dind
