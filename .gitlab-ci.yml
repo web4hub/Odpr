@@ -15,7 +15,6 @@ services:
   - docker:dind
 
 before_script:
-  - cd /
   - docker info
   - pwd
   - ls -la
