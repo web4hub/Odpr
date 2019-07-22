@@ -4,11 +4,12 @@
 
 . ./resolve_os.sh
 pwd
+echo "CI_BUILDS_DIR = ${CI_BUILDS_DIR}"
 ls -la
-ls -la /backend
-ls -la /backend/.venv
-ls -la /backend/.venv/bin
-. /backend/.venv/"${VBIN}"/activate
+ls -la ./backend
+ls -la ./backend/.venv
+ls -la ./backend/.venv/bin
+. ./backend/.venv/"${VBIN}"/activate
 
 cd client
 
