@@ -26,8 +26,10 @@ before_script:
 update-runner:
   stage: update
   image: "docker:stable"
+  before_script:
+    - cd /builds/dood/app
   script:
-    - sh /builds/dood/app/update_builder.sh
+    - sh update_builder.sh
 
 verify-build:
   stage: build
