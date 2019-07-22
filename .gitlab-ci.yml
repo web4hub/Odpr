@@ -10,17 +10,15 @@ variables:
   # improved performance.
   DOCKER_DRIVER: overlay2
   BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
+  APP_IMAGE: "docker.gitlab.electrocnic.com/dood/app/app:latest"
+  $NGINX_IMAGE: "docker.gitlab.electrocnic.com/dood/app/nginx:latest"
+  $POSTGRES_IMAGE: "docker.gitlab.electrocnic.com/dood/app/postgres:latest"
 
 services:
   - docker:dind
 
 before_script:
   - cd /
-  - docker info
-  - pwd
-  - ls -la
-  - ls -la backend || echo "backend not found"
-  - chmod 755 *.sh || echo "Did not find any scripts to set execute permissions."
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
 
 update-runner:
@@ -37,8 +35,15 @@ verify-build:
   image: $BUILDER_IMAGE
   script:
     - sh build.sh
+    - docker build -t $APP_IMAGE .
+    - docker build -t $NGINX_IMAGE -f nginx/Dockerfile .
+    - docker build -t $POSTGRES_IMAGE -f postgres/Dockerfile .
+    - docker push $APP_IMAGE
+    - docker push $NGINX_IMAGE
+    - docker push $POSTGRES_IMAGE
 
 run-tests:
   stage: test
+  image: $APP_IMAGE
   script:
     - sh run_tests.sh

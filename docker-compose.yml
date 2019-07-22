@@ -1,6 +1,50 @@
-version: '2'
+version: '3.7'
+
 services:
-  web:
-    build: .
+  app:
+    image: docker.gitlab.electrocnic.com/dood/app/app:latest # will be built by builder right before starting this docker-composer.
+    volumes:
+      - app_volume:/opt/services/app/src/vuedj/persisted
+      - media_files_volume:/opt/services/app/staticfiles/media
+#      - ./project:/opt/services/djangoapp/src # will be removed by the run-script if no --test arg is given
+#      - ./staticfiles:/opt/services/djangoapp/staticfiles # will be removed by the run-script if no --test arg is given
+    networks:
+      - nginx_network
+      - database1_network
+    depends_on: # wait for db to be ready before starting the app
+      - database1
+
+  nginx:
+    image: docker.gitlab.electrocnic.com/dood/app/nginx:latest # also build by buildscript right before docker compose is called.
     ports:
-      - 8000:8000
+#      - 80:80/tcp
+#      - 443:443/tcp
+      - 8000:80
+    environment:
+      - CERTBOT_EMAIL=electrocnicofficial@gmail.com
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - media_files_volume:/media:ro # user provided content will stay if the docker image gets updated, readonly. write happens in the djangoapp container.
+#      - ./staticfiles/static:/static # will be removed by the run-script if no --test arg is given
+    depends_on: # wait for app to be ready before starting this service.
+      - app
+    networks:
+      - nginx_network
+
+  database1:
+    image: docker.gitlab.electrocnic.com/dood/app/postgres:latest
+    networks:
+      - database1_network
+    volumes:
+      - database1_volume:/var/lib/postgresql/data
+
+networks:
+  nginx_network:
+    driver: bridge
+  database1_network:
+    driver: bridge
+
+volumes:
+  database1_volume: # the : at the end is mandatory!
+  app_volume:
+  media_files_volume:
