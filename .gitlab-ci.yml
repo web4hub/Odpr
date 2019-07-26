@@ -23,8 +23,9 @@ services:
   - docker:18.09.7-dind
 
 before_script:
-  - cd /
+  - cd /builds/dood/app
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
+  - cd -
 
 update-runner:
   stage: update
