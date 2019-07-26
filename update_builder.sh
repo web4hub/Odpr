@@ -22,6 +22,8 @@ compare_images() {
 	fi
 }
 
+echo "args in builder.sh: ${WORKING_DIRECTORY} ${CLIENT_DIRECTORY} ${BACKEND_DIRECTORY} ${VERSION_DIRECTORY}"
+
 set +e
 docker pull "${BUILDER_IMAGE}" 2>/dev/null
 if [ ! $? -eq 0 ]; then
