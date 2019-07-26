@@ -14,9 +14,9 @@ variables:
   NGINX_IMAGE: "docker.gitlab.electrocnic.com/dood/app/nginx:latest"
   POSTGRES_IMAGE: "docker.gitlab.electrocnic.com/dood/app/postgres:latest"
   WORKING_DIRECTORY: "/app"
-  CLIENT_DIRECTORY: "/client"
-  BACKEND_DIRECTORY: "/backend"
-  VERSION_DIRECTORY: "/builder"
+  CLIENT_DIRECTORY: "client"
+  BACKEND_DIRECTORY: "backend"
+  VERSION_DIRECTORY: "builder"
   GUNICORN_PORT: 8000
 
 services:

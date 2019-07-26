@@ -40,16 +40,16 @@ RUN apt-get update \
 	&& apt-get install -y nodejs \
 	&& node -v \
 	&& npm -v \
-	&& cd ${BACKEND_DIRECTORY} \
+	&& cd ${WORKING_DIRECTORY}/${BACKEND_DIRECTORY} \
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
 	&& pip3 install --upgrade pip \
 	&& pip3 install -r requirements.txt
 
-RUN cd ${CLIENT_DIRECTORY} \
+RUN cd ${WORKING_DIRECTORY}/${CLIENT_DIRECTORY} \
 	&& npm set progress=false \
 	&& npm install -s --no-progress \
 	&& npm audit fix \
 	&& node_modules/.bin/cypress verify
 
-RUN chmod 755 ${VERSION_DIRECTORY}/node_modules_checksum.sh ${VERSION_DIRECTORY}/pip_requirements_checksum.sh
+RUN chmod 755 ${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/node_modules_checksum.sh ${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/pip_requirements_checksum.sh

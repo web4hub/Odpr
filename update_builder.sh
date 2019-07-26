@@ -4,14 +4,14 @@ set -eo pipefail
 # Return 0 if builder image on registry is up to date. return 1 if needs to be updated.
 compare_images() {
 	set -e
-	builder_nodes_sum=$(docker run --entrypoint "${VERSION_DIRECTORY}/node_modules_checksum.sh" "${BUILDER_IMAGE}")
+	builder_nodes_sum=$(docker run --entrypoint "${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/node_modules_checksum.sh" "${BUILDER_IMAGE}")
 	repo_nodes_sum=$(sha256sum client/package.json) # client stays hardcoded as here the host client is focused.
 	set +e
 	if [ "${builder_nodes_sum}" != "${repo_nodes_sum}" ]; then
 		return 1;
 	else
 		set -e
-		builder_pip_sum=$(docker run --entrypoint "${VERSION_DIRECTORY}/pip_requirements_checksum.sh" "${BUILDER_IMAGE}")
+		builder_pip_sum=$(docker run --entrypoint "${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/pip_requirements_checksum.sh" "${BUILDER_IMAGE}")
 		repo_pip_sum=$(sha256sum backend/requirements.txt) # backend stays hardcoded as here the host backend is focused.
 		set +e
 		if [ "${builder_pip_sum}" != "${repo_pip_sum}" ]; then

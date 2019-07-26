@@ -1,9 +1,9 @@
 #!/bin/bash
 #set -eo pipefail
 
-. "${BACKEND_DIRECTORY}"/.venv/bin/activate
+. "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"/.venv/bin/activate
 
-cd "${CLIENT_DIRECTORY}"
+cd "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}"
 
 echo 'Run npm build'
 npm set progress=false
@@ -16,7 +16,7 @@ echo 'Format index.html as Jinja template'
 python3 format_index_html.py
 echo 'Done...'
 
-cd "${BACKEND_DIRECTORY}"
+cd "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"
 
 echo 'Install python modules'
 python3 -m pip install --upgrade pip

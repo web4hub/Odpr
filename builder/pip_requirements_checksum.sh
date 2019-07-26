@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eo pipefail
 
-sha256sum "${BACKEND_DIRECTORY}/requirements.txt"
+sha256sum "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}/requirements.txt"
