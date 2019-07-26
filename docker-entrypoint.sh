@@ -3,7 +3,7 @@ set -Eeo pipefail
 
 sleep 5
 
-cd /backend
+cd "${BACKEND_DIRECTORY}"
 python3 manage.py migrate
 
-gunicorn --chdir /backend --bind :8000 vuedj.wsgi:application
+gunicorn --chdir "${BACKEND_DIRECTORY}" --bind :${GUNICORN_PORT} vuedj.wsgi:application

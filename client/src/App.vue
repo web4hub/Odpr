@@ -3,12 +3,14 @@
 		<img
 			class="logo"
 			src="./assets/logo.png"
-			alt="">
+			alt=""
+		>
 		<br>
 		<img
 			class="logo"
 			src="./assets/dj.png"
-			alt="">
+			alt=""
+		>
 		<router-view />
 		<p>
 			Welcome to your Django - Vue.js app!

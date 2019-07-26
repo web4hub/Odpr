@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -eo pipefail
+set -eo pipefail
 
 
 . ./resolve_os.sh
@@ -8,8 +8,7 @@
 cd client
 
 echo 'Run npm build'
-npm set progress=false
-npm install -s --no-progress
+npm install
 npm audit fix
 npm run build
 echo 'Done...'
