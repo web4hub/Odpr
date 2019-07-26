@@ -46,10 +46,10 @@ fi
 
 if [ 0$BUILD -eq 1 ]; then
 	docker build \
-		--build-arg working_directory=${WORKING_DIRECTORY} \
-		--build-arg client_directory=${CLIENT_DIRECTORY} \
-		--build-arg backend_directory=${BACKEND_DIRECTORY} \
-		--build-arg version_directory=${VERSION_DIRECTORY} \
+		--build-arg WORKING_DIRECTORY \
+		--build-arg CLIENT_DIRECTORY \
+		--build-arg BACKEND_DIRECTORY \
+		--build-arg VERSION_DIRECTORY \
 		-t "${BUILDER_IMAGE}" \
 		-f builder/Dockerfile .
 	docker push "${BUILDER_IMAGE}"

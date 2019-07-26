@@ -1,13 +1,13 @@
 FROM docker.gitlab.electrocnic.com/dood/app/debian-dind:latest
 
-ENV WORKING_DIRECTORY "${working_directory}"
-ENV CLIENT_DIRECTORY "${client_directory}"
-ENV BACKEND_DIRECTORY "${backend_directory}"
-ENV VERSION_DIRECTORY "${version_directory}"
+ENV WORKING_DIRECTORY "${WORKING_DIRECTORY}"
+ENV CLIENT_DIRECTORY "${CLIENT_DIRECTORY}"
+ENV BACKEND_DIRECTORY "${BACKEND_DIRECTORY}"
+ENV VERSION_DIRECTORY "${VERSION_DIRECTORY}"
 
-COPY . ${working_directory}
+COPY . ${WORKING_DIRECTORY}
 
-WORKDIR ${working_directory}
+WORKDIR ${WORKING_DIRECTORY}
 
 RUN apt-get update \
 	&& apt-get install -y \
@@ -27,16 +27,16 @@ RUN apt-get update \
 	&& apt-get install -y nodejs \
 	&& node -v \
 	&& npm -v \
-	&& cd ${backend_directory} \
+	&& cd ${BACKEND_DIRECTORY} \
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
 	&& pip3 install --upgrade pip \
 	&& pip3 install -r requirements.txt
 
-RUN cd ${client_directory} \
+RUN cd ${CLIENT_DIRECTORY} \
 	&& npm set progress=false \
 	&& npm install -s --no-progress \
 	&& npm audit fix \
 	&& node_modules/.bin/cypress verify
 
-RUN chmod 755 ${version_directory}/node_modules_checksum.sh ${version_directory}/pip_requirements_checksum.sh
+RUN chmod 755 ${VERSION_DIRECTORY}/node_modules_checksum.sh ${VERSION_DIRECTORY}/pip_requirements_checksum.sh

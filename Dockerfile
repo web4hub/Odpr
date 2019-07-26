@@ -1,16 +1,16 @@
 FROM python:buster
 
-ENV WORKING_DIRECTORY "${working_directory}"
-ENV CLIENT_DIRECTORY "${client_directory}"
-ENV BACKEND_DIRECTORY "${backend_directory}"
-ENV VERSION_DIRECTORY "${version_directory}"
-ENV GUNICORN_PORT "${gunicorn_port}"
+ENV WORKING_DIRECTORY "${WORKING_DIRECTORY}"
+ENV CLIENT_DIRECTORY "${CLIENT_DIRECTORY}"
+ENV BACKEND_DIRECTORY "${BACKEND_DIRECTORY}"
+ENV VERSION_DIRECTORY "${VERSION_DIRECTORY}"
+ENV GUNICORN_PORT "${GUNICORN_PORT}"
 
-COPY "${backend_directory}" "${backend_directory}"
-COPY docker-entrypoint.sh /
+COPY "${BACKEND_DIRECTORY}" "${BACKEND_DIRECTORY}"
+COPY docker-entrypoint.sh "${WORKING_DIRECTORY}"/
 # staticfiles are not copied here because the nginx-container will contain them and serve them directly
 RUN mkdir -p /static
-RUN mkdir -p /client/static
+RUN mkdir -p "${CLIENT_DIRECTORY}"/static
 
 # EXPOSE port to be used
 EXPOSE 80
@@ -18,4 +18,4 @@ EXPOSE 443
 EXPOSE 8000
 
 # Set command to run as soon as container is up
-CMD ["/docker-entrypoint.sh"]
+CMD ["${WORKING_DIRECTORY}/docker-entrypoint.sh"]
