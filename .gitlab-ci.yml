@@ -20,7 +20,7 @@ variables:
   GUNICORN_PORT: 8000
 
 services:
-  - docker:dind
+  - docker:18.09.7-dind
 
 before_script:
   - cd /
@@ -28,7 +28,7 @@ before_script:
 
 update-runner:
   stage: update
-  image: "docker:stable"
+  image: "docker:18.09.7-dind"
   before_script:
     - cd /builds/dood/app
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
