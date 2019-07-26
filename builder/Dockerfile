@@ -9,9 +9,18 @@ ENV CLIENT_DIRECTORY "${CLIENT_DIRECTORY}"
 ENV BACKEND_DIRECTORY "${BACKEND_DIRECTORY}"
 ENV VERSION_DIRECTORY "${VERSION_DIRECTORY}"
 
+RUN pwd
+RUN ls -la
 COPY . ${WORKING_DIRECTORY}/
+RUN ls -la
+RUN echo "${WORKING_DIRECTORY}"
+RUN ls -la ${WORKING_DIRECTORY}
+RUN find / -iname "*backend*"
+RUN find / -iname "*client*"
 
 WORKDIR ${WORKING_DIRECTORY}
+RUN pwd
+RUN ls -la
 
 RUN apt-get update \
 	&& apt-get install -y \
