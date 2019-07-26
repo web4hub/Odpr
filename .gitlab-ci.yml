@@ -33,6 +33,7 @@ update-runner:
     - cd /builds/dood/app
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
   script:
+    - echo "args in gitlab-ci.yml ${WORKING_DIRECTORY} ${CLIENT_DIRECTORY} ${BACKEND_DIRECTORY} ${VERSION_DIRECTORY}"
     - sh update_builder.sh
 
 verify-build:
