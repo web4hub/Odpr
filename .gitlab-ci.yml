@@ -40,6 +40,7 @@ verify-build:
   image: $BUILDER_IMAGE
   script:
     - sh build_gitlab.sh
+    - echo "args in gitlab-ci.yml: ${WORKING_DIRECTORY} ${CLIENT_DIRECTORY} ${BACKEND_DIRECTORY} ${VERSION_DIRECTORY}"
     - docker build \
       --build-arg WORKING_DIRECTORY \
       --build-arg CLIENT_DIRECTORY \
