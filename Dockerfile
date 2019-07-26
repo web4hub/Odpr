@@ -6,6 +6,8 @@ ENV BACKEND_DIRECTORY "${BACKEND_DIRECTORY}"
 ENV VERSION_DIRECTORY "${VERSION_DIRECTORY}"
 ENV GUNICORN_PORT "${GUNICORN_PORT}"
 
+RUN echo "args in Dockerfile: ${WORKING_DIRECTORY} ${CLIENT_DIRECTORY} ${BACKEND_DIRECTORY} ${VERSION_DIRECTORY} ${GUNICORN_PORT}"
+
 COPY "${BACKEND_DIRECTORY}" "${BACKEND_DIRECTORY}"
 COPY docker-entrypoint.sh "${WORKING_DIRECTORY}"/
 # staticfiles are not copied here because the nginx-container will contain them and serve them directly
