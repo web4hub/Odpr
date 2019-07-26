@@ -11,11 +11,13 @@ ENV BACKEND_DIRECTORY "${BACKEND_DIRECTORY}"
 ENV VERSION_DIRECTORY "${VERSION_DIRECTORY}"
 ENV GUNICORN_PORT "${GUNICORN_PORT}"
 
+RUN find / -iname "*backend*"
 COPY "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}" "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"
 COPY docker-entrypoint.sh "${WORKING_DIRECTORY}"/
 # staticfiles are not copied here because the nginx-container will contain them and serve them directly
 RUN mkdir -p /static
-RUN mkdir -p "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}"/static
+RUN mkdir -p "${WORKING_DIRECTORY}/static"
+RUN mkdir -p "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}/static"
 
 # EXPOSE port to be used
 EXPOSE 80
