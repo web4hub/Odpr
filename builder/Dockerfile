@@ -50,6 +50,7 @@ RUN cd ${WORKING_DIRECTORY}/${CLIENT_DIRECTORY} \
 	&& npm set progress=false \
 	&& npm install -s --no-progress \
 	&& npm audit fix \
-	&& node_modules/.bin/cypress verify
+	&& node_modules/.bin/cypress verify \
+	&& mkdir -p "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}/static"
 
 RUN chmod 755 ${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/node_modules_checksum.sh ${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/pip_requirements_checksum.sh
