@@ -3,7 +3,8 @@
 
 . "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"/.venv/bin/activate
 
-cd "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}"
+# cd "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}"
+cd "${CLIENT_DIRECTORY}"
 
 echo "pwd:"
 pwd
@@ -21,7 +22,7 @@ echo 'Format index.html as Jinja template'
 python3 format_index_html.py
 echo 'Done...'
 
-cd "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"
+cd "../${BACKEND_DIRECTORY}"
 
 echo 'Install python modules'
 python3 -m pip install --upgrade pip
@@ -36,7 +37,7 @@ echo 'Run migrations'
 python3 manage.py migrate
 echo 'Done...'
 
-cd "${WORKING_DIRECTORY}"
+cd ..
 
 echo "pwd:"
 pwd

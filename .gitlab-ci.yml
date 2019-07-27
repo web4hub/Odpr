@@ -37,8 +37,8 @@ verify-build:
   stage: build
   image: $BUILDER_IMAGE
   script:
+    - mv "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}/node_modules" "${CLIENT_DIRECTORY}/"
     - sh build_gitlab.sh
-    - mv "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}/"{node_modules,staticfiles} "${CLIENT_DIRECTORY}/"
     - docker build --build-arg WORKING_DIRECTORY --build-arg CLIENT_DIRECTORY --build-arg BACKEND_DIRECTORY --build-arg VERSION_DIRECTORY --build-arg GUNICORN_PORT -t $APP_IMAGE .
     - docker build -t $NGINX_IMAGE -f nginx/Dockerfile .
     - docker build -t $POSTGRES_IMAGE -f postgres/Dockerfile .
