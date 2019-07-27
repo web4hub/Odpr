@@ -2,7 +2,7 @@
 #set -eo pipefail
 
 # pwd =
-. "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"/.venv/bin/activate
+. "${WORKING_DIRECTORY}/.venv/bin/activate"
 
 # pwd =
 cd "${CLIENT_DIRECTORY}"

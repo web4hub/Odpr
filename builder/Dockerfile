@@ -11,8 +11,8 @@ ENV VERSION_DIRECTORY "${VERSION_DIRECTORY}"
 
 RUN pwd
 RUN ls -la
-COPY client/package.json ${WORKING_DIRECTORY}/
-COPY backend/requirements.txt ${WORKING_DIRECTORY}/
+COPY ${CLIENT_DIRECTORY}/package.json ${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}
+COPY ${BACKEND_DIRECTORY}/requirements.txt ${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}
 RUN ls -la
 RUN echo "${WORKING_DIRECTORY}"
 RUN ls -la ${WORKING_DIRECTORY}
@@ -44,6 +44,7 @@ RUN apt-get update \
 	&& cd ${WORKING_DIRECTORY}/${BACKEND_DIRECTORY} \
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
+	&& cd - \
 	&& pip3 install --upgrade pip \
 	&& pip3 install -r requirements.txt
 
