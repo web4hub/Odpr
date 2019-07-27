@@ -50,6 +50,7 @@ run-tests:
   stage: test
   image: $BUILDER_IMAGE
   services:
+    - docker:18.09.7-dind
     - $APP_IMAGE
     - $NGINX_IMAGE
     - $POSTGRES_IMAGE
