@@ -14,6 +14,7 @@ ENV GUNICORN_PORT "${GUNICORN_PORT}"
 RUN find / -iname "*backend*"
 RUN pwd
 RUN ls -la
+COPY / "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"
 COPY "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}" "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"
 COPY docker-entrypoint.sh "${WORKING_DIRECTORY}"/
 # staticfiles are not copied here because the nginx-container will contain them and serve them directly
