@@ -27,13 +27,13 @@ before_script:
   - cd $WORKING_DIRECTORY_ON_HOST
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
 
-update-runner:
+update-base-image:
   stage: update
   image: "docker:18.09.7-dind"
   script:
     - sh update_builder.sh
 
-verify-build:
+build-images:
   stage: build
   image: $BUILDER_IMAGE
   script:
