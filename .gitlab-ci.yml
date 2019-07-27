@@ -27,13 +27,13 @@ before_script:
   - cd $WORKING_DIRECTORY_ON_HOST
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
 
-update-runner:
+.update-runner:
   stage: update
   image: "docker:18.09.7-dind"
   script:
     - sh update_builder.sh
 
-verify-build:
+.verify-build:
   stage: build
   image: $BUILDER_IMAGE
   script:
@@ -48,6 +48,12 @@ verify-build:
 
 run-tests:
   stage: test
-  image: $APP_IMAGE
+  image: $BUILDER_IMAGE
+  services:
+    - $APP_IMAGE
+    - $NGINX_IMAGE
+    - $POSTGRES_IMAGE
   script:
-    - sh run_tests.sh
+    - mv "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}/node_modules" "${CLIENT_DIRECTORY}/"
+    - cd "${CLIENT_DIRECTORY}"
+    - npm run test
