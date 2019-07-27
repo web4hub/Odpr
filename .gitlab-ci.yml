@@ -38,6 +38,10 @@ verify-build:
   image: $BUILDER_IMAGE
   script:
     - sh build_gitlab.sh
+    - pwd
+    - ls -la
+    - ls -la /app
+    - ls -la /app/backend
     - docker build --build-arg WORKING_DIRECTORY --build-arg CLIENT_DIRECTORY --build-arg BACKEND_DIRECTORY --build-arg VERSION_DIRECTORY --build-arg GUNICORN_PORT -t $APP_IMAGE .
     - docker build -t $NGINX_IMAGE -f nginx/Dockerfile .
     - docker build -t $POSTGRES_IMAGE -f postgres/Dockerfile .
