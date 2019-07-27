@@ -54,4 +54,4 @@ RUN cd ${WORKING_DIRECTORY}/${CLIENT_DIRECTORY} \
 	&& node_modules/.bin/cypress verify \
 	&& mkdir -p "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}/static"
 
-RUN chmod 755 ${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/node_modules_checksum.sh ${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/pip_requirements_checksum.sh
+RUN chmod 755 ${VERSION_DIRECTORY}/node_modules_checksum.sh ${VERSION_DIRECTORY}/pip_requirements_checksum.sh
