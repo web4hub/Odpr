@@ -41,10 +41,9 @@ RUN apt-get update \
 	&& apt-get install -y nodejs \
 	&& node -v \
 	&& npm -v \
-	&& cd ${WORKING_DIRECTORY}/${BACKEND_DIRECTORY} \
+	&& cd "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}" \
 	&& python3 -m venv .venv \
 	&& . .venv/bin/activate \
-	&& cd - \
 	&& pip3 install --upgrade pip \
 	&& pip3 install -r requirements.txt
 
