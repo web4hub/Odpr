@@ -6,6 +6,8 @@ compare_images() {
 	set -e
 	builder_nodes_sum=$(docker run --entrypoint "${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/node_modules_checksum.sh" "${BUILDER_IMAGE}")
 	repo_nodes_sum=$(sha256sum client/package.json) # client stays hardcoded as here the host client is focused.
+	echo "Builder's checksum for package.json was: $builder_nodes_sum"
+	echo "Repo's checksum for package.json was:    $repo_nodes_sum"
 	set +e
 	if [ "${builder_nodes_sum}" != "${repo_nodes_sum}" ]; then
 		return 1;
@@ -13,6 +15,8 @@ compare_images() {
 		set -e
 		builder_pip_sum=$(docker run --entrypoint "${WORKING_DIRECTORY}/${VERSION_DIRECTORY}/pip_requirements_checksum.sh" "${BUILDER_IMAGE}")
 		repo_pip_sum=$(sha256sum backend/requirements.txt) # backend stays hardcoded as here the host backend is focused.
+		echo "Builder's checksum for requirements.txt was: $builder_pip_sum"
+		echo "Repo's checksum for requirements.txt was:    $repo_pip_sum"
 		set +e
 		if [ "${builder_pip_sum}" != "${repo_pip_sum}" ]; then
 			return 1;
