@@ -30,3 +30,5 @@ echo 'Done...'
 echo 'Run migrations'
 python3 manage.py migrate
 echo 'Done...'
+
+cd "${WORKING_DIRECTORY}"

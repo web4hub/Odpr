@@ -13,6 +13,7 @@ variables:
   APP_IMAGE: "docker.gitlab.electrocnic.com/dood/app/app:latest"
   NGINX_IMAGE: "docker.gitlab.electrocnic.com/dood/app/nginx:latest"
   POSTGRES_IMAGE: "docker.gitlab.electrocnic.com/dood/app/postgres:latest"
+  WORKING_DIRECTORY_ON_HOST: "/builds/dood/app"
   WORKING_DIRECTORY: "/app"
   CLIENT_DIRECTORY: "client"
   BACKEND_DIRECTORY: "backend"
@@ -22,17 +23,13 @@ variables:
 services:
   - docker:18.09.7-dind
 
-before_script:
-  - cd /builds/dood/app
+before_script: &global_before_script |-
+  - cd $WORKING_DIRECTORY_ON_HOST
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
-  - cd -
 
 update-runner:
   stage: update
   image: "docker:18.09.7-dind"
-  before_script:
-    - cd /builds/dood/app
-    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
   script:
     - sh update_builder.sh
 
@@ -41,7 +38,7 @@ verify-build:
   image: $BUILDER_IMAGE
   script:
     - sh build_gitlab.sh
-    - docker build --build-arg WORKING_DIRECTORY --build-arg CLIENT_DIRECTORY --build-arg BACKEND_DIRECTORY --build-arg VERSION_DIRECTORY --build-arg GUNICORN_PORTm -t $APP_IMAGE .
+    - docker build --build-arg WORKING_DIRECTORY --build-arg CLIENT_DIRECTORY --build-arg BACKEND_DIRECTORY --build-arg VERSION_DIRECTORY --build-arg GUNICORN_PORT -t $APP_IMAGE .
     - docker build -t $NGINX_IMAGE -f nginx/Dockerfile .
     - docker build -t $POSTGRES_IMAGE -f postgres/Dockerfile .
     - docker push $APP_IMAGE
