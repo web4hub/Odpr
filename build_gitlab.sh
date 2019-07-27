@@ -5,6 +5,11 @@
 
 cd "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}"
 
+echo "pwd:"
+pwd
+echo "ls -la:"
+ls -la
+
 echo 'Run npm build'
 npm set progress=false
 npm install -s --no-progress
@@ -32,3 +37,12 @@ python3 manage.py migrate
 echo 'Done...'
 
 cd "${WORKING_DIRECTORY}"
+
+echo "pwd:"
+pwd
+echo "ls -la:"
+ls -la
+echo "find / -iname backend:"
+find / -iname "*backend*"
+echo "$${WORKING_DIRECTORY}/$${BACKEND_DIRECTORY}:"
+echo "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}:"
