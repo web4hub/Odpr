@@ -46,3 +46,6 @@ echo "find / -iname backend:"
 find / -iname "*backend*"
 echo "\${WORKING_DIRECTORY}/\${BACKEND_DIRECTORY}:"
 echo "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}:"
+apt-get update && apt-get install -y procps
+echo "ps":
+ps
