@@ -22,6 +22,7 @@ variables:
   #
   CLIENT_DIRECTORY: "client"
   BACKEND_DIRECTORY: "backend"
+  BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY: "builder"
   REPO_COPY_DIRECTORY: "/builds/dood/app"
   BUILDER_VENV_DIRECTORY: "/.venv"
   BUILDER_VERSION_SCRIPTS_DIRECTORY: "/version"

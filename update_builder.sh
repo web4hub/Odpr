@@ -62,6 +62,7 @@ if [ 0$BUILD -eq 1 ]; then
 		--build-arg REPO_COPY_DIRECTORY \
 		--build-arg CLIENT_DIRECTORY \
 		--build-arg BACKEND_DIRECTORY \
+		--build-arg BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY \
 		--build-arg BUILDER_VERSION_SCRIPTS_DIRECTORY \
 		--build-arg BUILDER_VENV_DIRECTORY \
 		--build-arg BUILDER_NODE_MODULES_SRC_DIRECTORY \
