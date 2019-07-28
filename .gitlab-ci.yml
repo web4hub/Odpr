@@ -71,13 +71,13 @@ before_script:
   - cd $REPO_COPY_DIRECTORY
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
 
-.update-base-image:
+update-base-image:
   stage: update
   image: $BASE_IMAGE
   script:
     - sh update_builder.sh
 
-.build-images:
+build-images:
   stage: build
   image: $BUILDER_IMAGE
   script:
