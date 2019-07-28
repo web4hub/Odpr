@@ -49,8 +49,8 @@ RUN apt-get update \
 	&& python3 -m venv "${BUILDER_VENV_DIRECTORY}" \
 	&& . "${BUILDER_VENV_DIRECTORY}/bin/activate" \
 	&& pip3 install --upgrade pip \
-	&& pip3 install docker-compose \
-	&& pip3 install -r requirements.txt
+	&& pip3 install -r requirements.txt \
+	&& pip3 install docker-compose
 
 RUN cd ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} \
 	&& npm set progress=false \
