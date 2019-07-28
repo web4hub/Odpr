@@ -1,4 +1,4 @@
 #!/bin/bash
 set -eo pipefail
 
-sha256sum "requirements.txt" | awk '{printf $1}'
+sha256sum "${BUILDER_VERSION_SCRIPTS_DIRECTORY}/requirements.txt" | awk '{printf $1}'
