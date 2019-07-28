@@ -24,6 +24,8 @@ COPY ${BACKEND_DIRECTORY}/requirements.txt ${BACKEND_DIRECTORY}/
 COPY ${BACKEND_DIRECTORY}/requirements.txt ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
 COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/node_modules_checksum.sh ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
 COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/pip_requirements_checksum.sh ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
+COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/dockerfile_checksum.sh ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
+COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/Dockerfile ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
 
 RUN apt-get update \
 	&& apt-get install -y \
@@ -47,6 +49,7 @@ RUN apt-get update \
 	&& python3 -m venv "${BUILDER_VENV_DIRECTORY}" \
 	&& . "${BUILDER_VENV_DIRECTORY}/bin/activate" \
 	&& pip3 install --upgrade pip \
+	&& pip3 install docker-compose \
 	&& pip3 install -r requirements.txt
 
 RUN cd ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} \

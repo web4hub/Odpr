@@ -22,8 +22,19 @@ compare_images() {
 			echo "Checksums did not match."
 			return 1;
 		else
-			echo "Checksums did match."
-			return 0;
+			set -e
+			builder_dockerfile_sum=$(docker run --entrypoint "${BUILDER_VERSION_SCRIPTS_DIRECTORY}/dockerfile_checksum.sh" "${BUILDER_IMAGE}")
+			repo_dockerfile_sum=$(sha256sum builder/Dockerfile | awk '{printf $1}') # builder stays hardcoded as here the host builder is focused.
+			echo "Builder's checksum for its Dockerfile was: $builder_dockerfile_sum"
+			echo "Repo's checksum for its Dockerfile was:    $repo_dockerfile_sum"
+			set +e
+			if [ "${builder_dockerfile_sum}" != "${repo_dockerfile_sum}" ]; then
+				echo "Checksums did not match."
+				return 1;
+			else
+				echo "Checksums did match."
+				return 0;
+			fi
 		fi
 	fi
 }
