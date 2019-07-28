@@ -10,6 +10,10 @@ variables:
   # improved performance.
   DOCKER_DRIVER: overlay2
   #
+  # Contact
+  #
+  CERTBOT_EMAIL: electrocnicofficial@gmail.com
+  #
   # Docker images
   #
   BASE_IMAGE: "docker:18.09.7-dind"
@@ -125,11 +129,12 @@ run-tests:
   image: $BUILDER_IMAGE
   services:
     - $BASE_IMAGE
-    - $APP_IMAGE
-    - $NGINX_IMAGE
-    - $POSTGRES_IMAGE
+    #- $APP_IMAGE
+    #- $NGINX_IMAGE
+    #- $POSTGRES_IMAGE
   script:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
+    - docker-compose up -d
     - cd "${CLIENT_DIRECTORY}"
-    - sleep 10
+    - sleep 20
     - npm run test

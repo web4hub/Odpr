@@ -10,17 +10,11 @@
 cd "${CLIENT_DIRECTORY}"
 # pwd = ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} (/builds/dood/app/client)
 
-echo "pwd:"
-pwd
-echo "ls -la:"
-ls -la
-
 echo 'Run npm build'
 npm set progress=false
 npm install -s --no-progress
 npm audit fix
 mkdir -p static
-mkdir -p static-vuedj
 npm run build
 echo 'Done...'
 
@@ -44,19 +38,3 @@ echo 'Done...'
 echo 'Run migrations'
 python3 manage.py migrate
 echo 'Done...'
-
-# pwd = ${REPO_COPY_DIRECTORY}/${BACKEND_DIRECTORY} (/builds/dood/app/backend)
-cd ..
-# pwd = ${REPO_COPY_DIRECTORY} (/builds/dood/app)  (outside of this script not kept)
-
-echo "pwd:"
-pwd
-echo "ls -la:"
-ls -la
-echo "find / -iname backend:"
-find / -iname "*backend*"
-echo "\${WORKING_DIRECTORY}/\${BACKEND_DIRECTORY}:"
-echo "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}:"
-apt-get update && apt-get install -y procps
-echo "ps":
-ps

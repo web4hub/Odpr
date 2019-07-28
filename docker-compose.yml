@@ -2,9 +2,8 @@ version: '3.7'
 
 services:
   app:
-    image: docker.gitlab.electrocnic.com/dood/app/app:latest # will be built by builder right before starting this docker-composer.
+    image: "${APP_IMAGE}" # will be built by builder right before starting this docker-composer.
     volumes:
-      - app_volume:/opt/services/app/src/vuedj/persisted
       - media_files_volume:/opt/services/app/staticfiles/media
 #      - ./project:/opt/services/djangoapp/src # will be removed by the run-script if no --test arg is given
 #      - ./staticfiles:/opt/services/djangoapp/staticfiles # will be removed by the run-script if no --test arg is given
@@ -15,13 +14,13 @@ services:
       - database1
 
   nginx:
-    image: docker.gitlab.electrocnic.com/dood/app/nginx:latest # also build by buildscript right before docker compose is called.
+    image: "${NGINX_IMAGE}" # also build by buildscript right before docker compose is called.
     ports:
 #      - 80:80/tcp
 #      - 443:443/tcp
       - 8000:80
     environment:
-      - CERTBOT_EMAIL=electrocnicofficial@gmail.com
+      - CERTBOT_EMAIL
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - media_files_volume:/media:ro # user provided content will stay if the docker image gets updated, readonly. write happens in the djangoapp container.
@@ -32,7 +31,7 @@ services:
       - nginx_network
 
   database1:
-    image: docker.gitlab.electrocnic.com/dood/app/postgres:latest
+    image: "${POSTGRES_IMAGE}"
     networks:
       - database1_network
     volumes:
