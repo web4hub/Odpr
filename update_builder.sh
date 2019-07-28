@@ -3,8 +3,13 @@ set -eo pipefail
 
 # Return 0 if builder image on registry is up to date. return 1 if needs to be updated.
 compare_images() {
-	set -e
+	set +e
 	builder_nodes_sum=$(docker run --entrypoint "${BUILDER_VERSION_SCRIPTS_DIRECTORY}/node_modules_checksum.sh" "${BUILDER_IMAGE}")
+	run_result=$?
+	set -e
+	if [ $run_result -gt 0 ]; then
+		return 1
+	fi
 	repo_nodes_sum=$(sha256sum client/package.json | awk '{printf $1}') # client stays hardcoded as here the host client is focused.
 	echo "Builder's checksum for package.json was: $builder_nodes_sum"
 	echo "Repo's checksum for package.json was:    $repo_nodes_sum"
