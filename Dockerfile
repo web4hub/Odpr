@@ -58,12 +58,14 @@ ENV DJANGO_STATIC_URL "${DJANGO_STATIC_URL}"
 ENV DJANGO_MEDIA_URL "${DJANGO_MEDIA_URL}"
 ENV GUNICORN_PORT "${GUNICORN_PORT}"
 
-COPY "${BUILDER_VENV_DIRECTORY}" "${APP_IMAGE_VENV_DIRECTORY}"
 COPY "${BACKEND_DIRECTORY}" "${APP_IMAGE_BACKEND_DIRECTORY}"
 COPY docker-entrypoint.sh /
 RUN chmod 755 /docker-entrypoint.sh
 # staticfiles are not copied here because the nginx-container will contain them and serve them directly
 
+WORKDIR "${APP_IMAGE_BACKEND_DIRECTORY}"
+RUN pip3 install --upgrade pip \
+    	&& pip3 install -r requirements.txt
 
 # EXPOSE port to be used
 EXPOSE 80
