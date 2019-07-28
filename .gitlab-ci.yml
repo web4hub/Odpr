@@ -84,7 +84,7 @@ before_script:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - sh build_gitlab.sh
     - docker build
-    	--build-arg REPO_COPY_DIRECTORY
+      --build-arg REPO_COPY_DIRECTORY
       --build-arg CLIENT_DIRECTORY
       --build-arg BACKEND_DIRECTORY
       --build-arg BUILDER_VENV_DIRECTORY
@@ -112,7 +112,7 @@ before_script:
       --build-arg DJANGO_STATIC_URL
       --build-arg DJANGO_MEDIA_URL
       --build-arg GUNICORN_PORT
-    	-t $APP_IMAGE .
+      -t $APP_IMAGE .
     - docker build -t $NGINX_IMAGE -f nginx/Dockerfile .
     - docker build -t $POSTGRES_IMAGE -f postgres/Dockerfile .
     - docker push $APP_IMAGE
