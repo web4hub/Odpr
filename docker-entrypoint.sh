@@ -3,8 +3,8 @@ set -Eeo pipefail
 
 sleep 5
 
-cd "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}"
-. .venv/bin/activate
+cd "${APP_IMAGE_BACKEND_DIRECTORY}"
+. "${APP_IMAGE_VENV_DIRECTORY}/bin/activate"
 python3 manage.py migrate
 
-gunicorn --chdir "${WORKING_DIRECTORY}/${BACKEND_DIRECTORY}" --bind :${GUNICORN_PORT} vuedj.wsgi:application
+gunicorn --chdir "${APP_IMAGE_BACKEND_DIRECTORY}" --bind :${GUNICORN_PORT} vuedj.wsgi:application

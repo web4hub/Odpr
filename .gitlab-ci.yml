@@ -9,27 +9,71 @@ variables:
   # When using dind, it's wise to use the overlayfs driver for
   # improved performance.
   DOCKER_DRIVER: overlay2
+  #
+  # Docker images
+  #
+  BASE_IMAGE: "docker:18.09.7-dind"
   BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
   APP_IMAGE: "docker.gitlab.electrocnic.com/dood/app/app:latest"
   NGINX_IMAGE: "docker.gitlab.electrocnic.com/dood/app/nginx:latest"
   POSTGRES_IMAGE: "docker.gitlab.electrocnic.com/dood/app/postgres:latest"
-  WORKING_DIRECTORY_ON_HOST: "/builds/dood/app"
-  WORKING_DIRECTORY: "/app"
+  #
+  # Directories
+  #
   CLIENT_DIRECTORY: "client"
   BACKEND_DIRECTORY: "backend"
-  VERSION_DIRECTORY: "builder"
+  REPO_COPY_DIRECTORY: "/builds/dood/app"
+  BUILDER_VENV_DIRECTORY: "/.venv"
+  BUILDER_VERSION_SCRIPTS_DIRECTORY: "/version"
+  BUILDER_NODE_MODULES_SRC_DIRECTORY: "/node_modules"
+  BUILDER_NODE_MODULES_DESTINATION_DIRECTORY: "${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY}/node_modules"
+  BUILDER_STATIC_SRC_DIRECTORY: "${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY}/staticfiles/static"
+  NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY: "/staticfiles"
+  APP_IMAGE_VENV_DIRECTORY: "/.venv"
+  APP_IMAGE_BACKEND_DIRECTORY: "/backend"
+  #
+  # Django Settings (some of them are defined in the gitlab variables page and are commented here)
+  #
+  # DJANGO_SECRET_KEY  (defined in gitlab)
+  # DJANGO_DEBUG (True or False)  (defined in gitlab)
+  #
+  # Django Database settings
+  #
+  # DJANGO_DATABASE_NAME  (e.g. 'database1')  (defined in gitlab)
+  # DJANGO_DATABASE_USERNAME  (defined in gitlab)
+  # DJANGO_DATABASE_PASSWORD  (defined in gitlab)
+  DJANGO_DATABASE_PORT: 5432
+  # DJANGO_DATABASE_HOST  (must be the same name as the docker-compose service, e.g 'database1')  (define here)
+  #
+  # Django allowed host domains
+  #
+  # DJANGO_ALLOWED_HOST_1  (define here when you know the domain)
+  # DJANGO_ALLOWED_HOST_2  (define here when you know the domain)
+  # DJANGO_ALLOWED_HOST_3  (define here when you know the domain)
+  # DJANGO_ALLOWED_HOST_4  (define here when you know the domain)
+  #
+  # Django staticfiles settings
+  #
+  # DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY  (default = '../client/static-vuedj')
+  # DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY  (default = '../staticfiles/static')
+  # DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY   (default = '../staticfiles/media')
+  # DJANGO_STATIC_URL                                 (default = '/static-vuedj/')
+  # DJANGO_MEDIA_URL
+  #
+  # Misc
+  #
   GUNICORN_PORT: 8000
 
 services:
-  - docker:18.09.7-dind
+  - $BASE_IMAGE
 
 before_script:
-  - cd $WORKING_DIRECTORY_ON_HOST
+  - cd $REPO_COPY_DIRECTORY
   - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
 
 .update-base-image:
   stage: update
-  image: "docker:18.09.7-dind"
+  image: $BASE_IMAGE
   script:
     - sh update_builder.sh
 
@@ -37,9 +81,38 @@ before_script:
   stage: build
   image: $BUILDER_IMAGE
   script:
-    - mv "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}/node_modules" "${CLIENT_DIRECTORY}/"
+    - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - sh build_gitlab.sh
-    - docker build --build-arg WORKING_DIRECTORY --build-arg CLIENT_DIRECTORY --build-arg BACKEND_DIRECTORY --build-arg VERSION_DIRECTORY --build-arg GUNICORN_PORT -t $APP_IMAGE .
+    - docker build
+    	--build-arg REPO_COPY_DIRECTORY
+      --build-arg CLIENT_DIRECTORY
+      --build-arg BACKEND_DIRECTORY
+      --build-arg BUILDER_VENV_DIRECTORY
+      --build-arg BUILDER_VERSION_SCRIPTS_DIRECTORY
+      --build-arg BUILDER_NODE_MODULES_SRC_DIRECTORY
+      --build-arg BUILDER_NODE_MODULES_DESTINATION_DIRECTORY
+      --build-arg BUILDER_STATIC_SRC_DIRECTORY
+      --build-arg NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY
+      --build-arg APP_IMAGE_VENV_DIRECTORY
+      --build-arg APP_IMAGE_BACKEND_DIRECTORY
+      --build-arg DJANGO_SECRET_KEY
+      --build-arg DJANGO_DEBUG
+      --build-arg DJANGO_DATABASE_NAME
+      --build-arg DJANGO_DATABASE_USERNAME
+      --build-arg DJANGO_DATABASE_PASSWORD
+      --build-arg DJANGO_DATABASE_PORT
+      --build-arg DJANGO_DATABASE_HOST
+      --build-arg DJANGO_ALLOWED_HOST_1
+      --build-arg DJANGO_ALLOWED_HOST_2
+      --build-arg DJANGO_ALLOWED_HOST_3
+      --build-arg DJANGO_ALLOWED_HOST_4
+      --build-arg DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY
+      --build-arg DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY
+      --build-arg DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY
+      --build-arg DJANGO_STATIC_URL
+      --build-arg DJANGO_MEDIA_URL
+      --build-arg GUNICORN_PORT
+    	-t $APP_IMAGE .
     - docker build -t $NGINX_IMAGE -f nginx/Dockerfile .
     - docker build -t $POSTGRES_IMAGE -f postgres/Dockerfile .
     - docker push $APP_IMAGE
@@ -50,12 +123,12 @@ run-tests:
   stage: test
   image: $BUILDER_IMAGE
   services:
-    - docker:18.09.7-dind
+    - $BASE_IMAGE
     - $APP_IMAGE
     - $NGINX_IMAGE
     - $POSTGRES_IMAGE
   script:
-    - mv "${WORKING_DIRECTORY}/${CLIENT_DIRECTORY}/node_modules" "${CLIENT_DIRECTORY}/"
+    - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - cd "${CLIENT_DIRECTORY}"
     - sleep 10
     - npm run test

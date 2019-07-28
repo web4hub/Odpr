@@ -10,6 +10,31 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
+# You need to define the following environment variables on the Host:
+#
+# DJANGO_SECRET_KEY
+# DJANGO_ALLOWED_HOST_1  (e.g. your.site.example.com)
+# DJANGO_DEBUG (True or False)
+#
+#
+# Optional environment keys:
+# DJANGO_ALLOWED_HOST_2
+# DJANGO_ALLOWED_HOST_3
+# DJANGO_ALLOWED_HOST_4
+# DJANGO_DATABASE_NAME  (e.g. 'database1')
+# DJANGO_DATABASE_USERNAME
+# DJANGO_DATABASE_PASSWORD
+# DJANGO_DATABASE_HOST  (must be the same name as the docker-compose service, e.g 'database1')
+# DJANGO_DATABASE_PORT  (e.g. 5432)
+#
+# DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY  (default = '../client/static-vuedj')
+# DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY  (default = '../staticfiles/static')
+# DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY   (default = '../staticfiles/media')
+# DJANGO_STATIC_URL                                 (default = '/static-vuedj/')
+# DJANGO_MEDIA_URL                                  (default = '/media/')
+#
+#
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -22,12 +47,20 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'n3@wsgyxr)65$+s%z=b7#@8460%t_t0&s*elevyu%h5w_0i9@@'
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'weak_default_secret_key__use_DJANGO_SECRET_KEY_instead')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', True)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']  # TODO: add final website domain
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+if os.environ.get('DJANGO_ALLOWED_HOST_1') is not None:
+	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_1')
+if os.environ.get('DJANGO_ALLOWED_HOST_2') is not None:
+	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_2')
+if os.environ.get('DJANGO_ALLOWED_HOST_3') is not None:
+	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_3')
+if os.environ.get('DJANGO_ALLOWED_HOST_4') is not None:
+	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_4')
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
@@ -129,12 +162,24 @@ WSGI_APPLICATION = 'vuedj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-	'default': {
-		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(BASE_DIR, '../db.sqlite3'),
+if os.environ.get('DJANGO_DATABASE_NAME') is not None:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.postgresql_psycopg2',
+			'NAME': os.environ.get('DJANGO_DATABASE_NAME'),
+			'USER': os.environ.get('DJANGO_DATABASE_USERNAME'),
+			'PASSWORD': os.environ.get('DJANGO_DATABASE_PASSWORD'),
+			'HOST': os.environ.get('DJANGO_DATABASE_HOST'),  # <-- IMPORTANT: same name as docker-compose service!"
+			'PORT': os.environ.get('DJANGO_DATABASE_PORT'),  # e.g. 5432
+		}
 	}
-}
+else:
+	DATABASES = {
+		'default': {
+			'ENGINE': 'django.db.backends.sqlite3',
+			'NAME': os.path.join(BASE_DIR, '../db.sqlite3'),
+		}
+	}
 
 REST_FRAMEWORK = {
 	'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -182,22 +227,22 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATICFILES_DIRS = (
-	os.path.join(BASE_DIR, '../client/static-vuedj'),
+	os.path.join(BASE_DIR, os.getenv('DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY', '../client/static-vuedj')),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, '../staticfiles/static')
+STATIC_ROOT = os.path.join(BASE_DIR, os.getenv('DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY', '../staticfiles/static'))
 
-MEDIA_ROOT = os.path.join(BASE_DIR, '../staticfiles/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, os.getenv('DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY', '../staticfiles/media'))
 
-STATIC_URL = '/static-vuedj/'
+STATIC_URL = os.getenv('DJANGO_STATIC_URL', '/static-vuedj/')
 
-MEDIA_URL = '/media/'
+MEDIA_URL = os.getenv('DJANGO_MEDIA_URL', '/media/')
 
 # Use nose to run all tests
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Tell nose to measure coverage on the apps
 NOSE_ARGS = [
-	'--with-coverage',
+	'--with-coverage', # disable if tests cannot be breakpointed
 	'--cover-package=accounts, api',  # For multiple apps use '--cover-package=foo, bar'
 ]
