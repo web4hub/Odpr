@@ -47,10 +47,10 @@ PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'weak_default_secret_key__use_DJANGO_SECRET_KEY_instead')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY') or 'weak_default_secret_key__use_DJANGO_SECRET_KEY_instead'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG', True)
+DEBUG = (os.getenv('DJANGO_DEBUG') or 'True') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 if os.environ.get('DJANGO_ALLOWED_HOST_1') is not None:
@@ -227,16 +227,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATICFILES_DIRS = (
-	os.path.join(BASE_DIR, os.getenv('DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY', '../client/static-vuedj')),
+	os.path.join(BASE_DIR, (os.getenv('DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY') or '../client/static-vuedj')),
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, os.getenv('DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY', '../staticfiles/static'))
+STATIC_ROOT = os.path.join(BASE_DIR, (os.getenv('DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY') or '../staticfiles/static'))
 
-MEDIA_ROOT = os.path.join(BASE_DIR, os.getenv('DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY', '../staticfiles/media'))
+MEDIA_ROOT = os.path.join(BASE_DIR, (os.getenv('DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY') or '../staticfiles/media'))
 
-STATIC_URL = os.getenv('DJANGO_STATIC_URL', '/static-vuedj/')
+STATIC_URL = (os.getenv('DJANGO_STATIC_URL') or '/static-vuedj/')
 
-MEDIA_URL = os.getenv('DJANGO_MEDIA_URL', '/media/')
+MEDIA_URL = (os.getenv('DJANGO_MEDIA_URL') or '/media/')
 
 # Use nose to run all tests
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
