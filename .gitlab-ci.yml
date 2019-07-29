@@ -104,7 +104,7 @@ build-images:
       --build-arg DJANGO_DEBUG
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
-      --build-arg DJANGO_DATABASE_PASSWORD
+      --build-arg K8S_SECRET_DJANGO_DATABASE_PASSWORD
       --build-arg DJANGO_DATABASE_PORT
       --build-arg DJANGO_DATABASE_HOST
       --build-arg DJANGO_ALLOWED_HOST_1
