@@ -34,7 +34,3 @@ echo 'Done...'
 echo 'Collect static'
 python3 manage.py collectstatic --noinput # Collects from /builds/dood/app/client/static and outputs to /builds/dood/client/staticfiles
 echo 'Done...'
-
-echo 'Run migrations'
-python3 manage.py migrate
-echo 'Done...'
