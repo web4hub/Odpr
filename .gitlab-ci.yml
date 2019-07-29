@@ -39,14 +39,14 @@ variables:
   #
   # Django Settings (some of them are defined in the gitlab variables page and are commented here)
   #
-  # DJANGO_SECRET_KEY  (defined in gitlab)
+  # K8S_SECRET_DJANGO_SECRET_KEY  (defined in gitlab)
   # DJANGO_DEBUG (True or False)  (defined in gitlab)
   #
   # Django Database settings
   #
   # DJANGO_DATABASE_NAME  (e.g. 'database1')  (defined in gitlab)
   # DJANGO_DATABASE_USERNAME  (defined in gitlab)
-  # DJANGO_DATABASE_PASSWORD  (defined in gitlab)
+  # K8S_SECRET_DJANGO_DATABASE_PASSWORD  (defined in gitlab)
   DJANGO_DATABASE_PORT: 5432
   # DJANGO_DATABASE_HOST  (must be the same name as the docker-compose service, e.g 'database1')  (define here)
   #
@@ -100,7 +100,7 @@ build-images:
       --build-arg NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY
       --build-arg APP_IMAGE_VENV_DIRECTORY
       --build-arg APP_IMAGE_BACKEND_DIRECTORY
-      --build-arg DJANGO_SECRET_KEY
+      --build-arg K8S_SECRET_DJANGO_SECRET_KEY
       --build-arg DJANGO_DEBUG
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
@@ -124,7 +124,7 @@ build-images:
     - docker build
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
-      --build-arg DJANGO_DATABASE_PASSWORD
+      --build-arg K8S_SECRET_DJANGO_DATABASE_PASSWORD
       -t $POSTGRES_IMAGE -f postgres/Dockerfile .
     - docker push $APP_IMAGE
     - docker push $NGINX_IMAGE

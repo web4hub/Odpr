@@ -3,7 +3,7 @@ set -Eeo pipefail
 
 export N=$(($N+1))
 
-if [ -n "${POSTGRES_PASSWORD}" ]; then
+if [ -z "${POSTGRES_PASSWORD}" ]; then
 	cat >&2 <<-'EOWARN'
 				****************************************************
 				WARNING: No password has been set for the database.
@@ -19,7 +19,7 @@ if [ -n "${POSTGRES_PASSWORD}" ]; then
 			EOWARN
 fi
 
-if [ -n "${POSTGRES_USER}" ]; then
+if [ -z "${POSTGRES_USER}" ]; then
 	cat >&2 <<-'EOWARN'
 				****************************************************
 				ERROR: No username given for postgres (expected
@@ -29,7 +29,7 @@ if [ -n "${POSTGRES_USER}" ]; then
 	exit 1
 fi
 
-if [ -n "${POSTGRES_DB}" ]; then
+if [ -z "${POSTGRES_DB}" ]; then
 	cat >&2 <<-'EOWARN'
 				****************************************************
 				ERROR: No db-name given for postgres (expected
