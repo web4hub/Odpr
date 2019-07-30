@@ -54,7 +54,7 @@ module.exports = {
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../'),
-    assetsSubDirectory: 'static-vuedj',
+    assetsSubDirectory: (process.env.STATICFILES_DIRNAME || 'static-vuedj'),
     assetsPublicPath: '/',
 
     /**
