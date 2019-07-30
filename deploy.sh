@@ -2,6 +2,7 @@
 set -eo pipefail
 
 source ./resolve_os.sh
+./make_venv.sh
 source ./backend/.venv/"${VBIN}"/activate
 
 if [ "$1" != "run" ]; then

@@ -3,6 +3,7 @@ set -eo pipefail
 
 
 . ./resolve_os.sh
+./make_venv.sh
 . ./backend/.venv/"${VBIN}"/activate
 
 cd client
