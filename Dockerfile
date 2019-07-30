@@ -59,6 +59,7 @@ ENV DJANGO_MEDIA_URL "${DJANGO_MEDIA_URL}"
 ENV GUNICORN_PORT "${GUNICORN_PORT}"
 
 COPY "${BACKEND_DIRECTORY}" "${APP_IMAGE_BACKEND_DIRECTORY}"
+COPY "${CLIENT_DIRECTORY}/templates/index.html" "${APP_IMAGE_BACKEND_DIRECTORY}/templates/index.html"
 COPY docker-entrypoint.sh /
 RUN chmod 755 /docker-entrypoint.sh
 # staticfiles are not copied here because the nginx-container will contain them and serve them directly
