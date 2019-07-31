@@ -43,6 +43,7 @@ RUN apt-get update \
 		software-properties-common \
 	&& curl -sL https://deb.nodesource.com/setup_12.x | bash - \
 	&& apt-get install -y nodejs \
+	&& npm install -g npm \
 	&& node -v \
 	&& npm -v \
 	&& cd "${REPO_COPY_DIRECTORY}/${BACKEND_DIRECTORY}" \

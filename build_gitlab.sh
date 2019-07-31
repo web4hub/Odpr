@@ -11,6 +11,7 @@ cd "${CLIENT_DIRECTORY}"
 # pwd = ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} (/builds/dood/app/client)
 
 echo 'Run npm build'
+npm install -g npm
 npm set progress=false
 npm install -s --no-progress
 npm audit fix
