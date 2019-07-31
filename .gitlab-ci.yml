@@ -146,4 +146,4 @@ run-tests:
     - docker-compose up -d
     - cd "${CLIENT_DIRECTORY}"
     - sleep 20
-    - npm run test || cat /root/.npm/_logs/*
+    - npm run test || (cat /root/.npm/_logs/*; exit 1)
