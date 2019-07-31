@@ -145,5 +145,7 @@ run-tests:
     - . "${BUILDER_VENV_DIRECTORY}/bin/activate"
     - docker-compose up -d
     - cd "${CLIENT_DIRECTORY}"
+    - apt-get update && apt-get install -y net-tools
+    - netstat -tulpen
     - sleep 60
     - npm run test || (cat /root/.npm/_logs/*; exit 1)
