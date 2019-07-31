@@ -145,5 +145,5 @@ run-tests:
     - . "${BUILDER_VENV_DIRECTORY}/bin/activate"
     - docker-compose up -d
     - cd "${CLIENT_DIRECTORY}"
-    - sleep 20
+    - sleep 60
     - npm run test || (cat /root/.npm/_logs/*; exit 1)
