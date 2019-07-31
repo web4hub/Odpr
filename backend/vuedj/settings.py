@@ -52,7 +52,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY') or 'weak_default_secret_key__use_DJA
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv('DJANGO_DEBUG') or 'True') == 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
 if os.environ.get('DJANGO_ALLOWED_HOST_1') is not None:
 	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_1')
 if os.environ.get('DJANGO_ALLOWED_HOST_2') is not None:

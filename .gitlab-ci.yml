@@ -143,7 +143,7 @@ run-tests:
   script:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - . "${BUILDER_VENV_DIRECTORY}/bin/activate"
-    - docker-compose up
+    - docker-compose up -d
     - cd "${CLIENT_DIRECTORY}"
     - apt-get update && apt-get install -y net-tools
     - sleep 60
