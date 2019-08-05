@@ -71,7 +71,7 @@ RUN pip3 install --upgrade pip \
 # EXPOSE port to be used
 EXPOSE 80
 EXPOSE 443
-EXPOSE 8000
+EXPOSE ${GUNICORN_PORT}
 
 # Set command to run as soon as container is up
 CMD ["/docker-entrypoint.sh"]
