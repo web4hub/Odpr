@@ -1,5 +1,5 @@
 {
-	"baseUrl": "http://0.0.0.0:8000",
+	"baseUrl": "http://172.17.0.1:8000",
 	"viewportWidth": 1200,
 	"viewportHeight": 900,
 	"video": false

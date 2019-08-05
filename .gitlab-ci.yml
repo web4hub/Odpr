@@ -122,6 +122,7 @@ build-images:
       -t $APP_IMAGE .
     - docker build
       --build-arg NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY
+      --build-arg CERTBOT_EMAIL
       -t $NGINX_IMAGE -f nginx/Dockerfile .
     - docker build
       --build-arg DJANGO_DATABASE_NAME
