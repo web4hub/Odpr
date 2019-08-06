@@ -11,7 +11,14 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
+const path = require('path')
+
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+	console.log(config) // see what all is in here!
+
+	// modify config values
+	config.ignoreTestFiles = path.join('**', '*.html');
+
+	// return config
+	return config
 }

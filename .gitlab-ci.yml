@@ -149,7 +149,7 @@ run-tests:
     - sleep 60
     - npm run test || (cat /root/.npm/_logs/*; exit 1)
   artifacts:
-  	paths:
-  		- /builds/dood/app/client/cypress/screenshots/*
-		expire_in: 1 week
-		when: always
+    paths:
+      - /builds/dood/app/client/cypress/screenshots/*
+    expire_in: 1 week
+    when: always
