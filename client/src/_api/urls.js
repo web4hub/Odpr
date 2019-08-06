@@ -1,5 +1,5 @@
 'use strict'
-const SERVER_URL = 'localhost:8001/' // FIXME: change at production (https and correct IP and port)
+const SERVER_URL = 'localhost:8000/' // FIXME: change at production (https and correct IP and port)
 const API_URL = 'api/v1/'
 const API_AUTH = API_URL + 'auth/' // NOTE: API_URL not needed from here and below as our api.js has set a global base-url.
 const API_AUTH_LOGIN = API_AUTH + 'login/'

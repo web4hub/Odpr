@@ -68,7 +68,7 @@ variables:
   #
   # Misc
   #
-  GUNICORN_PORT: 8001
+  GUNICORN_PORT: 8000
   # NGINX_PRODUCTION_CONFIG  (just define it in gitlab if the 443 config file should be included).
 
 services:
