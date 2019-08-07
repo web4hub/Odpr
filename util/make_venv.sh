@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-source ./resolve_os.sh
+source resolve_os.sh
 set +e
 source ./backend/.venv/"${VBIN}"/activate 2>/dev/null
 if [ ! $? -eq 0 ]; then

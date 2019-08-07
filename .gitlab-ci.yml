@@ -86,7 +86,7 @@ update-base-image:
   stage: update
   image: $BASE_IMAGE
   script:
-    - sh update_builder.sh
+    - sh builder/update_builder.sh
 
 build-images:
   stage: build
