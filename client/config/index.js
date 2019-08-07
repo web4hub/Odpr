@@ -50,7 +50,7 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../templates/index.html'),
+    index: path.resolve(__dirname, '../' + (process.env.APP_INDEX_HTML_TEMPLATE_DIRECTORY || 'templates/index.html')),
 
     // Paths
     assetsRoot: path.resolve(__dirname, '../'),

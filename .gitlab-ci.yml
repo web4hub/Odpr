@@ -37,17 +37,18 @@ variables:
   NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY: "/${STATICFILES_DIRNAME}"
   APP_IMAGE_VENV_DIRECTORY: "/.venv"
   APP_IMAGE_BACKEND_DIRECTORY: "/backend"
+  APP_INDEX_HTML_TEMPLATE_DIRECTORY: "templates/index.html"
   #
   # Django Settings (some of them are defined in the gitlab variables page and are commented here)
   #
-  # K8S_SECRET_DJANGO_SECRET_KEY  (defined in gitlab)
+  # DJANGO_SECRET_KEY  (defined in gitlab)
   # DJANGO_DEBUG (True or False)  (defined in gitlab)
   #
   # Django Database settings
   #
   # DJANGO_DATABASE_NAME  (e.g. 'database1')  (defined in gitlab)
   # DJANGO_DATABASE_USERNAME  (defined in gitlab)
-  # K8S_SECRET_DJANGO_DATABASE_PASSWORD  (defined in gitlab)
+  # DJANGO_DATABASE_PASSWORD  (defined in gitlab)
   DJANGO_DATABASE_PORT: 5432
   # DJANGO_DATABASE_HOST  (must be the same name as the docker-compose service, e.g 'database1')  (define here)
   #
@@ -69,7 +70,10 @@ variables:
   # Misc
   #
   GUNICORN_PORT: 8000
+  HOST_PORT: 8000
   # NGINX_PRODUCTION_CONFIG  (just define it in gitlab if the 443 config file should be included).
+  # PRODUCTION_URL  (define here or in gitlab variables. If defined, will overwrite DEBUG_URL. Should be in the format: "https://my.site.com/" (don't forget the trailing slash))
+  DEBUG_URL: "localhost:${GUNICORN_PORT}/"
 
 services:
   - $BASE_IMAGE
@@ -91,7 +95,6 @@ build-images:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - sh build_gitlab.sh
     - docker build
-      --build-arg REPO_COPY_DIRECTORY
       --build-arg CLIENT_DIRECTORY
       --build-arg BACKEND_DIRECTORY
       --build-arg BUILDER_VENV_DIRECTORY
@@ -102,11 +105,12 @@ build-images:
       --build-arg NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY
       --build-arg APP_IMAGE_VENV_DIRECTORY
       --build-arg APP_IMAGE_BACKEND_DIRECTORY
-      --build-arg K8S_SECRET_DJANGO_SECRET_KEY
+      --build-arg APP_INDEX_HTML_TEMPLATE_DIRECTORY
+      --build-arg DJANGO_SECRET_KEY
       --build-arg DJANGO_DEBUG
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
-      --build-arg K8S_SECRET_DJANGO_DATABASE_PASSWORD
+      --build-arg DJANGO_DATABASE_PASSWORD
       --build-arg DJANGO_DATABASE_PORT
       --build-arg DJANGO_DATABASE_HOST
       --build-arg DJANGO_ALLOWED_HOST_1
@@ -119,6 +123,9 @@ build-images:
       --build-arg DJANGO_STATIC_URL
       --build-arg DJANGO_MEDIA_URL
       --build-arg GUNICORN_PORT
+      --build-arg HOST_PORT
+      --build-arg DEBUG_URL
+      --build-arg PRODUCTION_URL
       -t $APP_IMAGE .
     - docker build
       --build-arg NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY
@@ -127,7 +134,7 @@ build-images:
     - docker build
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
-      --build-arg K8S_SECRET_DJANGO_DATABASE_PASSWORD
+      --build-arg DJANGO_DATABASE_PASSWORD
       -t $POSTGRES_IMAGE -f postgres/Dockerfile .
     - docker push $APP_IMAGE
     - docker push $NGINX_IMAGE
@@ -138,18 +145,15 @@ run-tests:
   image: $BUILDER_IMAGE
   services:
     - $BASE_IMAGE
-    #- $APP_IMAGE
-    #- $NGINX_IMAGE
-    #- $POSTGRES_IMAGE
   script:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - . "${BUILDER_VENV_DIRECTORY}/bin/activate"
     - docker-compose up -d
     - cd "${CLIENT_DIRECTORY}"
-    - sleep 60
-    - npm run test || (cat /root/.npm/_logs/*; exit 1)
+    - sleep 15
+    - npm run test-ci || (cat /root/.npm/_logs/*; exit 1)
   artifacts:
     paths:
       - /builds/dood/app/client/cypress/screenshots/*
     expire_in: 1 week
-    when: always
+    when: on_failure
