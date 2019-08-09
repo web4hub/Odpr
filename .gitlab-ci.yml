@@ -215,4 +215,5 @@ release:
     - docker push $NGINX_IMAGE_PRODUCTION
     - docker push $POSTGRES_IMAGE_PRODUCTION
   only:
-    - ['tags', 'master']
+    - tags
+    - schedules
