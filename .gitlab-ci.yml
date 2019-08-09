@@ -167,8 +167,6 @@ build-images:
 run-tests:
   stage: test
   image: $BUILDER_IMAGE
-  services:
-    - $BASE_IMAGE
   variables:
     APP_IMAGE: "${APP_IMAGE_DEBUG}"
     NGINX_IMAGE: "${NGINX_IMAGE_DEBUG}"
@@ -180,7 +178,7 @@ run-tests:
     - . "${BUILDER_VENV_DIRECTORY}/bin/activate"
     - docker-compose up -d
     - cd "${CLIENT_DIRECTORY}"
-    - sleep 15
+    - sleep 30
   script:
     - npm run test-ci || (cat /root/.npm/_logs/*; exit 1)
   artifacts:
@@ -192,8 +190,6 @@ run-tests:
 release:
   stage: release
   image: $BUILDER_IMAGE
-  services:
-    - $BASE_IMAGE
   variables:
     # DJANGO_ALLOWED_HOST_1: "example.com" define it in gitlab variables
     # DJANGO_ALLOWED_HOST_2: "www.example.com" define it in gitlab variables
