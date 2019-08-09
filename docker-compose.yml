@@ -21,7 +21,7 @@ services:
     environment:
       - CERTBOT_EMAIL
     volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d
+#      - ./nginx/conf.d:/etc/nginx/conf.d
       - media_files_volume:/media:ro # user provided content will stay if the docker image gets updated, readonly. write happens in the djangoapp container.
 #      - ./staticfiles/static:/static # will be removed by the run-script if no --test arg is given
     depends_on: # wait for app to be ready before starting this service.
