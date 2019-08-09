@@ -162,6 +162,8 @@ build-images:
     - cd $REPO_COPY_DIRECTORY
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
+    - service postgresql start
+    - service postgresql status
   <<: *build_script
   after_script:
     - docker push $APP_IMAGE_DEBUG
