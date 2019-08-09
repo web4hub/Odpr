@@ -29,7 +29,7 @@ set -e
 
 if [ 0$NOT_FOUND -eq 1 ]; then
 	echo "No docker image found in registry, building from scratch..."
-	BUILD=1
+	export BUILD=1
 else
 	set +e
 	compare_images
@@ -37,7 +37,7 @@ else
 	set -e
 	if [ $result -eq 1 ]; then
 		echo "Custom debian-dind out of date, updating image..."
-		BUILD=1
+		export BUILD=1
 	else
 		echo "Custom debian-dind up to date, nothing to do..."
 	fi
