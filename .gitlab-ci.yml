@@ -105,7 +105,7 @@ variables:
 
 .job_build_template: &build_script
   script:
-    - sh build_gitlab.sh
+    - ./build_gitlab.sh
     - docker build
       --build-arg CLIENT_DIRECTORY
       --build-arg BACKEND_DIRECTORY
