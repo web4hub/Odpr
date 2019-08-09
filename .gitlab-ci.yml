@@ -152,8 +152,8 @@ update-base-image:
     - cd $REPO_COPY_DIRECTORY
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
   script:
-    - debian-dind/update_dind_image.sh
-    - builder/update_builder.sh
+    - sh debian-dind/update_dind_image.sh
+    - sh builder/update_builder.sh
 
 build-images:
   stage: build
