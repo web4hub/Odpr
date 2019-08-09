@@ -4,7 +4,7 @@ set -eo pipefail
 # Return 0 if builder image on registry is up to date. return 1 if needs to be updated.
 compare_images() {
 	builder_nodes_sum=$(docker run --entrypoint "${BUILDER_VERSION_SCRIPTS_DIRECTORY}/node_modules_checksum.sh" "${BUILDER_IMAGE}")
-	repo_nodes_sum=$(sha256sum client/package.json | awk '{printf $1}') # client stays hardcoded as here the host client is focused.
+	repo_nodes_sum=$(sha256sum "${CLIENT_DIRECTORY}"/package.json | awk '{printf $1}')
 	echo "Builder's checksum for package.json was: $builder_nodes_sum"
 	echo "Repo's checksum for package.json was:    $repo_nodes_sum"
 	set +e
@@ -14,7 +14,7 @@ compare_images() {
 	else
 		set -e
 		builder_pip_sum=$(docker run --entrypoint "${BUILDER_VERSION_SCRIPTS_DIRECTORY}/pip_requirements_checksum.sh" "${BUILDER_IMAGE}")
-		repo_pip_sum=$(sha256sum backend/requirements.txt | awk '{printf $1}') # backend stays hardcoded as here the host backend is focused.
+		repo_pip_sum=$(sha256sum "${BACKEND_DIRECTORY}"/requirements.txt | awk '{printf $1}')
 		echo "Builder's checksum for requirements.txt was: $builder_pip_sum"
 		echo "Repo's checksum for requirements.txt was:    $repo_pip_sum"
 		set +e
@@ -24,7 +24,7 @@ compare_images() {
 		else
 			set -e
 			builder_dockerfile_sum=$(docker run --entrypoint "${BUILDER_VERSION_SCRIPTS_DIRECTORY}/dockerfile_checksum.sh" "${BUILDER_IMAGE}")
-			repo_dockerfile_sum=$(sha256sum builder/Dockerfile | awk '{printf $1}') # builder stays hardcoded as here the host builder is focused.
+			repo_dockerfile_sum=$(sha256sum "${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}"/Dockerfile | awk '{printf $1}')
 			echo "Builder's checksum for its Dockerfile was: $builder_dockerfile_sum"
 			echo "Repo's checksum for its Dockerfile was:    $repo_dockerfile_sum"
 			set +e
@@ -72,6 +72,6 @@ if [ 0$BUILD -eq 1 ]; then
 		--build-arg BUILDER_VENV_DIRECTORY \
 		--build-arg BUILDER_NODE_MODULES_SRC_DIRECTORY \
 		-t "${BUILDER_IMAGE}" \
-		-f builder/Dockerfile .
+		-f "${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}"/Dockerfile .
 	docker push "${BUILDER_IMAGE}"
 fi

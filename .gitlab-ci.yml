@@ -31,6 +31,7 @@ variables:
   # Docker images
   #
   BASE_IMAGE: "docker:18.09.7-dind"
+  DIND_IMAGE: "docker.gitlab.electrocnic.com/dood/app/debian-dind:latest"
   BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
   APP_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/app-debug:latest"
   NGINX_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/nginx-debug:latest"
@@ -43,6 +44,8 @@ variables:
   #
   CLIENT_DIRECTORY: "client"
   BACKEND_DIRECTORY: "backend"
+  DIND_VERSION_SCRIPTS_SRC_DIRECTORY: "debian-dind"
+  DIND_VERSION_SCRIPTS_DIRECTORY: "/version"
   BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY: "builder"
   REPO_COPY_DIRECTORY: "/builds/dood/app"
   BUILDER_VENV_DIRECTORY: "/.venv"
@@ -149,7 +152,8 @@ update-base-image:
     - cd $REPO_COPY_DIRECTORY
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
   script:
-    - sh builder/update_builder.sh
+    - debian-dind/update_dind_image.sh
+    - builder/update_builder.sh
 
 build-images:
   stage: build

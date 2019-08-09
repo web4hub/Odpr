@@ -1,5 +1,5 @@
 #!/bin/bash
-#set -eo pipefail
+set -eo pipefail
 
 # Running in Builder Image Docker Container
 
@@ -30,6 +30,10 @@ cd "../${BACKEND_DIRECTORY}"
 echo 'Install python modules'
 python3 -m pip install --upgrade pip
 pip3 install -r requirements.txt
+echo 'Done...'
+
+echo 'Run Django Tests...'
+python3 manage.py test --attr='assertAlmostEqual' # The --attr filters subclasses of unittest.TestCase (else every helper method and everything would be considered a test-method by nose, which is annoying because it fails)
 echo 'Done...'
 
 echo 'Collect static'
