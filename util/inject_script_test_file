@@ -5,7 +5,7 @@ server {
     listen [::]:443 ssl http2;
     server_name INJECT_SERVER_NAME;
 
-    ssl_certificate INJECT_PATH_TO_FULLCHAIN/fullchain.pem;
+    ssl_certificate /etc/letsencrypt/live/INJECT_SERVER_NAME/fullchain.pem;
     ssl_certificate_key INJECT_PATH_TO_PRIVATE_KEY/privkey.pem;
 
     ssl_session_cache shared:SSL:20m;

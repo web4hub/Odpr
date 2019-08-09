@@ -2,8 +2,8 @@
 import Vue from 'vue'
 import router from './_router'
 
-Vue.config.productionTip = true // TODO: needs to be set by dev/prod settings
-Vue.config.devtools = true // TODO: needs to be set by dev/prod settings
+Vue.config.productionTip = (process.env.VUE_DEBUG !== 'False')
+Vue.config.devtools = (process.env.VUE_DEBUG !== 'False')
 
 Vue.use(() => import('bootstrap-vue'))
 
