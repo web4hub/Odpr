@@ -8,7 +8,7 @@ compare_images() {
 	SUM_2=$(sha256sum "${DIND_VERSION_SCRIPTS_SRC_DIRECTORY}/dind_script.sh" | awk '{printf $1}')
 	SUM_3=$(sha256sum "${DIND_VERSION_SCRIPTS_SRC_DIRECTORY}/entrypoint.sh" | awk '{printf $1}')
 	repo_sum="${SUM_1}${SUM_2}${SUM_3}"
-	echo "Builder's checksum for whole image was: $dind_sum"
+	echo "Dind's checksum for whole image was:    $dind_sum"
 	echo "Repo's checksum for whole image was:    $repo_sum"
 	set +e
 	if [ "${dind_sum}" != "${repo_sum}" ]; then
