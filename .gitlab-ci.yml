@@ -178,9 +178,7 @@ run-tests:
     - . "${BUILDER_VENV_DIRECTORY}/bin/activate"
     - docker-compose up -d
     - cd "${CLIENT_DIRECTORY}"
-    - sleep 30
-    - docker-compose ps
-    - docker ps
+    - sleep 20
   script:
     - npm run test-ci || (cat /root/.npm/_logs/*; exit 1)
   artifacts:
