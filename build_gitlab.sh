@@ -33,7 +33,7 @@ pip3 install -r requirements.txt
 echo 'Done...'
 
 echo 'Run Django Tests...'
-unset DJANGO_DATABASE_NAME # Will only unset within this script, not outside this script.
+unset DJANGO_DATABASE_NAME # Will only unset within this script, not outside this script. Needed, to test with sqlite3 instead of postgres.
 python3 manage.py test --attr='assertAlmostEqual' # The --attr filters subclasses of unittest.TestCase (else every helper method and everything would be considered a test-method by nose, which is annoying because it fails)
 echo 'Done...'
 
