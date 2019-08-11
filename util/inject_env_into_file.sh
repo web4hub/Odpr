@@ -32,7 +32,7 @@ ENV="${1}"
 VALUE="${!ENV}"
 FILE="${2}"
 
-if [ -z $VALUE ] && [ "$3" != "--force" ] && [ "$4" != "--force" ]; then
+if [ -z "${VALUE}" ] && [ "$3" != "--force" ] && [ "$4" != "--force" ]; then
 	echo "ERROR: Env is empty: ${ENV}" >&2
 	exit 1
 fi
