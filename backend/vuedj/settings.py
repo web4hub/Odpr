@@ -54,13 +54,13 @@ DEBUG = (os.getenv('DJANGO_DEBUG') or 'True') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'docker']
 if os.environ.get('DJANGO_ALLOWED_HOST_1') is not None:
-	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_1')
+	ALLOWED_HOSTS.append(os.environ.get('DJANGO_ALLOWED_HOST_1'))
 if os.environ.get('DJANGO_ALLOWED_HOST_2') is not None:
-	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_2')
+	ALLOWED_HOSTS.append(os.environ.get('DJANGO_ALLOWED_HOST_2'))
 if os.environ.get('DJANGO_ALLOWED_HOST_3') is not None:
-	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_3')
+	ALLOWED_HOSTS.append(os.environ.get('DJANGO_ALLOWED_HOST_3'))
 if os.environ.get('DJANGO_ALLOWED_HOST_4') is not None:
-	ALLOWED_HOSTS += os.environ.get('DJANGO_ALLOWED_HOST_4')
+	ALLOWED_HOSTS.append(os.environ.get('DJANGO_ALLOWED_HOST_4'))
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
