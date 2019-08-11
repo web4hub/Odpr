@@ -104,7 +104,7 @@ variables:
   # PRODUCTION_URL  (defined in release-job locally. If defined, will overwrite DEBUG_URL. Should be in the format: "https://my.site.com/" (don't forget the trailing slash))
   DEBUG_URL: "localhost:${GUNICORN_PORT}/"
   NGINX_SERVER_NAME: "localhost"
-  NGINX_PERMANENT_REDIRECT_INSTRUCTION: "" # (defined in release-job locally). Leave empty for debug builds.
+  # NGINX_PERMANENT_REDIRECT_INSTRUCTION: "" # (defined in release-job locally). Leave empty for debug builds.
   #
   #
   #
@@ -257,6 +257,7 @@ test-release:
       --build-arg CERTBOT_EMAIL
       --build-arg GUNICORN_PORT
       --build-arg NGINX_SERVER_NAME
+      --build-arg NGINX_PERMANENT_REDIRECT_INSTRUCTION
       --build-arg VIRTUAL_HOST
       -t $NGINX_IMAGE_PRODUCTION_TEST -f nginx/Dockerfile .
     - docker build
@@ -329,6 +330,7 @@ release:
       --build-arg CERTBOT_EMAIL
       --build-arg GUNICORN_PORT
       --build-arg NGINX_SERVER_NAME
+      --build-arg NGINX_PERMANENT_REDIRECT_INSTRUCTION
       --build-arg VIRTUAL_HOST
       -t $NGINX_IMAGE_PRODUCTION -f nginx/Dockerfile .
     - docker build
