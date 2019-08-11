@@ -13,20 +13,20 @@ variables:
   #
   # Contact
   #
-  CERTBOT_EMAIL: electrocnicofficial@gmail.com
+  # CERTBOT_EMAIL: example@gmail.com # (define it in gitlab variables)
   #
   # Version
   #
   # Define the versions of the production images in the gitlab variables settings instead of committing them!
-  # CI_COMMIT_TAG will be used by default for each tag on a commit, which will trigger a tagged pipeline.
-  # CI_COMMIT_TAG will be used for all images (nginx, app and postgres), even if one or more of them do not have
+  # CI_BUILD_TAG will be used by default for each tag on a commit, which will trigger a tagged pipeline.
+  # CI_BUILD_TAG will be used for all images (nginx, app and postgres), even if one or more of them do not have
   #  any changes to their preceding version.
   # If you want to keep track for each of those images seperately, overwrite the version per image by defining their
   #  corresponding version somewhere (example values below):
   # APP_VERSION: 1.1.5
   # NGINX_VERSION 1.0.11
   # POSTGRES_VERSION 1.0.2
-  # (Using CI_COMMIT_TAG, they would always be the same value across the images)
+  # (Using CI_BUILD_TAG, they would always be the same value across the images)
   #
   # Docker images
   #
@@ -36,6 +36,9 @@ variables:
   APP_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/app-debug:latest"
   NGINX_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/nginx-debug:latest"
   POSTGRES_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/postgres-debug:latest"
+  APP_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/app-test:${CI_BUILD_TAG}"
+  NGINX_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/nginx-test:${CI_BUILD_TAG}"
+  POSTGRES_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/postgres-test:${CI_BUILD_TAG}"
   APP_IMAGE_PRODUCTION: "docker.gitlab.electrocnic.com/dood/app/app:${CI_BUILD_TAG}"
   NGINX_IMAGE_PRODUCTION: "docker.gitlab.electrocnic.com/dood/app/nginx:${CI_BUILD_TAG}"
   POSTGRES_IMAGE_PRODUCTION: "docker.gitlab.electrocnic.com/dood/app/postgres:${CI_BUILD_TAG}"
@@ -72,36 +75,52 @@ variables:
   #
   # Django Database settings
   #
-  # DJANGO_DATABASE_NAME  (e.g. 'database1')  (defined in gitlab)
-  # DJANGO_DATABASE_USERNAME  (defined in gitlab)
-  # DJANGO_DATABASE_PASSWORD  (defined in gitlab)
+  # DJANGO_DATABASE_NAME  (e.g. 'database1')  (defined in gitlab variables)
+  # DJANGO_DATABASE_USERNAME  (defined in gitlab variables)
+  # DJANGO_DATABASE_PASSWORD  (defined in gitlab variables)
   DJANGO_DATABASE_PORT: 5432
   # DJANGO_DATABASE_HOST  (must be the same name as the docker-compose service, e.g 'database1')  (defined in gitlab)
   #
   # Django allowed host domains (optional)
   #
-  # DJANGO_ALLOWED_HOST_1  (defined in gitlab)
-  # DJANGO_ALLOWED_HOST_2  (defined in gitlab)
-  # DJANGO_ALLOWED_HOST_3  (defined in gitlab)
-  # DJANGO_ALLOWED_HOST_4  (defined in gitlab)
+  # DJANGO_ALLOWED_HOST_1  (defined in release-job)
+  # DJANGO_ALLOWED_HOST_2  (defined in release-job)
+  # DJANGO_ALLOWED_HOST_3  (define it in gitlab variables)
+  # DJANGO_ALLOWED_HOST_4  (define it in gitlab variables)
   #
   # Django staticfiles settings
   #
   DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY: "../${CLIENT_DIRECTORY}/${STATICFILES_DIRNAME}" #  (default = '../client/static-vuedj')
   DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY: "../${STATICFILES_DIRNAME}/static" #  (default = '../staticfiles/static')
-  # DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY   (default = '../staticfiles/media')
+  DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY: "../${STATICFILES_DIRNAME}/media" #  (default = '../staticfiles/media')
   DJANGO_STATIC_URL: "/${STATICFILES_DIRNAME}/" #     (default = '/static-vuedj/')
-  # DJANGO_MEDIA_URL
+  DJANGO_MEDIA_URL: "/${MEDIAFILES_DIRNAME}/" #       (default = '/media/')
   #
   # Misc
   #
   GUNICORN_PORT: 8000 # inner port of the App-Docker-Container (exposed to nginx)
   HOST_PORT: 8000 # port of gitlab-ci runner container which runs cypress to test the app on app@localhost:HOST_PORT
   # NGINX_PRODUCTION_CONFIG  (defined in release-job locally).
-  # PRODUCTION_URL  (define here or in gitlab variables. If defined, will overwrite DEBUG_URL. Should be in the format: "https://my.site.com/" (don't forget the trailing slash))
+  # PRODUCTION_URL  (defined in release-job locally. If defined, will overwrite DEBUG_URL. Should be in the format: "https://my.site.com/" (don't forget the trailing slash))
   DEBUG_URL: "localhost:${GUNICORN_PORT}/"
   NGINX_SERVER_NAME: "localhost"
-  NGINX_PERMANENT_REDIRECT_INSTRUCTION: ""
+  NGINX_PERMANENT_REDIRECT_INSTRUCTION: "" # (defined in release-job locally). Leave empty for debug builds.
+  #
+  #
+  #
+  # !!! Define them in gitlab variables: !!!
+  #
+  # TEST_PRODUCTION_DOMAIN
+  # PRODUCTION_DOMAIN
+  # CERTBOT_EMAIL
+  # DJANGO_SECRET_KEY
+  # DJANGO_DATABASE_NAME
+  # DJANGO_DATABASE_HOST
+  # DJANGO_DATABASE_USERNAME
+  # DJANGO_DATABASE_PASSWORD
+  # DJANGO_ALLOWED_HOST_3 (optional)
+  # DJANGO_ALLOWED_HOST_4 (optional)
+  #
 
 services:
   - $BASE_IMAGE
@@ -188,17 +207,87 @@ run-tests:
     expire_in: 1 week
     when: on_failure
 
+test-release:
+  stage: release
+  image: $BUILDER_IMAGE
+  variables:
+    VUE_DEBUG: "False"
+    DJANGO_DEBUG: "False"
+    NGINX_PRODUCTION_CONFIG: "True"
+    PRODUCTION_URL: "https://${TEST_PRODUCTION_DOMAIN}/"
+    NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
+    DJANGO_ALLOWED_HOST_1: "${TEST_PRODUCTION_DOMAIN}"
+    DJANGO_ALLOWED_HOST_2: "www.${TEST_PRODUCTION_DOMAIN}"
+    NGINX_PERMANENT_REDIRECT_INSTRUCTION: "return 301 ${PRODUCTION_URL}$$request_uri;"
+    HOST_PORT: 80
+  before_script:
+    - cd $REPO_COPY_DIRECTORY
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN docker.gitlab.electrocnic.com
+    - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
+    - echo "Building for production..."
+  script:
+    - ./build_gitlab.sh
+    - docker build
+      --build-arg CLIENT_DIRECTORY
+      --build-arg BACKEND_DIRECTORY
+      --build-arg APP_IMAGE_BACKEND_DIRECTORY
+      --build-arg APP_INDEX_HTML_TEMPLATE_DIRECTORY
+      --build-arg DJANGO_SECRET_KEY
+      --build-arg DJANGO_DEBUG
+      --build-arg DJANGO_DATABASE_NAME
+      --build-arg DJANGO_DATABASE_USERNAME
+      --build-arg DJANGO_DATABASE_PASSWORD
+      --build-arg DJANGO_DATABASE_PORT
+      --build-arg DJANGO_DATABASE_HOST
+      --build-arg DJANGO_ALLOWED_HOST_1
+      --build-arg DJANGO_ALLOWED_HOST_2
+      --build-arg DJANGO_ALLOWED_HOST_3
+      --build-arg DJANGO_ALLOWED_HOST_4
+      --build-arg DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY
+      --build-arg DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY
+      --build-arg DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY
+      --build-arg DJANGO_STATIC_URL
+      --build-arg DJANGO_MEDIA_URL
+      --build-arg GUNICORN_PORT
+      -t $APP_IMAGE_PRODUCTION_TEST .
+    - docker build
+      --build-arg NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY
+      --build-arg NGINX_IMAGE_MEDIAFILES_DESTINATION_DIRECTORY
+      --build-arg CERTBOT_EMAIL
+      --build-arg GUNICORN_PORT
+      --build-arg NGINX_SERVER_NAME
+      -t $NGINX_IMAGE_PRODUCTION_TEST -f nginx/Dockerfile .
+    - docker build
+      --build-arg DJANGO_DATABASE_NAME
+      --build-arg DJANGO_DATABASE_USERNAME
+      --build-arg DJANGO_DATABASE_PASSWORD
+      -t $POSTGRES_IMAGE_PRODUCTION_TEST -f postgres/Dockerfile .
+  after_script:
+    - docker push $APP_IMAGE_PRODUCTION_TEST
+    - docker push $NGINX_IMAGE_PRODUCTION_TEST
+    - docker push $POSTGRES_IMAGE_PRODUCTION_TEST
+  only:
+    - tags
+    - schedules
+
+test-deploy:
+  stage: deploy
+  script: echo "Deploying to test production..."
+  only:
+    - tags
+    - schedules
+
 release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
-    # DJANGO_ALLOWED_HOST_1: "example.com" define it in gitlab variables
-    # DJANGO_ALLOWED_HOST_2: "www.example.com" define it in gitlab variables
     VUE_DEBUG: "False"
     DJANGO_DEBUG: "False"
     NGINX_PRODUCTION_CONFIG: "True"
-    # PRODUCTION_URL: "define it in gitlab variables"
-    # NGINX_SERVER_NAME: "define it in gitlab variables"
+    PRODUCTION_URL: "https://${PRODUCTION_DOMAIN}/"
+    NGINX_SERVER_NAME: "${PRODUCTION_DOMAIN}"
+    DJANGO_ALLOWED_HOST_1: "${PRODUCTION_DOMAIN}"
+    DJANGO_ALLOWED_HOST_2: "www.${PRODUCTION_DOMAIN}"
     NGINX_PERMANENT_REDIRECT_INSTRUCTION: "return 301 ${PRODUCTION_URL}$$request_uri;"
     HOST_PORT: 80
   before_script:
@@ -250,3 +339,8 @@ release:
   only:
     - tags
     - schedules
+
+deploy:
+  stage: deploy
+  when: manual
+  script: echo "Deploying production..."
