@@ -33,12 +33,12 @@ variables:
   BASE_IMAGE: "docker:18.09.7-dind"
   DIND_IMAGE: "docker.gitlab.electrocnic.com/dood/app/debian-dind:latest"
   BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
-  APP_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/app-debug:latest"
-  NGINX_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/nginx-debug:latest"
-  POSTGRES_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/postgres-debug:latest"
-  APP_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/app-test:${CI_BUILD_TAG}"
-  NGINX_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/nginx-test:${CI_BUILD_TAG}"
-  POSTGRES_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/postgres-test:${CI_BUILD_TAG}"
+  APP_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/app:latest"
+  NGINX_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/nginx:latest"
+  POSTGRES_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/postgres:latest"
+  APP_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/app:${CI_BUILD_TAG}-test"
+  NGINX_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/nginx:${CI_BUILD_TAG}-test"
+  POSTGRES_IMAGE_PRODUCTION_TEST: "docker.gitlab.electrocnic.com/dood/app/postgres:${CI_BUILD_TAG}-test"
   APP_IMAGE_PRODUCTION: "docker.gitlab.electrocnic.com/dood/app/app:${CI_BUILD_TAG}"
   NGINX_IMAGE_PRODUCTION: "docker.gitlab.electrocnic.com/dood/app/nginx:${CI_BUILD_TAG}"
   POSTGRES_IMAGE_PRODUCTION: "docker.gitlab.electrocnic.com/dood/app/postgres:${CI_BUILD_TAG}"
@@ -216,6 +216,7 @@ test-release:
     NGINX_PRODUCTION_CONFIG: "True"
     PRODUCTION_URL: "https://${TEST_PRODUCTION_DOMAIN}/"
     NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
+    VIRTUAL_HOST: "${TEST_PRODUCTION_DOMAIN}"
     DJANGO_ALLOWED_HOST_1: "${TEST_PRODUCTION_DOMAIN}"
     DJANGO_ALLOWED_HOST_2: "www.${TEST_PRODUCTION_DOMAIN}"
     NGINX_PERMANENT_REDIRECT_INSTRUCTION: "return 301 ${PRODUCTION_URL}$$request_uri;"
@@ -256,6 +257,7 @@ test-release:
       --build-arg CERTBOT_EMAIL
       --build-arg GUNICORN_PORT
       --build-arg NGINX_SERVER_NAME
+      --build-arg VIRTUAL_HOST
       -t $NGINX_IMAGE_PRODUCTION_TEST -f nginx/Dockerfile .
     - docker build
       --build-arg DJANGO_DATABASE_NAME
@@ -286,6 +288,7 @@ release:
     NGINX_PRODUCTION_CONFIG: "True"
     PRODUCTION_URL: "https://${PRODUCTION_DOMAIN}/"
     NGINX_SERVER_NAME: "${PRODUCTION_DOMAIN}"
+    VIRTUAL_HOST: "${PRODUCTION_DOMAIN}"
     DJANGO_ALLOWED_HOST_1: "${PRODUCTION_DOMAIN}"
     DJANGO_ALLOWED_HOST_2: "www.${PRODUCTION_DOMAIN}"
     NGINX_PERMANENT_REDIRECT_INSTRUCTION: "return 301 ${PRODUCTION_URL}$$request_uri;"
@@ -326,6 +329,7 @@ release:
       --build-arg CERTBOT_EMAIL
       --build-arg GUNICORN_PORT
       --build-arg NGINX_SERVER_NAME
+      --build-arg VIRTUAL_HOST
       -t $NGINX_IMAGE_PRODUCTION -f nginx/Dockerfile .
     - docker build
       --build-arg DJANGO_DATABASE_NAME
