@@ -12,10 +12,12 @@ help() {
 }
 
 delete_old_app_images_on_server() {
-	OLD_IMAGES=$(ssh gitlab@$DEPLOY_SERVER_IP "docker-compose -f apps/${NGINX_SERVER_NAME}/docker-compose.yml images -q")
+	set +e
+	OLD_IMAGES=$(ssh gitlab@$DEPLOY_SERVER_IP "docker-compose -f apps/${NGINX_SERVER_NAME}/docker-compose.yml images -q 2>/dev/null")
 	while read -r line; do
     ssh gitlab@$DEPLOY_SERVER_IP "docker image rm --force ${line}"
 	done <<< "${OLD_IMAGES}"
+	set -e
 }
 
 make_app_directory() {
