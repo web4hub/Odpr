@@ -2,7 +2,7 @@
 set -eo pipefail
 
 # $1 env to be inserted into file
-# $3 relative or total path to file
+# $2 relative or total path to file
 
 help() {
 	echo "$0"

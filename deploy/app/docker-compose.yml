@@ -1,0 +1,57 @@
+version: '3.7'
+services:
+  app:
+    image: "APP_IMAGE_NAME"
+    volumes:
+      - media_files_volume:/opt/services/app/staticfiles/media
+    networks:
+      - nginx_network
+      - database1_network
+    depends_on: # wait for db to be ready before starting the app
+      - database1
+    restart: always
+
+  nginx:
+    image: "NGINX_IMAGE_NAME"
+    volumes:
+      - ./conf.d:/etc/nginx/conf.d
+      - ./re-encrypt-certs:/etc/ssl/certs
+      - media_files_volume:/media:ro # user provided content will stay if the docker image gets updated, readonly. write happens in the djangoapp container.
+    depends_on: # wait for app to be ready before starting this service.
+      - app
+    networks:
+      - nginx_network
+      - nginx-proxy
+    labels:
+      - networks=bridge
+    restart: always
+
+  connect-bridge: # Workaround container to connect nginx container to bridge network, as network_mode: bridge cannot be mixed with custom user networks in docker-compose.
+    image: stmllr/docker-client
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    depends_on:
+      - nginx
+    command: /bin/sh -c 'docker ps -f label=networks=bridge --format "{{.ID}}" | xargs docker network connect bridge'
+
+  database1:
+    image: "POSTGRES_IMAGE_NAME"
+    networks:
+      - database1_network
+    volumes:
+      - database1_volume:/var/lib/postgresql/data
+    restart: always
+
+networks:
+  nginx_network:
+    driver: bridge
+  database1_network:
+    driver: bridge
+  nginx-proxy:
+  	external: true
+  	name: nginx-proxy
+
+volumes:
+  database1_volume: # the : at the end is mandatory!
+  app_volume:
+  media_files_volume:

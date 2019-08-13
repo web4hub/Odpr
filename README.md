@@ -13,3 +13,14 @@ The template is forked from: https://github.com/NdagiStanley/vue-django.git
 ## More
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+## Gitlab CI/CD
+
+
+1. Some mandatory variables need to be set in the gitlab-variables settings (Settings->CI/CD->Variables).
+Those are listed in the gitlab-ci.yml.
+2. Also, the ssh-key file must be set in the variables settings in order to enable auto-deploy. Also add the public key correspondent
+to your authorized keys on the deploy server. You need a user on the server for gitlab.
+`https://medium.com/@hfally/a-gitlab-ci-config-to-deploy-to-your-server-via-ssh-43bf3cf93775`
+
