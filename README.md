@@ -24,3 +24,5 @@ Those are listed in the gitlab-ci.yml.
 to your authorized keys on the deploy server. You need a user on the server for gitlab.
 `https://medium.com/@hfally/a-gitlab-ci-config-to-deploy-to-your-server-via-ssh-43bf3cf93775`
 
+3. Your gitlab user must be in the docker group in order to be able to execute docker commands. `sudo gpasswd -a gitlab docker`
+4. docker and docker-compose need to be installed on your server.

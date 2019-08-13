@@ -11,6 +11,13 @@ help() {
 	echo "  it is not the first time deploy but an update deploy)."
 }
 
+delete_old_app_images_on_server() {
+	OLD_IMAGES=$(docker-compose images -q)
+	while read -r line; do
+    docker image rm --force ${line}
+	done <<< "${OLD_IMAGES}"
+}
+
 make_app_directory() {
 	set -e
 	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/re-encrypt-certs"
@@ -112,6 +119,7 @@ chmod 755 ../util/*.sh
 ../util/inject_env_into_file.sh APP_IMAGE_NAME app/docker-compose.yml
 ../util/inject_env_into_file.sh NGINX_IMAGE_NAME app/docker-compose.yml
 ../util/inject_env_into_file.sh POSTGRES_IMAGE_NAME app/docker-compose.yml
+delete_old_app_images_on_server
 scp app/docker-compose.yml gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
 scp app/app.sh gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
 scp app/re-encrypt-certs/* gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/re-encrypt-certs/

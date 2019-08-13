@@ -14,7 +14,6 @@ services:
   nginx:
     image: "NGINX_IMAGE_NAME"
     volumes:
-      - ./conf.d:/etc/nginx/conf.d
       - ./re-encrypt-certs:/etc/ssl/certs
       - media_files_volume:/media:ro # user provided content will stay if the docker image gets updated, readonly. write happens in the djangoapp container.
     depends_on: # wait for app to be ready before starting this service.

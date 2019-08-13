@@ -9,7 +9,7 @@ help() {
 	echo "  stop:     Stop the running app"
 	echo "  restart:  Restart the running app"
 	echo "  status:   Print status of the app"
-	echo "  update:   Perform update of the images (stop, update, restart app)"
+	echo "  update:   Perform update of the images (stop, delete old images, update, restart app)"
 	echo "  *:        Print this help text"
 }
 
@@ -46,6 +46,8 @@ start_compose() {
 
 update_images() {
 	stop_compose
+	docker image prune --force
+	docker image rm -f $(docker images | grep "^<none>" | awk '{ print $3 }')
 	docker-compose pull
 	start_compose
 }

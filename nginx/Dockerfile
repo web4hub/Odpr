@@ -28,7 +28,7 @@ RUN chmod 755 "/inject_env_into_file.sh"
 RUN "/inject_config_values.sh"
 RUN rm "/inject_config_values.sh"
 RUN rm "/inject_env_into_file.sh"
-RUN [ -z $NGINX_PRODUCTION_CONFIG ] && rm /etc/nginx/sites-customizations/local.443.conf
+RUN ([ -z $NGINX_PRODUCTION_CONFIG ] && rm /etc/nginx/sites-customizations/local.443.conf) || return 0
 
 # Frontend
 COPY "${NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY}/static" "${NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY}"
