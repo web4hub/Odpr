@@ -12,29 +12,40 @@ help() {
 }
 
 make_app_directory() {
+	set -e
 	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/re-encrypt-certs"
+	set +e
 }
 
 make_nginx_proxy_directories() {
+	set -e
 	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p nginx-proxy/config/template"
+	set +e
 }
 
 scp_start_script() {
 	make_nginx_proxy_directories
+	set -e
 	scp nginx-proxy/nginx-proxy.sh gitlab@"${DEPLOY_SERVER_IP}":~/nginx-proxy/
 	ssh gitlab@$DEPLOY_SERVER_IP "chmod 755 nginx-proxy/nginx-proxy.sh"
+	set +e
 }
 
 scp_docker_compose() {
 	make_nginx_proxy_directories
+	set -e
 	scp nginx-proxy/config/docker-compose.yml gitlab@"${DEPLOY_SERVER_IP}":~/nginx-proxy/config/
+	set +e
 }
 
 scp_template() {
 	make_nginx_proxy_directories
+	set -e
 	scp nginx-proxy/config/template/nginx.tmpl gitlab@"${DEPLOY_SERVER_IP}":~/nginx-proxy/config/template/
+	set +e
 }
 
+set +e
 nginx_proxy_found=$(ssh gitlab@$DEPLOY_SERVER_IP "ls -la" | grep -c "nginx-proxy")
 if [ ! $nginx_proxy_found -eq 0 ]; then
 	echo "Found nginx-proxy directory in home directory of gitlab user on remote server."
@@ -82,6 +93,7 @@ else
 	scp_docker_compose
 	scp_template
 fi
+set -e
 
 echo "Files copied or verified, now starting nginx-proxy if not running..."
 
@@ -90,6 +102,7 @@ ssh gitlab@$DEPLOY_SERVER_IP "nginx-proxy/nginx-proxy.sh status"
 
 echo "Nginx-proxy should now be up and running. Copying app..."
 make_app_directory
+set -e
 # Inject app name into start script/docker-compose.yml of app:
 util/inject_parameter_into_file.sh APP_NAME "${NGINX_SERVER_NAME}" deploy/app/app.sh
 util/inject_env_into_file.sh CI_BUILD_TOKEN deploy/app/app.sh
