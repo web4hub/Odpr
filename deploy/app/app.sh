@@ -13,7 +13,7 @@ help() {
 	echo "  *:        Print this help text"
 }
 
-echo DOCKER_PW | docker login -u DOCKER_USER --password-stdin DOCKER_REGISTRY
+echo DOCKER_PW | docker login -u DOCKER_USER --password-stdin DOCKER_REGISTRY 2>/dev/null
 
 running_containers() {
 	echo $(docker-compose ps | grep -c "APP_NAME.*Up")
