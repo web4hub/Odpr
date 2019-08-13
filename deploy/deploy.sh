@@ -104,6 +104,7 @@ echo "Nginx-proxy should now be up and running. Copying app..."
 make_app_directory
 set -e
 # Inject app name into start script/docker-compose.yml of app:
+chmod 755 ../util/*.sh
 ../util/inject_parameter_into_file.sh APP_NAME "${NGINX_SERVER_NAME}" deploy/app/app.sh
 ../util/inject_env_into_file.sh CI_BUILD_TOKEN deploy/app/app.sh
 ../util/inject_env_into_file.sh DOCKER_REGISTRY deploy/app/app.sh
