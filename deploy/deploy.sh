@@ -12,9 +12,9 @@ help() {
 }
 
 delete_old_app_images_on_server() {
-	OLD_IMAGES=$(docker-compose images -q)
+	OLD_IMAGES=$(ssh gitlab@$DEPLOY_SERVER_IP "docker-compose -f apps/${NGINX_SERVER_NAME}/docker-compose.yml images -q")
 	while read -r line; do
-    docker image rm --force ${line}
+    ssh gitlab@$DEPLOY_SERVER_IP "docker image rm --force ${line}"
 	done <<< "${OLD_IMAGES}"
 }
 
