@@ -295,6 +295,7 @@ test-deploy:
     - chmod 755 deploy/deploy.sh
   script:
     - echo "Deploying to test production..."
+    - sleep 30
     - deploy/deploy.sh
   only:
     - tags
