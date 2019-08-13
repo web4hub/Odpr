@@ -1,8 +1,8 @@
 stages:
-  - update
-  - build
-  - test
-  - release
+#  - update
+#  - build
+#  - test
+#  - release
   - deploy
 
 variables:
@@ -127,7 +127,7 @@ variables:
 services:
   - $BASE_IMAGE
 
-update-base-image:
+.update-base-image:
   stage: update
   image: $BASE_IMAGE
   before_script:
@@ -137,7 +137,7 @@ update-base-image:
     - sh debian-dind/update_dind_image.sh
     - sh builder/update_builder.sh
 
-build-images:
+.build-images:
   stage: build
   image: $BUILDER_IMAGE
   before_script:
@@ -186,7 +186,7 @@ build-images:
     - docker push $NGINX_IMAGE_DEBUG
     - docker push $POSTGRES_IMAGE_DEBUG
 
-run-tests:
+.run-tests:
   stage: test
   image: $BUILDER_IMAGE
   variables:
@@ -209,7 +209,7 @@ run-tests:
     expire_in: 1 week
     when: on_failure
 
-test-release:
+.test-release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
@@ -277,6 +277,7 @@ test-release:
 
 test-deploy:
   stage: deploy
+  image: $BUILDER_IMAGE
   variables:
     APP_IMAGE_NAME: $APP_IMAGE_PRODUCTION_TEST
     NGINX_IMAGE_NAME: $NGINX_IMAGE_PRODUCTION_TEST
@@ -298,7 +299,7 @@ test-deploy:
     - tags
     - schedules
 
-release:
+.release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
@@ -366,6 +367,7 @@ release:
 
 deploy:
   stage: deploy
+  image: $BUILDER_IMAGE
   variables:
     APP_IMAGE_NAME: $APP_IMAGE_PRODUCTION
     NGINX_IMAGE_NAME: $NGINX_IMAGE_PRODUCTION
