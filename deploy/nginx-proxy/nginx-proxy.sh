@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 help() {
 	echo "Usage: $0 <option>"
 	echo "Options:"
@@ -8,14 +10,6 @@ help() {
 	echo "  restart:  Restart a running nginx-proxy"
 	echo "  status:   Print status of the nginx-proxy"
 	echo "  *:        Print this help text"
-}
-
-# 1. verify files are here
-verify_files() {
-	if [ ! -f ./config/template/nginx.tmpl ]; then
-		echo "nginx.tmpl not found in $(pwd)/config/template. Please create the directory and copy the nginx.tmpl there."
-		exit 1
-	fi
 }
 
 running_containers() {
