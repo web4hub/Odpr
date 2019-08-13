@@ -1,4 +1,7 @@
 #!/bin/bash
+set -eo pipefail
+
+cd "$(dirname "$0")"
 
 help() {
 	echo "Usage: $0"
