@@ -104,12 +104,12 @@ echo "Nginx-proxy should now be up and running. Copying app..."
 make_app_directory
 set -e
 # Inject app name into start script/docker-compose.yml of app:
-util/inject_parameter_into_file.sh APP_NAME "${NGINX_SERVER_NAME}" deploy/app/app.sh
-util/inject_env_into_file.sh CI_BUILD_TOKEN deploy/app/app.sh
-util/inject_env_into_file.sh DOCKER_REGISTRY deploy/app/app.sh
-util/inject_env_into_file.sh APP_IMAGE_NAME deploy/app/docker-compose.yml
-util/inject_env_into_file.sh NGINX_IMAGE_NAME deploy/app/docker-compose.yml
-util/inject_env_into_file.sh POSTGRES_IMAGE_NAME deploy/app/docker-compose.yml
+../util/inject_parameter_into_file.sh APP_NAME "${NGINX_SERVER_NAME}" deploy/app/app.sh
+../util/inject_env_into_file.sh CI_BUILD_TOKEN deploy/app/app.sh
+../util/inject_env_into_file.sh DOCKER_REGISTRY deploy/app/app.sh
+../util/inject_env_into_file.sh APP_IMAGE_NAME deploy/app/docker-compose.yml
+../util/inject_env_into_file.sh NGINX_IMAGE_NAME deploy/app/docker-compose.yml
+../util/inject_env_into_file.sh POSTGRES_IMAGE_NAME deploy/app/docker-compose.yml
 scp app/docker-compose.yml gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
 scp app/app.sh gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
 scp app/re-encrypt-certs/* gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/re-encrypt-certs/
