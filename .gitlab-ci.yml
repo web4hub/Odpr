@@ -277,7 +277,7 @@ services:
 
 test-deploy:
   stage: deploy
-  image: $BUILDER_IMAGE
+  image: ubuntu
   variables:
     APP_IMAGE_NAME: $APP_IMAGE_PRODUCTION_TEST
     NGINX_IMAGE_NAME: $NGINX_IMAGE_PRODUCTION_TEST
@@ -368,7 +368,7 @@ test-deploy:
 
 deploy:
   stage: deploy
-  image: $BUILDER_IMAGE
+  image: ubuntu
   variables:
     APP_IMAGE_NAME: $APP_IMAGE_PRODUCTION
     NGINX_IMAGE_NAME: $NGINX_IMAGE_PRODUCTION
