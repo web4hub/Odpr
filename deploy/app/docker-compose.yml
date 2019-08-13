@@ -48,8 +48,8 @@ networks:
   database1_network:
     driver: bridge
   nginx-proxy:
-  	external: true
-  	name: nginx-proxy
+    external: true
+    name: nginx-proxy
 
 volumes:
   database1_volume: # the : at the end is mandatory!

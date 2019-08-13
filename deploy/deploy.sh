@@ -106,7 +106,8 @@ set -e
 # Inject app name into start script/docker-compose.yml of app:
 chmod 755 ../util/*.sh
 ../util/inject_parameter_into_file.sh APP_NAME "${NGINX_SERVER_NAME}" app/app.sh
-../util/inject_env_into_file.sh CI_BUILD_TOKEN app/app.sh
+../util/inject_env_into_file.sh DOCKER_USER app/app.sh
+../util/inject_env_into_file.sh DOCKER_PW app/app.sh
 ../util/inject_env_into_file.sh DOCKER_REGISTRY app/app.sh
 ../util/inject_env_into_file.sh APP_IMAGE_NAME app/docker-compose.yml
 ../util/inject_env_into_file.sh NGINX_IMAGE_NAME app/docker-compose.yml

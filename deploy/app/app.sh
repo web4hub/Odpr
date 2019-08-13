@@ -13,7 +13,7 @@ help() {
 	echo "  *:        Print this help text"
 }
 
-docker login -u gitlab-ci-token -p CI_BUILD_TOKEN DOCKER_REGISTRY
+echo DOCKER_PW | docker login -u DOCKER_USER --password-stdin DOCKER_REGISTRY
 
 running_containers() {
 	echo $(docker-compose ps | grep -c "APP_NAME.*Up")

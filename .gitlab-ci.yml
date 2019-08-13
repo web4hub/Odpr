@@ -111,6 +111,8 @@ variables:
   #
   # !!! Define them in gitlab variables: !!!
   #
+  # DOCKER_USER
+  # DOCKER_PW
   # TEST_PRODUCTION_DOMAIN
   # PRODUCTION_DOMAIN
   # DEPLOY_SERVER_IP
