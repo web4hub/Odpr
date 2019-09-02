@@ -85,6 +85,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.3",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
+    "preload-webpack-plugin": "^3.0.0-beta.4",
     "sass-loader": "^7.2.0",
     "shelljs": "^0.8.3",
     "url-loader": "^2.1.0",

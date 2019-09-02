@@ -24,12 +24,24 @@ with open(file, "r+") as f:
 for i, line in enumerate(fileinput.input(file, inplace=1)):
 	sys.stdout.write(line.replace('href=' + (os.getenv('DJANGO_STATIC_URL') or  '/static-vuedj/'), "href=\"{% static '"))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('href=\"' + (os.getenv('DJANGO_STATIC_URL') or  '/static-vuedj/'), "href=\"{% static '"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
 	sys.stdout.write(line.replace('href=/static/', "href=\"{% static '"))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
-	sys.stdout.write(line.replace('.css', ".css' %}\""))
+	sys.stdout.write(line.replace('.css ', ".css' %}\""))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.css>', ".css' %}\">"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.css\"', ".css' %}\""))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
 	sys.stdout.write(line.replace('src=' + (os.getenv('DJANGO_STATIC_URL') or  '/static-vuedj/'), "src=\"{% static '"))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('src=\"' + (os.getenv('DJANGO_STATIC_URL') or  '/static-vuedj/'), "src=\"{% static '"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
 	sys.stdout.write(line.replace('src=/static/', "src=\"{% static '"))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
-	sys.stdout.write(line.replace('.js', ".js' %}\""))
+	sys.stdout.write(line.replace('.js ', ".js' %}\""))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.js>', ".js' %}\">"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.js\"', ".js' %}\""))

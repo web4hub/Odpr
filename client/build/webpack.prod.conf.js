@@ -9,6 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const PreloadWebpackPlugin = require('preload-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
 	? require('../config/test.env')
@@ -61,6 +62,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 			// necessary to consistently work with multiple chunks via CommonsChunkPlugin
 			chunksSortMode: 'dependency'
 		}),
+		new PreloadWebpackPlugin(),
 		// keep module.id stable when vender modules does not change
 		new webpack.HashedModuleIdsPlugin(),
 		// copy custom static assets
