@@ -1,3 +1,7 @@
+[![pipeline status](https://gitlab.electrocnic.com/dood/app/badges/master/pipeline.svg)](https://gitlab.electrocnic.com/dood/app/commits/master)
+[![coverage report](https://gitlab.electrocnic.com/dood/app/badges/master/coverage.svg)](https://gitlab.electrocnic.com/dood/app/commits/master)
+
+
 # Vue-Django CI/CD template using GitLab, Cypress and Django Unit Tests, and Docker
 
 > This is a Test App to test frontend and backend unit- and integration-tests automated on a CI/CD system.
