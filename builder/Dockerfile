@@ -44,6 +44,7 @@ RUN apt-get update \
 	&& curl -sL https://deb.nodesource.com/setup_12.x | bash - \
 	&& apt-get install -y nodejs \
 	&& npm install -g npm \
+	&& npm install -g lighthouse \
 	&& node -v \
 	&& npm -v \
 	&& cd "${REPO_COPY_DIRECTORY}/${BACKEND_DIRECTORY}" \
@@ -51,7 +52,8 @@ RUN apt-get update \
 	&& . "${BUILDER_VENV_DIRECTORY}/bin/activate" \
 	&& pip3 install --upgrade pip \
 	&& pip3 install -r requirements.txt \
-	&& pip3 install docker-compose
+	&& pip3 install docker-compose \
+	&& pip3 install anybadge
 
 RUN cd ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} \
 	&& npm set progress=false \

@@ -4,6 +4,7 @@ stages:
   - test
   - release
   - deploy
+  - analyze
 
 variables:
   DOCKER_HOST: tcp://docker:2375/
@@ -396,16 +397,36 @@ deploy:
   when: manual
 
 create_badges:
-  stage: release
-  image: python:3.6.6
+  stage: analyze
+  image: $BUILDER_IMAGE
+  before_script:
+    - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
   script:
-    - echo "Python other dependencies installation"
-    - pip install anybadge
+    - util/run_lighthouse.sh
   after_script:
-    - anybadge -l latest_release_tag -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c green
+    - anybadge -l version -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c lime
+    - anybadge -l nginx -v ${nginx_version} -f nginx_version.svg -c teal
+    - anybadge -l postgres -v ${postgres_version} -f postgres_version.svg -c teal
+    - anybadge -l webpack -v ${webpack_version} -f webpack_version.svg -c teal
+    - anybadge -l vue -v ${vue_version} -f vue_version.svg -c teal
+    - anybadge -l django -v ${django_version} -f django_version.svg -c teal
+    - anybadge -l "lighthouse performance" -v ${performance} -f performance.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
+    - anybadge -l "lighthouse accessibility" -v ${accessibility} -f accessibility.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
+    - anybadge -l "lighthouse best practices" -v ${best_practices} -f best_practices.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
+    - anybadge -l "lighthouse search engine results ranking" -v ${seo} -f search_engine_results_ranking.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
   artifacts:
     paths:
       - latest_release_tag.svg
+      - webpack_version.svg
+      - vue_version.svg
+      - django_version.svg
+      - nginx_version.svg
+      - postgres_version.svg
+      - performance.svg
+      - accessibility.svg
+      - best_practices.svg
+      - search_engine_results_ranking.svg
+      - report.html
     when: always
     expire_in: 47 yrs 6 mos and 4d
   only:
