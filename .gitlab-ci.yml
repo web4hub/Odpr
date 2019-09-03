@@ -5,9 +5,6 @@ stages:
   - release
   - deploy
 
-include:
-  template: Dependency-Scanning.gitlab-ci.yml
-
 variables:
   DOCKER_HOST: tcp://docker:2375/
   # When using dind, it's wise to use the overlayfs driver for
@@ -281,7 +278,6 @@ test-release:
     - docker push $POSTGRES_IMAGE_PRODUCTION_TEST
   only:
     - tags
-    - schedules
 
 test-deploy:
   stage: deploy
@@ -305,7 +301,6 @@ test-deploy:
     - deploy/deploy.sh
   only:
     - tags
-    - schedules
 
 release:
   stage: release
@@ -372,7 +367,6 @@ release:
     - docker push $POSTGRES_IMAGE_PRODUCTION
   only:
     - tags
-    - schedules
 
 deploy:
   stage: deploy
@@ -399,5 +393,22 @@ deploy:
     - deploy/deploy.sh
   only:
     - tags
-    - schedules
   when: manual
+
+create_badges:
+  stage: release
+  image: python:3.6.6
+  tags:
+    - docker
+  script:
+    - echo "Python other dependencies installation"
+    - pip install anybadge
+  after_script:
+    - anybadge -l latest_release_tag -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c green
+  artifacts:
+    paths:
+      - latest_release_tag.svg
+    when: always
+    expire_in: never
+  only:
+    - tags

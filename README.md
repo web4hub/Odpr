@@ -1,5 +1,6 @@
 [![pipeline status](https://gitlab.electrocnic.com/dood/app/badges/master/pipeline.svg)](https://gitlab.electrocnic.com/dood/app/commits/master)
 [![coverage report](https://gitlab.electrocnic.com/dood/app/badges/master/coverage.svg)](https://gitlab.electrocnic.com/dood/app/commits/master)
+[![version](https://gitlab.electrocnic.com/dood/app/-/jobs/artifacts/master/raw/latest_release_tag.svg?job=create_badges)](https://gitlab.electrocnic.com/dood/app/commits/master)
 
 
 # Vue-Django CI/CD template using GitLab, Cypress and Django Unit Tests, and Docker
