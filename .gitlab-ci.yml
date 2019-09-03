@@ -398,8 +398,6 @@ deploy:
 create_badges:
   stage: release
   image: python:3.6.6
-  tags:
-    - docker
   script:
     - echo "Python other dependencies installation"
     - pip install anybadge
