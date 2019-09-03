@@ -409,6 +409,6 @@ create_badges:
     paths:
       - latest_release_tag.svg
     when: always
-    expire_in: never
+    expire_in: 47 yrs 6 mos and 4d
   only:
     - tags
