@@ -407,7 +407,6 @@ create_badges:
   script:
     - sleep 60 # To give nginx some time to serve the site.
     - util/run_lighthouse.sh
-    - anybadge -l version -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c '#00FF00'
   after_script:
     - apt-get update -qq
     - 'which ssh-agent || ( apt-get install -qq openssh-client )'

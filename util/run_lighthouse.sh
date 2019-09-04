@@ -8,8 +8,8 @@ accessibility=$(cat report.html | sed -rn 's~^.*("id":"accessibility","score":)(
 best_practices=$(cat report.html | sed -rn 's~^.*("id":"best-practices","score":)([[:digit:]]\.?[[:digit:]]{0,2}).*$~\2~p')
 seo=$(cat report.html | sed -rn 's~^.*("id":"seo","score":)([[:digit:]]\.?[[:digit:]]{0,2}).*$~\2~p')
 
-nginx_version=$(docker run -ti --entrypoint nginx "${NGINX_IMAGE_DEBUG}" -v | sed -rn 's~^.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+)$~\1~p')
-postgres_version=$(docker run -ti --entrypoint postgres "${POSTGRES_IMAGE_DEBUG}" -V | sed -rn 's~^.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+)$~\1~p')
+nginx_version=$(docker run --entrypoint nginx "${NGINX_IMAGE_DEBUG}" -v | sed -rn 's~^.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+)$~\1~p')
+postgres_version=$(docker run --entrypoint postgres "${POSTGRES_IMAGE_DEBUG}" -V | sed -rn 's~^.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+)$~\1~p')
 
 webpack_version=$(cat "${CLIENT_DIRECTORY}/package.json" | sed -rn 's~^.*"webpack":.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*$~\1~p')
 vue_version=$(cat "${CLIENT_DIRECTORY}/package.json" | sed -rn 's~^.*"vue":.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*$~\1~p')
