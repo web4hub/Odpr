@@ -28,10 +28,10 @@ anybadge -l vue -v ${vue_version} -f vue_version.svg -c '#008080'
 echo "Creating badge for django version with version=\"${django_version}\""
 anybadge -l django -v ${django_version} -f django_version.svg -c '#008080'
 echo "Creating badge for lighthouse performance with value=\"${performance}\""
-anybadge -l "lighthouse performance" -v ${performance} -f performance.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
+anybadge -l "lighthouse performance" -v ${performance} -f performance.svg 0.4=red 0.6=orange 0.8=yellow 2=green
 echo "Creating badge for lighthouse accessibility with value=\"${accessibility}\""
-anybadge -l "lighthouse accessibility" -v ${accessibility} -f accessibility.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
+anybadge -l "lighthouse accessibility" -v ${accessibility} -f accessibility.svg 0.4=red 0.6=orange 0.8=yellow 2=green
 echo "Creating badge for lighthouse best practices with value=\"${best_practices}\""
-anybadge -l "lighthouse best practices" -v ${best_practices} -f best_practices.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
+anybadge -l "lighthouse best practices" -v ${best_practices} -f best_practices.svg 0.4=red 0.6=orange 0.8=yellow 2=green
 echo "Creating badge for lighthouse search engine results ranking with value=\"${seo}\""
-anybadge -l "lighthouse search engine results ranking" -v ${seo} -f search_engine_results_ranking.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
+anybadge -l "lighthouse search engine results ranking" -v ${seo} -f search_engine_results_ranking.svg 0.4=red 0.6=orange 0.8=yellow 2=green
