@@ -401,7 +401,6 @@ create_badges:
   image: $BUILDER_IMAGE
   before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
-    - . "${BUILDER_VENV_DIRECTORY}/bin/activate"
     - chmod 755 util/run_lighthouse.sh
   script:
     - util/run_lighthouse.sh
