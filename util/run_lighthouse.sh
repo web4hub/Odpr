@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 
-lighthouse "${TEST_PRODUCTION_DOMAIN}" --quiet --chrome-flags="--headless" --output-path=./report.html
+lighthouse "${TEST_PRODUCTION_DOMAIN}" --quiet --chrome-flags="--headless --no-sandbox" --no-enable-error-reporting --output-path=./report.html
 
 export performance=$(cat report.html | sed -rn 's~^.*("id":"performance","score":)([[:digit:]]\.?[[:digit:]]{0,2}).*$~\2~p')
 export accessibility=$(cat report.html | sed -rn 's~^.*("id":"accessibility","score":)([[:digit:]]\.?[[:digit:]]{0,2}).*$~\2~p')
