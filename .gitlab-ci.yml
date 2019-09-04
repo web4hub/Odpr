@@ -404,16 +404,16 @@ create_badges:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - chmod 755 util/run_lighthouse.sh
+  script:
+    - util/run_lighthouse.sh
+    - anybadge -l version -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c '#00FF00'
+  after_script:
     - apt-get update -qq
     - 'which ssh-agent || ( apt-get install -qq openssh-client )'
     - eval $(ssh-agent -s)
     - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-  script:
-    - util/run_lighthouse.sh
-    - anybadge -l version -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c '#00FF00'
-  after_script:
     - scp ./*.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp ./report.html gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
   only:
