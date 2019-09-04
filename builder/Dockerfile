@@ -47,13 +47,15 @@ RUN apt-get update \
 	&& npm install -g lighthouse \
 	&& node -v \
 	&& npm -v \
+	&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+	&& apt install -y ./google-chrome-stable_current_amd64.deb \
 	&& cd "${REPO_COPY_DIRECTORY}/${BACKEND_DIRECTORY}" \
+        && pip3 install anybadge \
 	&& python3 -m venv "${BUILDER_VENV_DIRECTORY}" \
 	&& . "${BUILDER_VENV_DIRECTORY}/bin/activate" \
 	&& pip3 install --upgrade pip \
 	&& pip3 install -r requirements.txt \
-	&& pip3 install docker-compose \
-	&& pip3 install anybadge
+	&& pip3 install docker-compose
 
 RUN cd ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} \
 	&& npm set progress=false \
