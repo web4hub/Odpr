@@ -399,27 +399,22 @@ deploy:
 create_badges:
   stage: analyze
   image: $BUILDER_IMAGE
+  variables:
+    NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
   before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - chmod 755 util/run_lighthouse.sh
+    - apt-get update -qq
+    - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+    - eval $(ssh-agent -s)
+    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
+    - mkdir -p ~/.ssh
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - util/run_lighthouse.sh
-  after_script:
     - anybadge -l version -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c '#00FF00'
-  artifacts:
-    paths:
-      - latest_release_tag.svg
-      - webpack_version.svg
-      - vue_version.svg
-      - django_version.svg
-      - nginx_version.svg
-      - postgres_version.svg
-      - performance.svg
-      - accessibility.svg
-      - best_practices.svg
-      - search_engine_results_ranking.svg
-      - report.html
-    when: always
-    expire_in: 47 yrs 6 mos and 4d
+  after_script:
+    - scp ./*.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
+    - scp ./report.html gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
   only:
     - tags

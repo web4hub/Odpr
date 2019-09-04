@@ -23,6 +23,7 @@ delete_old_app_images_on_server() {
 make_app_directory() {
 	set -e
 	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/re-encrypt-certs"
+	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/gitlab-badges"
 	set +e
 }
 

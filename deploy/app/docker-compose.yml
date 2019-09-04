@@ -15,6 +15,7 @@ services:
     image: "NGINX_IMAGE_NAME"
     volumes:
       - ./re-encrypt-certs:/etc/ssl/certs
+      - ./gitlab-badges:/gitlab-badges:ro
       - media_files_volume:/media:ro # user provided content will stay if the docker image gets updated, readonly. write happens in the djangoapp container.
     depends_on: # wait for app to be ready before starting this service.
       - app
