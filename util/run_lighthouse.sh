@@ -15,6 +15,22 @@ webpack_version=$(cat "${CLIENT_DIRECTORY}/package.json" | sed -rn 's~^.*"webpac
 vue_version=$(cat "${CLIENT_DIRECTORY}/package.json" | sed -rn 's~^.*"vue":.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*$~\1~p')
 django_version=$(cat "${BACKEND_DIRECTORY}/requirements.txt" | sed -rn 's~^.*Django==.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*$~\1~p')
 
+if [ $performance -eq 1 ] || [ $performance -eq 0 ]; then
+	performance="${performance}.0"
+fi
+
+if [ $accessibility -eq 1 ] || [ $accessibility -eq 0 ]; then
+	accessibility="${accessibility}.0"
+fi
+
+if [ $best_practices -eq 1 ] || [ $best_practices -eq 0 ]; then
+	best_practices="${best_practices}.0"
+fi
+
+if [ $seo -eq 1 ] || [ $seo -eq 0 ]; then
+	seo="${seo}.0"
+fi
+
 echo "Creating badge for project version with version=\"${CI_BUILD_TAG}\""
 anybadge -l version -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c '#00FF00'
 echo "Creating badge for nginx version with version=\"${nginx_version}\""
