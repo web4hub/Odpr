@@ -130,7 +130,7 @@ variables:
 services:
   - $BASE_IMAGE
 
-.update-base-image:
+update-base-image:
   stage: update
   image: $BASE_IMAGE
   before_script:
@@ -140,7 +140,7 @@ services:
     - sh debian-dind/update_dind_image.sh
     - sh builder/update_builder.sh
 
-.build-images:
+build-images:
   stage: build
   image: $BUILDER_IMAGE
   before_script:
@@ -189,7 +189,7 @@ services:
     - docker push $NGINX_IMAGE_DEBUG
     - docker push $POSTGRES_IMAGE_DEBUG
 
-.run-tests:
+run-tests:
   stage: test
   image: $BUILDER_IMAGE
   variables:
@@ -212,7 +212,7 @@ services:
     expire_in: 1 week
     when: on_failure
 
-.test-release:
+test-release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
@@ -280,7 +280,7 @@ services:
   only:
     - tags
 
-.test-deploy:
+test-deploy:
   stage: deploy
   image: ubuntu
   variables:
@@ -303,7 +303,7 @@ services:
   only:
     - tags
 
-.release:
+release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
@@ -369,7 +369,7 @@ services:
   only:
     - tags
 
-.deploy:
+deploy:
   stage: deploy
   image: ubuntu
   variables:
@@ -414,9 +414,6 @@ create_badges:
     - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ls -la
-    - pwd
-    - find / -iname "*latest_release_tag.svg*"
     - scp report.html gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp latest_release_tag.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp nginx_version.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/

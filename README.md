@@ -6,10 +6,10 @@
 [![django version](https://test.gitlab.electrocnic.com/gitlab-badges/django_version.svg)](https://www.djangoproject.com/download/)
 [![nginx version](https://test.gitlab.electrocnic.com/gitlab-badges/nginx_version.svg)](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/)
 [![postgres version](https://test.gitlab.electrocnic.com/gitlab-badges/postgres_version.svg)](https://www.postgresql.org/download/linux/ubuntu/)
-[![lighthouse performance](https://test.gitlab.electrocnic.com/gitlab-badges/performance.svg)](https://gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse accessibility](https://test.gitlab.electrocnic.com/gitlab-badges/accessibility.svg)](https://gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse best practices](https://test.gitlab.electrocnic.com/gitlab-badges/best_practices.svg)](https://gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse search engine results ranking](https://gitlab.electrocnic.com/gitlab-badges/search_engine_results_ranking.svg)](https://gitlab.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse performance](https://test.gitlab.electrocnic.com/gitlab-badges/performance.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse accessibility](https://test.gitlab.electrocnic.com/gitlab-badges/accessibility.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse best practices](https://test.gitlab.electrocnic.com/gitlab-badges/best_practices.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse search engine results ranking](https://test.gitlab.electrocnic.com/gitlab-badges/search_engine_results_ranking.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
 
 
 # Vue-Django CI/CD template using GitLab, Cypress and Django Unit Tests, and Docker
