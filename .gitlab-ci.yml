@@ -405,12 +405,12 @@ create_badges:
   script:
     - util/run_lighthouse.sh
   after_script:
-    - anybadge -l version -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c lime
-    - anybadge -l nginx -v ${nginx_version} -f nginx_version.svg -c teal
-    - anybadge -l postgres -v ${postgres_version} -f postgres_version.svg -c teal
-    - anybadge -l webpack -v ${webpack_version} -f webpack_version.svg -c teal
-    - anybadge -l vue -v ${vue_version} -f vue_version.svg -c teal
-    - anybadge -l django -v ${django_version} -f django_version.svg -c teal
+    - anybadge -l version -v ${CI_BUILD_TAG} -f latest_release_tag.svg -c '#00FF00'
+    - anybadge -l nginx -v ${nginx_version} -f nginx_version.svg -c '#008080'
+    - anybadge -l postgres -v ${postgres_version} -f postgres_version.svg -c '#008080'
+    - anybadge -l webpack -v ${webpack_version} -f webpack_version.svg -c '#008080'
+    - anybadge -l vue -v ${vue_version} -f vue_version.svg -c '#008080'
+    - anybadge -l django -v ${django_version} -f django_version.svg -c '#008080'
     - anybadge -l "lighthouse performance" -v ${performance} -f performance.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
     - anybadge -l "lighthouse accessibility" -v ${accessibility} -f accessibility.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
     - anybadge -l "lighthouse best practices" -v ${best_practices} -f best_practices.svg 0.4=red 0.6=orange 0.8=yellow 1.01=green
