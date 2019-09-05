@@ -139,6 +139,8 @@ update-base-image:
   script:
     - sh debian-dind/update_dind_image.sh
     - sh builder/update_builder.sh
+  except:
+    - schedules
 
 build-images:
   stage: build
@@ -188,6 +190,8 @@ build-images:
     - docker push $APP_IMAGE_DEBUG
     - docker push $NGINX_IMAGE_DEBUG
     - docker push $POSTGRES_IMAGE_DEBUG
+  except:
+    - schedules
 
 run-tests:
   stage: test
@@ -211,6 +215,8 @@ run-tests:
       - /builds/dood/app/client/cypress/screenshots/*
     expire_in: 1 week
     when: on_failure
+  except:
+    - schedules
 
 test-release:
   stage: release
