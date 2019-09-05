@@ -15,6 +15,45 @@ webpack_version=$(cat "${CLIENT_DIRECTORY}/package.json" | sed -rn 's~^.*"webpac
 vue_version=$(cat "${CLIENT_DIRECTORY}/package.json" | sed -rn 's~^.*"vue":.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*$~\1~p')
 django_version=$(cat "${BACKEND_DIRECTORY}/requirements.txt" | sed -rn 's~^.*Django==.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*$~\1~p')
 
+outdated_pip_dependencies=$(docker run -t --entrypoint pip "${APP_IMAGE_DEBUG}" list -o --format freeze | wc -l)
+outdated_pip_dependencies_list=$(docker run -t --entrypoint pip "${APP_IMAGE_DEBUG}" list -o)
+all_pip_dependencies_list=$(docker run -t --entrypoint pip "${APP_IMAGE_DEBUG}" list)
+
+dir=$(pwd)
+cd "${CLIENT_DIRECTORY}"
+outdated_npm_packages=$(($(npm outdated | wc -l)-1))
+outdated_npm_packages_list=$(npm outdated)
+cd "${dir}"
+
+echo '<!doctype html>' > outdated.html
+echo '<html lang="en">' >> outdated.html
+echo '<head>' >> outdated.html
+echo '<meta charset="utf-8">' >> outdated.html
+echo '<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">' >> outdated.html
+echo '<title>Outdated Packages</title>' >> outdated.html
+echo '</head>' >> outdated.html
+echo '<body>' >> outdated.html
+echo '<div>' >> outdated.html
+echo '<h1>Outdated NPM Packages</h1>' >> outdated.html
+echo '<p>' >> outdated.html
+echo "${outdated_npm_packages_list}" >> outdated.html
+echo '</p>' >> outdated.html
+echo '</div>' >> outdated.html
+echo '<div>' >> outdated.html
+echo '<h1>Outdated pip dependencies</h1>' >> outdated.html
+echo '<p>' >> outdated.html
+echo "${outdated_pip_dependencies_list}" >> outdated.html
+echo '</p>' >> outdated.html
+echo '</div>' >> outdated.html
+echo '<div>' >> outdated.html
+echo '<h1>List of all pip dependencies</h1>' >> outdated.html
+echo '<p>' >> outdated.html
+echo "${all_pip_dependencies_list}" >> outdated.html
+echo '</p>' >> outdated.html
+echo '</div>' >> outdated.html
+echo '</body>' >> outdated.html
+
+
 if [ $performance -eq 1 ] || [ $performance -eq 0 ]; then
 	performance="${performance}.0"
 fi
@@ -29,6 +68,18 @@ fi
 
 if [ $seo -eq 1 ] || [ $seo -eq 0 ]; then
 	seo="${seo}.0"
+fi
+
+if [ $outdated_pip_dependencies -le 0 ]; then
+	outdated_pip_dependencies="up to date"
+else
+	outdated_pip_dependencies="${outdated_pip_dependencies} newer available"
+fi
+
+if [ $outdated_npm_packages -le 0 ]; then
+	outdated_npm_packages="up to date"
+else
+	outdated_npm_packages="${outdated_npm_packages} newer available"
 fi
 
 echo "Creating badge for project version with version=\"${CI_BUILD_TAG}\""
@@ -51,3 +102,7 @@ echo "Creating badge for lighthouse best practices with value=\"${best_practices
 anybadge -l "lighthouse best practices" -v ${best_practices} -f best_practices.svg 0.55=red 0.8=orange 0.9=yellow 1.01=green
 echo "Creating badge for lighthouse search engine results ranking with value=\"${seo}\""
 anybadge -l "lighthouse search engine results ranking" -v ${seo} -f search_engine_results_ranking.svg 0.55=red 0.8=orange 0.9=yellow 1.01=green
+echo "Creating badge for outdated pip dependencies with value=\"${outdated_pip_dependencies}\""
+anybadge -l "pip dependencies" -v "${outdated_pip_dependencies}" -f outdated_pip.svg 1=green 3=yellow 8=orange 1000=red
+echo "Creating badge for outdated npm dependencies with value=\"${outdated_npm_packages}\""
+anybadge -l "npm dependencies" -v "${outdated_npm_packages}" -f outdated_npm.svg 1=green 5=yellow 10=orange 1000=red
