@@ -401,6 +401,7 @@ create_badges:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - chmod 755 util/run_lighthouse.sh
+    - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
   script:
     - sleep 60 # To give nginx some time to serve the site.
     - pwd
