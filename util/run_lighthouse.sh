@@ -39,9 +39,11 @@ npm -v
 echo "npm outdated"
 npm outdated
 echo "Get outdated npm package count through npm outdated in client directory..."
+set +e # npm outdated returns 1 if found outdated packages
 outdated_npm_packages=$(($(npm outdated | wc -l)-1))
 echo "Get list of outdated npm packages in pretty format..."
 outdated_npm_packages_list=$(npm outdated)
+set -e
 cd "${dir}"
 echo "back in $(pwd)"
 
