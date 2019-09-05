@@ -373,14 +373,11 @@ deploy:
   stage: deploy
   image: ubuntu
   variables:
-    APP_IMAGE_NAME: "${APP_IMAGE_PRODUCTION}"
-    NGINX_IMAGE_NAME: "${NGINX_IMAGE_PRODUCTION}"
-    POSTGRES_IMAGE_NAME: "${POSTGRES_IMAGE_PRODUCTION}"
-    NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
+    NGINX_SERVER_NAME: "${PRODUCTION_DOMAIN}"
   before_script:
-    - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION_TEST}"
-    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION_TEST}"
-    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION_TEST}"
+    - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION}"
+    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION}"
+    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION}"
     - cd $REPO_COPY_DIRECTORY
     - apt-get update -qq
     - 'which ssh-agent || ( apt-get install -qq openssh-client )'
