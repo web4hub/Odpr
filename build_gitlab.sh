@@ -37,6 +37,8 @@ unset DJANGO_DATABASE_NAME # Will only unset within this script, not outside thi
 python3 manage.py test --attr='assertAlmostEqual' 2>&1 | tee test_results.txt # The --attr filters subclasses of unittest.TestCase (else every helper method and everything would be considered a test-method by nose, which is annoying because it fails)
 COVERAGE_RESULT=$(cat test_results.txt | sed -rn 's~^[^TOTAL](.*)\s+([[:digit:]]+)\s+([[:digit:]]+)\s+([[:digit:]]+)\%.*$~\1 \2 \3~p' | awk '{ result+=$2; if($1!~"admin|models") { statements+=$2; miss+=$3} } END { printf "%.2f%%\n", (1-miss/statements)*100 }')
 echo "COVERAGE_RESULT ${COVERAGE_RESULT}"
+echo "Creating badge for coverage with value=\"${COVERAGE_RESULT}\""
+anybadge -l "coverage" -v "${COVERAGE_RESULT}" -f coverage.svg 36.0=red 58.0=orange 70.0=yellow 101.0=green
 echo 'Done...'
 
 echo 'Collect static'

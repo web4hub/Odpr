@@ -1,7 +1,7 @@
 <!-- Badges are (except for pipeline status and coverage report) created in util/run_lighthouse.sh, there they will also be uploaded to the URLs listed below. -->
 [![version](https://test.gitlab.electrocnic.com/gitlab-badges/latest_release_tag.svg)](https://gitlab.electrocnic.com/dood/app/commits/master)
 [![pipeline status](https://gitlab.electrocnic.com/dood/app/badges/master/pipeline.svg)](https://gitlab.electrocnic.com/dood/app/commits/master)
-[![coverage report](https://gitlab.electrocnic.com/dood/app/badges/master/coverage.svg)](https://gitlab.electrocnic.com/dood/app/commits/master)
+[![coverage report](https://test.gitlab.electrocnic.com/gitlab-badges/coverage.svg)](https://gitlab.electrocnic.com/dood/app/commits/master)
 [![webpack version](https://test.gitlab.electrocnic.com/gitlab-badges/webpack_version.svg)](https://www.npmjs.com/package/webpack)
 [![vue version](https://test.gitlab.electrocnic.com/gitlab-badges/vue_version.svg)](https://www.npmjs.com/package/vue)
 [![django version](https://test.gitlab.electrocnic.com/gitlab-badges/django_version.svg)](https://www.djangoproject.com/download/)
