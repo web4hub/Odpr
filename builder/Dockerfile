@@ -42,6 +42,7 @@ RUN apt-get update \
 		curl \
 		software-properties-common \
 		wget \
+		openssh-client \
 	&& curl -sL https://deb.nodesource.com/setup_12.x | bash - \
 	&& apt-get install -y nodejs \
 	&& npm install -g npm \
@@ -56,7 +57,9 @@ RUN apt-get update \
 	&& . "${BUILDER_VENV_DIRECTORY}/bin/activate" \
 	&& pip3 install --upgrade pip \
 	&& pip3 install -r requirements.txt \
-	&& pip3 install docker-compose
+	&& pip3 install docker-compose \
+	&& mkdir -p ~/.ssh \
+	&& [[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
 
 RUN cd ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} \
 	&& npm set progress=false \

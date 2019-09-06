@@ -239,7 +239,6 @@ test-release:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - export PRODUCTION_URL="https://${TEST_PRODUCTION_DOMAIN}/"
     # - export NGINX_PERMANENT_REDIRECT_INSTRUCTION="return 301 ${PRODUCTION_URL}$$request_uri;"
-    - chmod 755 util/prepare_ssh_credentials.sh
     - echo "Building for production..."
   script:
     - ./build_gitlab.sh
@@ -285,8 +284,7 @@ test-release:
     - docker push $APP_IMAGE_PRODUCTION_TEST
     - docker push $NGINX_IMAGE_PRODUCTION_TEST
     - docker push $POSTGRES_IMAGE_PRODUCTION_TEST
-    - util/prepare_ssh_credentials.sh
-    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
+    - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - scp coverage.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/ || echo "Could not upload coverage report to server. Maybe your app has not been deployed yet? Not considering this as an error."
   only:
     - tags
@@ -302,11 +300,9 @@ test-deploy:
     - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION_TEST}"
     - cd $REPO_COPY_DIRECTORY
     - chmod 755 deploy/deploy.sh
-    - chmod 755 util/prepare_ssh_credentials.sh
   script:
     - echo "Deploying to test production..."
-    - util/prepare_ssh_credentials.sh
-    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
+    - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - deploy/deploy.sh
   only:
     - tags
@@ -388,11 +384,9 @@ deploy:
     - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION}"
     - cd $REPO_COPY_DIRECTORY
     - chmod 755 deploy/deploy.sh
-    - chmod 755 util/prepare_ssh_credentials.sh
   script:
     - echo "Deploying to production..."
-    - util/prepare_ssh_credentials.sh
-    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
+    - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - deploy/deploy.sh
   only:
     - tags
@@ -407,15 +401,12 @@ create_badges:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - chmod 755 util/run_lighthouse.sh
     - chmod 755 util/update_dependency_badges.sh
-    - chmod 755 util/prepare_ssh_credentials.sh
-    - util/prepare_ssh_credentials.sh
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
   script:
     - sleep 60 # To give nginx some time to serve the site.
     - util/run_lighthouse.sh
   after_script:
-    - util/prepare_ssh_credentials.sh
-    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
+    - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - scp report.html gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp latest_release_tag.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp nginx_version.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
@@ -441,14 +432,12 @@ update_dependency_badges:
   before_script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - chmod 755 util/update_dependency_badges.sh
-    - chmod 755 util/prepare_ssh_credentials.sh
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
   script:
     - sleep 60 # To give nginx some time to serve the site.
     - util/update_dependency_badges.sh
   after_script:
-    - util/prepare_ssh_credentials.sh
-    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
+    - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - scp outdated.html gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp outdated_pip.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp outdated_npm.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
