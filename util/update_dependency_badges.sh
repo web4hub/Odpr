@@ -4,9 +4,9 @@ set -eo pipefail
 echo "Get outdated pip dependencies through running app docker container..."
 outdated_pip_dependencies=$(docker run -t --entrypoint pip "${APP_IMAGE_DEBUG}" list -o --format freeze | wc -l)
 echo "Get list of outdated pip dependencies in pretty format..."
-outdated_pip_dependencies_list=$(docker run -t --entrypoint pip "${APP_IMAGE_DEBUG}" list -o)
+outdated_pip_dependencies_list=$(docker run -t --entrypoint pip "${APP_IMAGE_DEBUG}" list -o | awk '{ if(NR > 2) { printf "<tr><td>%s</td><td>%s</td><td>%s</td></tr>\n", $1, $2, $3 } }')
 echo "Get list of all pip dependencies..."
-all_pip_dependencies_list=$(docker run -t --entrypoint pip "${APP_IMAGE_DEBUG}" list)
+all_pip_dependencies_list=$(docker run -t --entrypoint pip "${APP_IMAGE_DEBUG}" list | awk '{ if(NR > 2) { printf "<tr><td>%s</td><td>%s</td></tr>\n", $1, $2 } }')
 
 dir=$(pwd)
 cd "${CLIENT_DIRECTORY}"
@@ -14,7 +14,7 @@ echo "Get outdated npm package count through npm outdated in client directory...
 set +e # npm outdated returns 1 if found outdated packages
 outdated_npm_packages=$(($(npm outdated | wc -l)-1))
 echo "Get list of outdated npm packages in pretty format..."
-outdated_npm_packages_list=$(npm outdated)
+outdated_npm_packages_list=$(npm outdated | awk '{ if(NR > 1) { printf "<tr><td>%s</td><td>%s</td><td>%s</td></tr>\n", $1, $2, $4 } }')
 set -e
 cd "${dir}"
 
@@ -29,21 +29,24 @@ echo '</head>' >> outdated.html
 echo '<body>' >> outdated.html
 echo '<div>' >> outdated.html
 echo '<h1>Outdated NPM Packages</h1>' >> outdated.html
-echo '<p>' >> outdated.html
+echo '<table>' >> outdated.html
+echo '<tr><th>Package</th><th>Current</th><th>Latest</th></tr>' >> outdated.html
 echo "${outdated_npm_packages_list}" >> outdated.html
-echo '</p>' >> outdated.html
+echo '</table>' >> outdated.html
 echo '</div>' >> outdated.html
 echo '<div>' >> outdated.html
 echo '<h1>Outdated pip dependencies</h1>' >> outdated.html
-echo '<p>' >> outdated.html
+echo '<table>' >> outdated.html
+echo '<tr><th>Package</th><th>Current</th><th>Latest</th></tr>' >> outdated.html
 echo "${outdated_pip_dependencies_list}" >> outdated.html
-echo '</p>' >> outdated.html
+echo '</table>' >> outdated.html
 echo '</div>' >> outdated.html
 echo '<div>' >> outdated.html
 echo '<h1>List of all pip dependencies</h1>' >> outdated.html
-echo '<p>' >> outdated.html
+echo '<table>' >> outdated.html
+echo '<tr><th>Package</th><th>Version</th></tr>' >> outdated.html
 echo "${all_pip_dependencies_list}" >> outdated.html
-echo '</p>' >> outdated.html
+echo '</table>' >> outdated.html
 echo '</div>' >> outdated.html
 echo '</body>' >> outdated.html
 
