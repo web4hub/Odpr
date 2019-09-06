@@ -285,7 +285,7 @@ test-release:
     - docker push $APP_IMAGE_PRODUCTION_TEST
     - docker push $NGINX_IMAGE_PRODUCTION_TEST
     - docker push $POSTGRES_IMAGE_PRODUCTION_TEST
-  	- scp coverage.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/ || echo "Could not upload coverage report to server. Maybe your app has not been deployed yet? Not considering this as an error."
+    - scp coverage.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/ || echo "Could not upload coverage report to server. Maybe your app has not been deployed yet? Not considering this as an error."
   only:
     - tags
 
