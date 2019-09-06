@@ -286,7 +286,7 @@ test-release:
     - docker push $APP_IMAGE_PRODUCTION_TEST
     - docker push $NGINX_IMAGE_PRODUCTION_TEST
     - docker push $POSTGRES_IMAGE_PRODUCTION_TEST
-    - ssh-add <(cat "DEPLOY_SERVER_PRIVATE_KEY")
+    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - scp coverage.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/ || echo "Could not upload coverage report to server. Maybe your app has not been deployed yet? Not considering this as an error."
   only:
     - tags
@@ -306,7 +306,7 @@ test-deploy:
     - util/prepare_ssh_credentials.sh
   script:
     - echo "Deploying to test production..."
-    - ssh-add <(cat "DEPLOY_SERVER_PRIVATE_KEY")
+    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - deploy/deploy.sh
   only:
     - tags
@@ -392,7 +392,7 @@ deploy:
     - util/prepare_ssh_credentials.sh
   script:
     - echo "Deploying to production..."
-    - ssh-add <(cat "DEPLOY_SERVER_PRIVATE_KEY")
+    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - deploy/deploy.sh
   only:
     - tags
@@ -412,10 +412,10 @@ create_badges:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
   script:
     - sleep 60 # To give nginx some time to serve the site.
-    - ssh-add <(cat "DEPLOY_SERVER_PRIVATE_KEY")
+    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - util/run_lighthouse.sh
   after_script:
-    - ssh-add <(cat "DEPLOY_SERVER_PRIVATE_KEY")
+    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - scp report.html gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp latest_release_tag.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp nginx_version.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
@@ -446,10 +446,10 @@ update_dependency_badges:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
   script:
     - sleep 60 # To give nginx some time to serve the site.
-    - ssh-add <(cat "DEPLOY_SERVER_PRIVATE_KEY")
+    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - util/update_dependency_badges.sh
   after_script:
-    - ssh-add <(cat "DEPLOY_SERVER_PRIVATE_KEY")
+    - ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - scp outdated.html gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp outdated_pip.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
     - scp outdated_npm.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
