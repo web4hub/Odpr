@@ -22,6 +22,8 @@ with open(file, "r+") as f:
 	f.write("{% load static %}\n" + s)
 
 for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('content=' + (os.getenv('DJANGO_STATIC_URL') or  '/static-vuedj/'), "content=\"{% static '"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
 	sys.stdout.write(line.replace('href=' + (os.getenv('DJANGO_STATIC_URL') or  '/static-vuedj/'), "href=\"{% static '"))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
 	sys.stdout.write(line.replace('href=\"' + (os.getenv('DJANGO_STATIC_URL') or  '/static-vuedj/'), "href=\"{% static '"))
@@ -45,3 +47,11 @@ for i, line in enumerate(fileinput.input(file, inplace=1)):
 	sys.stdout.write(line.replace('.js>', ".js' %}\">"))
 for i, line in enumerate(fileinput.input(file, inplace=1)):
 	sys.stdout.write(line.replace('.js\"', ".js' %}\""))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.png>', ".png' %}\">"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.ico>', ".ico' %}\">"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.json>', ".json' %}\">"))
+for i, line in enumerate(fileinput.input(file, inplace=1)):
+	sys.stdout.write(line.replace('.xml>', ".xml' %}\">"))

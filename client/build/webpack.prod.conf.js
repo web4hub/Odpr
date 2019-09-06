@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const PreloadWebpackPlugin = require('preload-webpack-plugin')
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
 	? require('../config/test.env')
@@ -61,6 +62,11 @@ const webpackConfig = merge(baseWebpackConfig, {
 			},
 			// necessary to consistently work with multiple chunks via CommonsChunkPlugin
 			chunksSortMode: 'dependency'
+		}),
+		new FaviconsWebpackPlugin({
+			logo: path.resolve(__dirname,'../src/assets/favicon.png'),
+			outputPath: path.join(config.build.assetsSubDirectory, 'favicon'),
+			prefix: path.join(config.build.assetsSubDirectory, 'favicon'),
 		}),
 		new PreloadWebpackPlugin(),
 		// keep module.id stable when vender modules does not change
