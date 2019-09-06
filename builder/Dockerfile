@@ -59,7 +59,7 @@ RUN apt-get update \
 	&& pip3 install -r requirements.txt \
 	&& pip3 install docker-compose \
 	&& mkdir -p ~/.ssh \
-	&& [ -f /.dockerenv ] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+	&& [ -f /.dockerenv ] && echo "Host *" > ~/.ssh/config && echo "StrictHostKeyChecking no" >> ~/.ssh/config && echo "" >> ~/.ssh/config
 
 RUN cd ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} \
 	&& npm set progress=false \
