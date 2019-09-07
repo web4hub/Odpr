@@ -139,11 +139,11 @@ update-base-image:
   script:
     - sh debian-dind/update_dind_image.sh
     - sh builder/update_builder.sh
-    - echo "CI_PROJECT_DIR: $CI_PROJECT_DIR"
-    - echo "CI_PROJECT_NAME: $CI_PROJECT_NAME"
-    - echo "CI_PROJECT_NAMESPACE: $CI_PROJECT_NAMESPACE"
-    - echo "CI_PROJECT_PATH: $CI_PROJECT_PATH"
-    - echo "CI_REPOSITORY_URL: $CI_REPOSITORY_URL"
+    - 'echo "CI_PROJECT_DIR: $CI_PROJECT_DIR"'
+    - 'echo "CI_PROJECT_NAME: $CI_PROJECT_NAME"'
+    - 'echo "CI_PROJECT_NAMESPACE: $CI_PROJECT_NAMESPACE"'
+    - 'echo "CI_PROJECT_PATH: $CI_PROJECT_PATH"'
+    - 'echo "CI_REPOSITORY_URL: $CI_REPOSITORY_URL"'
   except:
     - schedules
 
