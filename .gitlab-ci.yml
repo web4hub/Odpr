@@ -33,11 +33,11 @@ variables:
   # Docker images
   #
   BASE_IMAGE: "docker:18.09.7-dind"
-  DIND_IMAGE: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/debian-dind:latest"
-  BUILDER_IMAGE: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/builder:latest"
-  APP_IMAGE_DEBUG: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/app"
-  NGINX_IMAGE_DEBUG: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/nginx"
-  POSTGRES_IMAGE_DEBUG: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/postgres"
+  DIND_IMAGE: "${DOCKER_REGISTRY}/${CI_PROJECT_PATH}/debian-dind:latest"
+  BUILDER_IMAGE: "${DOCKER_REGISTRY}/${CI_PROJECT_PATH}/builder:latest"
+  APP_IMAGE_DEBUG: "${DOCKER_REGISTRY}/${CI_PROJECT_PATH}/app"
+  NGINX_IMAGE_DEBUG: "${DOCKER_REGISTRY}/${CI_PROJECT_PATH}/nginx"
+  POSTGRES_IMAGE_DEBUG: "${DOCKER_REGISTRY}/${CI_PROJECT_PATH}/postgres"
   APP_IMAGE_PRODUCTION_TEST: "${APP_IMAGE_DEBUG}:${CI_BUILD_TAG}-test"
   NGINX_IMAGE_PRODUCTION_TEST: "${NGINX_IMAGE_DEBUG}:${CI_BUILD_TAG}-test"
   POSTGRES_IMAGE_PRODUCTION_TEST: "${POSTGRES_IMAGE_DEBUG}:${CI_BUILD_TAG}-test"
@@ -195,11 +195,10 @@ build-images:
 run-tests:
   stage: test
   image: $BUILDER_IMAGE
-  variables:
-    APP_IMAGE: "${APP_IMAGE_DEBUG}"
-    NGINX_IMAGE: "${NGINX_IMAGE_DEBUG}"
-    POSTGRES_IMAGE: "${POSTGRES_IMAGE_DEBUG}"
   before_script:
+    - export APP_IMAGE_NAME="${APP_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
@@ -236,7 +235,7 @@ test-release:
     - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
-    - export PRODUCTION_URL="https://${TEST_PRODUCTION_DOMAIN}/"
+    - export PRODUCTION_URL="https://${TEST_PRODUCTION_DOMAIN}/" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     # - export NGINX_PERMANENT_REDIRECT_INSTRUCTION="return 301 ${PRODUCTION_URL}$$request_uri;"
     - echo "Building for production..."
   script:
@@ -294,9 +293,9 @@ test-deploy:
   variables:
     NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
   before_script:
-    - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION_TEST}"
-    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION_TEST}"
-    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION_TEST}"
+    - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION_TEST}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION_TEST}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION_TEST}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - cd $CI_PROJECT_DIR
     - chmod 755 deploy/deploy.sh
   script:
@@ -322,8 +321,8 @@ release:
     - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
-    - export PRODUCTION_URL="https://${PRODUCTION_DOMAIN}/"
-    - export NGINX_PERMANENT_REDIRECT_INSTRUCTION="return 301 ${PRODUCTION_URL}$$request_uri;"
+    - export PRODUCTION_URL="https://${PRODUCTION_DOMAIN}/" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export NGINX_PERMANENT_REDIRECT_INSTRUCTION="return 301 ${PRODUCTION_URL}$$request_uri;" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - echo "Building for production..."
   script:
     - ./build_gitlab.sh
@@ -378,9 +377,9 @@ deploy:
   variables:
     NGINX_SERVER_NAME: "${PRODUCTION_DOMAIN}"
   before_script:
-    - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION}"
-    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION}"
-    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION}"
+    - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - cd $CI_PROJECT_DIR
     - chmod 755 deploy/deploy.sh
   script:
