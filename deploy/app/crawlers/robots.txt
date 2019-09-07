@@ -1,0 +1,14 @@
+User-agent: *
+User-agent: APIs-Google
+User-agent: Mediapartners-Google
+User-agent: AdsBot-Google-Mobile
+User-agent: AdsBot-Google-Mobile
+User-agent: AdsBot-Google
+User-agent: Googlebot-Image
+User-agent: Googlebot-News
+User-agent: Googlebot-Video
+User-agent: AdsBot-Google-Mobile-Apps
+Allow: /
+Disallow: /gitlab-badges/
+
+

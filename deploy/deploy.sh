@@ -24,6 +24,7 @@ make_app_directory() {
 	set -e
 	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/re-encrypt-certs"
 	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/gitlab-badges"
+	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/crawlers"
 	set +e
 }
 
@@ -126,6 +127,7 @@ delete_old_app_images_on_server
 scp app/docker-compose.yml gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
 scp app/app.sh gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
 scp app/re-encrypt-certs/* gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/re-encrypt-certs/
+scp app/crawlers/* gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/crawlers/
 ssh gitlab@$DEPLOY_SERVER_IP "chmod 755 apps/${NGINX_SERVER_NAME}/app.sh"
 
 echo "Copied app configuration to server. Updating images and deploying now..."
