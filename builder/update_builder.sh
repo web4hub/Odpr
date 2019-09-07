@@ -64,6 +64,7 @@ fi
 
 if [ 0$BUILD -eq 1 ]; then
 	docker build \
+		--build-arg DIND_IMAGE \
 		--build-arg REPO_COPY_DIRECTORY \
 		--build-arg CLIENT_DIRECTORY \
 		--build-arg BACKEND_DIRECTORY \

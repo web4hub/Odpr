@@ -33,11 +33,11 @@ variables:
   # Docker images
   #
   BASE_IMAGE: "docker:18.09.7-dind"
-  DIND_IMAGE: "docker.gitlab.electrocnic.com/dood/app/debian-dind:latest"
-  BUILDER_IMAGE: "docker.gitlab.electrocnic.com/dood/app/builder:latest"
-  APP_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/app"
-  NGINX_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/nginx"
-  POSTGRES_IMAGE_DEBUG: "docker.gitlab.electrocnic.com/dood/app/postgres"
+  DIND_IMAGE: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/debian-dind:latest"
+  BUILDER_IMAGE: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/builder:latest"
+  APP_IMAGE_DEBUG: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/app"
+  NGINX_IMAGE_DEBUG: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/nginx"
+  POSTGRES_IMAGE_DEBUG: "$DOCKER_REGISTRY/$CI_PROJECT_PATH/postgres"
   APP_IMAGE_PRODUCTION_TEST: "${APP_IMAGE_DEBUG}:${CI_BUILD_TAG}-test"
   NGINX_IMAGE_PRODUCTION_TEST: "${NGINX_IMAGE_DEBUG}:${CI_BUILD_TAG}-test"
   POSTGRES_IMAGE_PRODUCTION_TEST: "${POSTGRES_IMAGE_DEBUG}:${CI_BUILD_TAG}-test"
@@ -52,7 +52,7 @@ variables:
   DIND_VERSION_SCRIPTS_SRC_DIRECTORY: "debian-dind"
   DIND_VERSION_SCRIPTS_DIRECTORY: "/version"
   BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY: "builder"
-  REPO_COPY_DIRECTORY: "/builds/dood/app"
+  REPO_COPY_DIRECTORY: "$CI_PROJECT_DIR"
   BUILDER_VENV_DIRECTORY: "/.venv"
   BUILDER_VERSION_SCRIPTS_DIRECTORY: "/version"
   BUILDER_NODE_MODULES_SRC_DIRECTORY: "/node_modules"
@@ -139,11 +139,6 @@ update-base-image:
   script:
     - sh debian-dind/update_dind_image.sh
     - sh builder/update_builder.sh
-    - 'echo "CI_PROJECT_DIR: $CI_PROJECT_DIR"'
-    - 'echo "CI_PROJECT_NAME: $CI_PROJECT_NAME"'
-    - 'echo "CI_PROJECT_NAMESPACE: $CI_PROJECT_NAMESPACE"'
-    - 'echo "CI_PROJECT_PATH: $CI_PROJECT_PATH"'
-    - 'echo "CI_REPOSITORY_URL: $CI_REPOSITORY_URL"'
   except:
     - schedules
 
@@ -217,7 +212,7 @@ run-tests:
     - npm run test-ci || (cat /root/.npm/_logs/*; exit 1)
   artifacts:
     paths:
-      - /builds/dood/app/client/cypress/screenshots/*
+      - $REPO_COPY_DIRECTORY/client/cypress/screenshots/*
     expire_in: 1 week
     when: on_failure
   except:

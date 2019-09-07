@@ -1,4 +1,5 @@
-FROM docker.gitlab.electrocnic.com/dood/app/debian-dind:latest
+ARG DIND_IMAGE
+FROM $DIND_IMAGE
 
 ARG REPO_COPY_DIRECTORY
 ARG CLIENT_DIRECTORY
