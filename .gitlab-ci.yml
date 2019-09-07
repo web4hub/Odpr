@@ -236,6 +236,9 @@ test-release:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - export PRODUCTION_URL="https://${TEST_PRODUCTION_DOMAIN}/" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION_TEST}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION_TEST}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION_TEST}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     # - export NGINX_PERMANENT_REDIRECT_INSTRUCTION="return 301 ${PRODUCTION_URL}$$request_uri;"
     - echo "Building for production..."
   script:
@@ -262,7 +265,7 @@ test-release:
       --build-arg DJANGO_STATIC_URL
       --build-arg DJANGO_MEDIA_URL
       --build-arg GUNICORN_PORT
-      -t $APP_IMAGE_PRODUCTION_TEST .
+      -t $APP_IMAGE_NAME .
     - docker build
       --build-arg NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY
       --build-arg NGINX_IMAGE_MEDIAFILES_DESTINATION_DIRECTORY
@@ -272,16 +275,16 @@ test-release:
       --build-arg NGINX_PERMANENT_REDIRECT_INSTRUCTION
       --build-arg NGINX_PRODUCTION_CONFIG
       --build-arg VIRTUAL_HOST
-      -t $NGINX_IMAGE_PRODUCTION_TEST -f nginx/Dockerfile .
+      -t $NGINX_IMAGE_NAME -f nginx/Dockerfile .
     - docker build
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
       --build-arg DJANGO_DATABASE_PASSWORD
-      -t $POSTGRES_IMAGE_PRODUCTION_TEST -f postgres/Dockerfile .
+      -t $POSTGRES_IMAGE_NAME -f postgres/Dockerfile .
   after_script:
-    - docker push $APP_IMAGE_PRODUCTION_TEST
-    - docker push $NGINX_IMAGE_PRODUCTION_TEST
-    - docker push $POSTGRES_IMAGE_PRODUCTION_TEST
+    - docker push $APP_IMAGE_NAME
+    - docker push $NGINX_IMAGE_NAME
+    - docker push $POSTGRES_IMAGE_NAME
     - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
     - scp ${BACKEND_DIRECTORY}/coverage.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/ || echo "Could not upload coverage report to server. Maybe your app has not been deployed yet? Not considering this as an error."
   only:
@@ -323,6 +326,9 @@ release:
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - export PRODUCTION_URL="https://${PRODUCTION_DOMAIN}/" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - export NGINX_PERMANENT_REDIRECT_INSTRUCTION="return 301 ${PRODUCTION_URL}$$request_uri;" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - echo "Building for production..."
   script:
     - ./build_gitlab.sh
@@ -348,7 +354,7 @@ release:
       --build-arg DJANGO_STATIC_URL
       --build-arg DJANGO_MEDIA_URL
       --build-arg GUNICORN_PORT
-      -t $APP_IMAGE_PRODUCTION .
+      -t $APP_IMAGE_NAME .
     - docker build
       --build-arg NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY
       --build-arg NGINX_IMAGE_MEDIAFILES_DESTINATION_DIRECTORY
@@ -358,16 +364,16 @@ release:
       --build-arg NGINX_PERMANENT_REDIRECT_INSTRUCTION
       --build-arg NGINX_PRODUCTION_CONFIG
       --build-arg VIRTUAL_HOST
-      -t $NGINX_IMAGE_PRODUCTION -f nginx/Dockerfile .
+      -t $NGINX_IMAGE_NAME -f nginx/Dockerfile .
     - docker build
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
       --build-arg DJANGO_DATABASE_PASSWORD
-      -t $POSTGRES_IMAGE_PRODUCTION -f postgres/Dockerfile .
+      -t $POSTGRES_IMAGE_NAME -f postgres/Dockerfile .
   after_script:
-    - docker push $APP_IMAGE_PRODUCTION
-    - docker push $NGINX_IMAGE_PRODUCTION
-    - docker push $POSTGRES_IMAGE_PRODUCTION
+    - docker push $APP_IMAGE_NAME
+    - docker push $NGINX_IMAGE_NAME
+    - docker push $POSTGRES_IMAGE_NAME
   only:
     - tags
 
