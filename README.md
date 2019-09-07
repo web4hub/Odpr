@@ -46,4 +46,4 @@ to your authorized keys on the deploy server. You need a user on the server for 
 
 
 ## Continuous Deploy Overview
-![Production workflow](documentation/media/overview_1.svg?raw=true)
+![Production workflow](documentation/media/overview_01.svg?raw=true)
