@@ -145,6 +145,7 @@ build-images:
   stage: build
   image: $BUILDER_IMAGE
   before_script:
+    - which resolve_nested.sh
     - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
