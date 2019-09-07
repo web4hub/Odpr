@@ -52,12 +52,11 @@ variables:
   DIND_VERSION_SCRIPTS_SRC_DIRECTORY: "debian-dind"
   DIND_VERSION_SCRIPTS_DIRECTORY: "/version"
   BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY: "builder"
-  REPO_COPY_DIRECTORY: "$CI_PROJECT_DIR"
   BUILDER_VENV_DIRECTORY: "/.venv"
   BUILDER_VERSION_SCRIPTS_DIRECTORY: "/version"
   BUILDER_NODE_MODULES_SRC_DIRECTORY: "/node_modules"
-  BUILDER_NODE_MODULES_DESTINATION_DIRECTORY: "${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY}/node_modules"
-  BUILDER_STATIC_SRC_DIRECTORY: "${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY}/${STATICFILES_DIRNAME}/static"
+  BUILDER_NODE_MODULES_DESTINATION_DIRECTORY: "${CI_PROJECT_DIR}/${CLIENT_DIRECTORY}/node_modules"
+  BUILDER_STATIC_SRC_DIRECTORY: "${CI_PROJECT_DIR}/${CLIENT_DIRECTORY}/${STATICFILES_DIRNAME}/static"
   STATICFILES_DIRNAME: 'static'
   MEDIAFILES_DIRNAME: 'media'
   NGINX_IMAGE_STATICFILES_DESTINATION_DIRECTORY: "/${STATICFILES_DIRNAME}"
@@ -134,7 +133,7 @@ update-base-image:
   stage: update
   image: $BASE_IMAGE
   before_script:
-    - cd $REPO_COPY_DIRECTORY
+    - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
   script:
     - sh debian-dind/update_dind_image.sh
@@ -146,7 +145,7 @@ build-images:
   stage: build
   image: $BUILDER_IMAGE
   before_script:
-    - cd $REPO_COPY_DIRECTORY
+    - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
   script:
@@ -201,7 +200,7 @@ run-tests:
     NGINX_IMAGE: "${NGINX_IMAGE_DEBUG}"
     POSTGRES_IMAGE: "${POSTGRES_IMAGE_DEBUG}"
   before_script:
-    - cd $REPO_COPY_DIRECTORY
+    - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - . "${BUILDER_VENV_DIRECTORY}/bin/activate"
@@ -212,7 +211,7 @@ run-tests:
     - npm run test-ci || (cat /root/.npm/_logs/*; exit 1)
   artifacts:
     paths:
-      - $REPO_COPY_DIRECTORY/client/cypress/screenshots/*
+      - $CI_PROJECT_DIR/client/cypress/screenshots/*
     expire_in: 1 week
     when: on_failure
   except:
@@ -234,7 +233,7 @@ test-release:
     NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
     HOST_PORT: 80
   before_script:
-    - cd $REPO_COPY_DIRECTORY
+    - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - export PRODUCTION_URL="https://${TEST_PRODUCTION_DOMAIN}/"
@@ -298,7 +297,7 @@ test-deploy:
     - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION_TEST}"
     - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION_TEST}"
     - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION_TEST}"
-    - cd $REPO_COPY_DIRECTORY
+    - cd $CI_PROJECT_DIR
     - chmod 755 deploy/deploy.sh
   script:
     - echo "Deploying to test production..."
@@ -320,7 +319,7 @@ release:
     DJANGO_ALLOWED_HOST_2: "www.${PRODUCTION_DOMAIN}"
     HOST_PORT: 80
   before_script:
-    - cd $REPO_COPY_DIRECTORY
+    - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
     - export PRODUCTION_URL="https://${PRODUCTION_DOMAIN}/"
@@ -382,7 +381,7 @@ deploy:
     - export APP_IMAGE_NAME="${APP_IMAGE_PRODUCTION}"
     - export NGINX_IMAGE_NAME="${NGINX_IMAGE_PRODUCTION}"
     - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_PRODUCTION}"
-    - cd $REPO_COPY_DIRECTORY
+    - cd $CI_PROJECT_DIR
     - chmod 755 deploy/deploy.sh
   script:
     - echo "Deploying to production..."

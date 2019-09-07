@@ -3,12 +3,12 @@ set -eo pipefail
 
 # Running in Builder Image Docker Container
 
-# pwd = $REPO_COPY_DIRECTORY (/builds/dood/app)
+# pwd = $CI_PROJECT_DIR (/builds/dood/app)
 . "${BUILDER_VENV_DIRECTORY}/bin/activate"
 
-# pwd = $REPO_COPY_DIRECTORY (/builds/dood/app)
+# pwd = $CI_PROJECT_DIR (/builds/dood/app)
 cd "${CLIENT_DIRECTORY}"
-# pwd = ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} (/builds/dood/app/client)
+# pwd = ${CI_PROJECT_DIR}/${CLIENT_DIRECTORY} (/builds/dood/app/client)
 
 echo 'Run npm build'
 npm install -g npm
@@ -23,9 +23,9 @@ echo 'Format index.html as Jinja template'
 python3 format_index_html.py # This has nothing to do with the python backend. Just a helper script.
 echo 'Done...'
 
-# pwd = ${REPO_COPY_DIRECTORY}/${CLIENT_DIRECTORY} (/builds/dood/app/client)
+# pwd = ${CI_PROJECT_DIR}/${CLIENT_DIRECTORY} (/builds/dood/app/client)
 cd "../${BACKEND_DIRECTORY}"
-# pwd = ${REPO_COPY_DIRECTORY}/${BACKEND_DIRECTORY} (/builds/dood/app/backend)
+# pwd = ${CI_PROJECT_DIR}/${BACKEND_DIRECTORY} (/builds/dood/app/backend)
 
 echo 'Install python modules'
 python3 -m pip install --upgrade pip
