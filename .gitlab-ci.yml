@@ -196,9 +196,9 @@ run-tests:
   stage: test
   image: $BUILDER_IMAGE
   before_script:
-    - export APP_IMAGE_NAME="${APP_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
-    - export NGINX_IMAGE_NAME="${NGINX_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
-    - export POSTGRES_IMAGE_NAME="${POSTGRES_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export APP_IMAGE="${APP_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export NGINX_IMAGE="${NGINX_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export POSTGRES_IMAGE="${POSTGRES_IMAGE_DEBUG}" # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
