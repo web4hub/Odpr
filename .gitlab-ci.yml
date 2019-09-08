@@ -242,7 +242,6 @@ test-release:
     # - export NGINX_PERMANENT_REDIRECT_INSTRUCTION="return 301 ${PRODUCTION_URL}$$request_uri;"
     - echo "Building for production..."
   script:
-    - 'echo "APP_IMAGE_NAME: $APP_IMAGE_NAME"'
     - ./build_gitlab.sh
     - docker build
       --build-arg CLIENT_DIRECTORY
@@ -283,11 +282,9 @@ test-release:
       --build-arg DJANGO_DATABASE_PASSWORD
       -t $POSTGRES_IMAGE_NAME -f postgres/Dockerfile .
   after_script:
-    - 'echo "APP_IMAGE_NAME: $APP_IMAGE_NAME"'
-    - export APP_IMAGE_NAME=$(resolve_nested.sh APP_IMAGE_PRODUCTION_TEST) # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export APP_IMAGE_NAME=$(resolve_nested.sh APP_IMAGE_PRODUCTION_TEST) # It seems like exported variables from the before_script only stay in the before_script and script, but not in after_script.
     - export NGINX_IMAGE_NAME=$(resolve_nested.sh NGINX_IMAGE_PRODUCTION_TEST) # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - export POSTGRES_IMAGE_NAME=$(resolve_nested.sh POSTGRES_IMAGE_PRODUCTION_TEST) # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
-    - 'echo "APP_IMAGE_NAME: $APP_IMAGE_NAME"'
     - docker push $APP_IMAGE_NAME
     - docker push $NGINX_IMAGE_NAME
     - docker push $POSTGRES_IMAGE_NAME
@@ -377,6 +374,9 @@ release:
       --build-arg DJANGO_DATABASE_PASSWORD
       -t $POSTGRES_IMAGE_NAME -f postgres/Dockerfile .
   after_script:
+    - export APP_IMAGE_NAME=$(resolve_nested.sh APP_IMAGE_PRODUCTION) # It seems like exported variables from the before_script only stay in the before_script and script, but not in after_script.
+    - export NGINX_IMAGE_NAME=$(resolve_nested.sh NGINX_IMAGE_PRODUCTION) # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
+    - export POSTGRES_IMAGE_NAME=$(resolve_nested.sh POSTGRES_IMAGE_PRODUCTION) # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - docker push $APP_IMAGE_NAME
     - docker push $NGINX_IMAGE_NAME
     - docker push $POSTGRES_IMAGE_NAME
