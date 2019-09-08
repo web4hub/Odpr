@@ -23,19 +23,19 @@ echo "Get django version through requirements.txt"
 django_version=$(cat "${BACKEND_DIRECTORY}/requirements.txt" | sed -rn 's~^.*Django==.*([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+).*$~\1~p')
 
 echo "Prepare results for badge creation..."
-if [ $performance -eq 1 ] || [ $performance -eq 0 ]; then
+if [ $performance -eq 1 ] || [ $performance -eq 0 ]; then # This might produce a warning/error "Integer expression expected" - Can be ignored.
 	performance="${performance}.0"
 fi
 
-if [ $accessibility -eq 1 ] || [ $accessibility -eq 0 ]; then
+if [ $accessibility -eq 1 ] || [ $accessibility -eq 0 ]; then # This might produce a warning/error "Integer expression expected" - Can be ignored.
 	accessibility="${accessibility}.0"
 fi
 
-if [ $best_practices -eq 1 ] || [ $best_practices -eq 0 ]; then
+if [ $best_practices -eq 1 ] || [ $best_practices -eq 0 ]; then # This might produce a warning/error "Integer expression expected" - Can be ignored.
 	best_practices="${best_practices}.0"
 fi
 
-if [ $seo -eq 1 ] || [ $seo -eq 0 ]; then
+if [ $seo -eq 1 ] || [ $seo -eq 0 ]; then # This might produce a warning/error "Integer expression expected" - Can be ignored.
 	seo="${seo}.0"
 fi
 
