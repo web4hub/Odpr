@@ -144,11 +144,15 @@ update-base-image:
 build-images:
   stage: build
   image: $BUILDER_IMAGE
+  variables:
+    APP_IMAGE: "$(resolve_nested.sh APP_IMAGE_DEBUG)"
   before_script:
+    - 'echo "APP_IMAGE_NAME: $APP_IMAGE_NAME"'
     - cd $CI_PROJECT_DIR
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN $DOCKER_REGISTRY
     - mv "${BUILDER_NODE_MODULES_SRC_DIRECTORY}" "${BUILDER_NODE_MODULES_DESTINATION_DIRECTORY}"
   script:
+    - 'echo "APP_IMAGE_NAME: $APP_IMAGE_NAME"'
     - ./build_gitlab.sh
     - docker build
       --build-arg CLIENT_DIRECTORY
@@ -186,6 +190,7 @@ build-images:
       --build-arg DJANGO_DATABASE_PASSWORD
       -t $POSTGRES_IMAGE_DEBUG -f postgres/Dockerfile .
   after_script:
+    - 'echo "APP_IMAGE_NAME: $APP_IMAGE_NAME"'
     - docker push $APP_IMAGE_DEBUG
     - docker push $NGINX_IMAGE_DEBUG
     - docker push $POSTGRES_IMAGE_DEBUG
