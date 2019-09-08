@@ -19,4 +19,4 @@ python ../backend/manage.py makemigrations accounts api app
 echo "Migrating..."
 python ../backend/manage.py migrate
 
-echo "Finished. You should now call createsuperuser (via the Windows Supershell if you are on Windows)"
+echo "Finished. You can now create a new superuser by registering a user at localhost:8000/api/v1/auth/register/ (don't forget the trailing slash/)"

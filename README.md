@@ -153,8 +153,21 @@ You will basically almost never need to touch any directories other than `backen
 The Django source code is in `backend`, the Vue source code and the webpack configuration is in `client`.
 The virtualenv (`.venv`) will be created in `backend` and the `node_modules` will be cached in `client`.
 You will likely very often want to call `./deploy.sh` from the project's root directory, and `npm run dev` from the projects `client` directory.
-You can also run `python manage.py runserver` from `backend`, but be aware that you `source .venv/bin/activate` or `source .venv/Scripts/active` before you do that in `backend`.
-You can also run django nose tests with `python manage.py test`.
+You can also run `python manage.py runserver` from `backend`, but be aware that you `source .venv/bin/activate` or `source .venv/Scripts/activate` before you do that in `backend`.
+You can also run django nose tests with `python manage.py test` in the `backend` directory.
+
+Here is a short overview of what commands are useful on your local machine:
+
+| (`cd` into) Directory | Script/Command | Info |
+|------|------|-------|
+| `project-root/` | `./deploy.sh` | Will build and then run the app.<br>Also installs all missing node modules and pip dependencies<br>and creates a new `backend/.venv` (pip-virtualenv) directory,<br>if it does not exist yet. |
+| `project-root/` | `./deploy.sh run` | Will skip a rebuild and will only start<br>the Django server to run the app.<br>With both commands, you should be able to<br>reach your App in a Webbrowser with<br>the URL `localhost:8000` |
+| `project-root/util/` | `./hard_reset_db.sh` | Will delete all migration folders<br>which are defined in this script (you are<br>responsible to add them to the script if you want to use<br>this script and if you add new Django apps),<br>and deletes the `db.sqlite3` file,<br>then runs new migrations from scratch,<br>so you have a fresh and empty database<br>with your latest db-scheme.<br>This often helps during development<br>to get rid of some annoying db-scheme-constellations,<br>which can occur quite often during the<br>early phase of dev, but in this phase<br>you likely won't care about losing data. |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+|  |  |  |
+|  |  |  |
 
 <!-- TODO: Add description of webpack config, Vue src code, api/axios, django router+vue-router and django setup and config -->
 
