@@ -1,51 +1,30 @@
 <template>
 	<div id="App">
-		<div
-			v-if="isLoading"
-			id="loader-wrapper"
-		>
-			<div id="loader" />
+		<div v-if="true">
+			<img
+				class="logo"
+				src="./assets/logo.png"
+				alt=""
+			>
+			<br>
+			<img
+				class="logo"
+				src="./assets/dj.png"
+				alt=""
+			>
+			<router-view />
+			<p>
+				Welcome to your Django - Vue.js app!
+				Now also with auto-deploy (and supporting re-deploying the same version with updates)
+			</p>
 		</div>
-		<img
-			class="logo"
-			src="./assets/logo.png"
-			alt=""
-		>
-		<br>
-		<img
-			class="logo"
-			src="./assets/dj.png"
-			alt=""
-		>
-		<router-view />
-		<p>
-			Welcome to your Django - Vue.js app!
-			Now also with auto-deploy (and supporting re-deploying the same version with updates)
-		</p>
 	</div>
 </template>
 
 <script>
 export default {
 	name: 'App',
-	components: {},
-	data: function () {
-		return {
-			isLoading: true
-		}
-	},
-	beforeCreate: function () {
-		// Display Preloader
-		this.isLoading = true
-	},
-	mounted: function () {
-		this.$nextTick(function () {
-			// Code that will run only after the
-			// entire view has been rendered
-			// Hide Preloader
-			this.isLoading = false
-		})
-	}
+	components: {}
 }
 </script>
 
@@ -78,31 +57,6 @@ export default {
 		width: 100px;
 		height: 100px
 	}
-
-	// Loader:
-
-	#loader-wrapper {
-		position: fixed;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1000;
-	}
-
-	#loader {
-		display: block;
-		position: relative;
-		left: 50%;
-		top: 50%;
-		width: 150px;
-		height: 150px;
-		margin: -75px 0 0 -75px;
-
-		border: 3px solid #3498db;
-		z-index: 1500;
-	}
-
 </style>
 
 <style lang="scss" src="@/style/Main.scss"></style>
