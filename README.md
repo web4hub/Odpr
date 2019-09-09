@@ -175,10 +175,94 @@ Here is a short overview of what commands are useful on your local machine:
 
 <!-- TODO: Add description of webpack config, Vue src code, api/axios, django router+vue-router and django setup and config -->
 
-... More is coming...
+### Django router + Vue router - URLs - how does all of that work?
 
+1. User requests the site `https://example.com`
+2. nginx-proxy looks if any app with a running nginx server with this domain is listening and passes the request through to this app.
+3. the nginx server in the app passes the request through gunicorn to Django
+4. Django trys to match the request URL with the api-urls in the urls.py
+5. For the main page with no additional patterns, Django will find the URL `/` matching and will return the mapped index.html.
+![Routes workflow 1](documentation/media/routes_01.svg?raw=true)
+6. If a user makes another request, for example `https://example.com/subpage1`, where the additional pattern `subpage1` occurs,
+	**Django** will no more longer match the incoming URL with `/`, but will try to find another matching entry.
+	1. If found,
+	Django will call the class/method/instructions mapped to the matching URL. E.g. `example.com/admin/` matches a third-party-library
+	endpoint url and Django will return pre-rendered backend UI pages, so the user is able to navigate through sites solely created
+	by Django where our Vue-frontend is never even touched.
+	2. If NOT found, Django will execute the defined fallback mechanism,
+	which could for example be to return a `404 not found` page, or, in our case, the instruction to just return the `index.html`
+	like we did at the main-page-URL `/`, but this time, Django will also pass the request URL through to Vue, so we load `index.html`,
+	render Vue, and let our **vue-router** decide what to do with the URL:
+	![Routes workflow 2](documentation/media/routes_02.svg?raw=true)
+		1. It's the same game again: If the URL matches a pattern
+	defined in our Vue-Router, the router will navigate to that (sub)-page or perform any code which is mapped to the URL-pattern.
+		2. If NOT found, you can again decide, if you want to display a beautiful-vue-rendered `404 Not Found` or if you just want to
+	kick the user back to the beginning - The main page `example.com`.
+	![Routes workflow 3](documentation/media/routes_03.svg?raw=true)
+
+
+### Server (Django) (Backend)
+
+I won't go into depth of how Django works. You need to read the official Django Docs and find other tutorials for that.
+Also, take care, that the Django-Rest-Framework is a third-party library, something like a "plugin" if you want to call it so,
+which is needed in order to be able to have a custom frontend framework as your client like Vue, React, Angular, etc.
+Else, Django is meant to directly serve and render your frontend as well ("Server side rendering"), but you want to build
+an App with cool stuff, so you don't want server-side-rendering, alright?
+
+However, here's still a short overview:
+
+The main config for django lies in `backend/vuedj/settings.py` and in the same folder is the crucial `urls.py` where all subsequent
+url-patterns have their "entrypoint".
+
+There are 4 custom apps installed already, as part of this boilerplate (but in addition to them there are many more third-party apps
+defined in `settings.py`): Those are
+* **accounts** - All about user registration and login/register/pw-reset etc. (Also the crucial admin is handled here, so if you don't plan to
+enable user-registration at all, you might at least want access to your backend configuration in production as admin-user)
+* **api** - This is an intermediate layer to keep your api clean and easy to maintain. This app does nothing but including all of YOUR apps into
+its `api/urls.py` which is itself just once included in the main `vuedj/urls.py`. This is to avoid a huge and bloated `vuedj/urls.py`.
+* **app** - The main app of your backend. Which is empty for now, but you might want to begin here (or in `accounts`) to develop your backend.
+* **test_util** - Also not really an "app", it's just there to provide a way to gather common helper classes and helper methods for your backend tests.
+You might want to have a look at them and use them now or then.
+
+### Client (Vue) (Frontend)
+
+There are a lot of folders and files in the `client` directory: Most of them are configuration files for webpack, eslint,
+babel, npm, or their output directories. You will most likely rarely need to touch the files in `config`, `build` or
+`package.json`, but you WILL. For example, you should update the information in `package.json` to your needs, currently
+there is meta information of the boilerplate included which you don't want to keep with you.
+
+If you add any additional npm packages, you will likely want to update the `build/webpack.prod.conf.js` to add the new
+libraries and configure them with webpack.
+
+If you want to write frontend tests, the folder `cypress/integration` is your start-point. Minimal tests are already inside.
+These tests are also already running on gitlab CI.
+
+The actual development takes place in `src`. This is your playground.
+
+The `format_index_html.py` is crucial and will overwrite the webpack-generated `templates/index.html` with some
+dynamic instructions for static files. Static files are the files which represent your whole app when built.
+You can imagine the `staticfiles`-directory (which will be in the project's root) being the "image" of your frontend.
+All the files in the `staticfiles`-directory are somehow linked/referenced in the main `index.html`.
+The main `index.html` is the end-result of the steps `npm run build` plus `python format_index_html.py` in the client
+directory and is NOT the `client/index.html` but the `client/templates/index.html`. The `client/index.html` is the
+source for webpack, which is needed in order to provide the first skeleton where webpack will inject links and
+reference to the generated chunks (your actual Vue-App).
+I also added a Preloader to the `client/index.html` consisting of plain css and javascript, which removes the preloader-DOM
+as soon as the site is completely loaded. As a Single-Page-Application like this is one can become quite bulky for the
+initial load, a Preloader is something you will very likely want to have (like jsfiddle.com has one for example)
+
+
+## Variable Injections
+
+You might notice that there are some environment variables in use in some of the config or even source files. Please
+don't touch them, they are needed by the gitlab CI/CD setup, so you do not need to care about debug vs. production settings
+AT ALL! They should solely be configured in `.gitlab-ci.yml` or even better in your Gitlab UI Settings.
+For example such variables look like this in the code:
+`process.env.APP_INDEX_HTML_TEMPLATE_DIRECTORY` in `client/config/index.js`
+`os.getenv('DJANGO_SECRET_KEY')` in `backend/vuedj/settings.py`
 
 ## Useful Links
 
+coming...
 <!-- TODO: Add links to django docs, vue docs, webpack docs, npm docs, django-restframework docs, etc. -->
 
