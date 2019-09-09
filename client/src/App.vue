@@ -1,6 +1,6 @@
 <template>
 	<div id="App">
-		<div v-if="true">
+		<div>
 			<img
 				class="logo"
 				src="./assets/logo.png"
