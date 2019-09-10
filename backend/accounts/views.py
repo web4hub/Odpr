@@ -6,7 +6,6 @@ from django.dispatch import receiver
 from django_rest_passwordreset.signals import reset_password_token_created
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
-from vuedj.constants import site_url, site_full_name, site_shortcut_name
 from rest_framework.views import APIView
 from rest_framework import parsers, renderers, status
 from rest_framework.response import Response
@@ -16,6 +15,7 @@ from django_rest_passwordreset.views import get_password_reset_token_expiry_time
 from django.utils import timezone
 from datetime import timedelta
 from .permissions import IsUnauthenticatedOrAdminOrStaff
+import os
 
 
 class CustomRegisterView(RegisterView):
@@ -48,6 +48,10 @@ class CustomPasswordResetView:
 			When a token is created, an e-mail needs to be sent to the user
 		"""
 		# send an e-mail to the user
+		site_url = os.environ.get('DJANGO_ALLOWED_HOST_1') or 'localhost:8000'
+		site_full_name = os.environ.get('DJANGO_ALLOWED_HOST_1') or 'localhost:8000'
+		site_shortcut_name = os.environ.get('DJANGO_ALLOWED_HOST_1') or 'localhost:8000'
+
 		context = {
 			'current_user': reset_password_token.user,
 			'username': reset_password_token.user.username,
