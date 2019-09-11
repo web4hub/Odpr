@@ -18,13 +18,18 @@
 				Now also with auto-deploy (and supporting re-deploying the same version with updates)
 			</p>
 		</div>
+		<footer>
+			<cookie-law theme="dark-lime" />
+		</footer>
 	</div>
 </template>
 
 <script>
 export default {
 	name: 'App',
-	components: {}
+	components: {
+		CookieLaw: () => import('vue-cookie-law')
+	}
 }
 </script>
 

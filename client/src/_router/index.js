@@ -11,7 +11,8 @@ export default new Router({
 			name: 'Hello',
 			component: () => import('@/components/Hello')
 		},
-		{ path: '*',
+		{
+			path: '*',
 			component: () => import('@/components/NotFound')
 		}
 	]
