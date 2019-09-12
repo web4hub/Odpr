@@ -14,6 +14,34 @@
 [![pip dependencies](https://test.gitlab.electrocnic.com/gitlab-badges/outdated_pip.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/outdated.html)
 [![npm dependencies](https://test.gitlab.electrocnic.com/gitlab-badges/outdated_npm.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/outdated.html)
 
+# Content
+
+1. [What is this?](#what-is-this)
+2. [TL;DR](#tldr)
+3. [Prerequisites](#prerequisites)
+4. [Installation/Setup](#installationsetup)
+5. [Local execution](#local-execution)
+6. [Continuous Deploy Overview (CD)](#continuous-deploy-overview-cd)
+	1. [Deploy](#deploy)
+7. [Continuous Integration (CI)](#continuous-integration-ci)
+8. [Project Setup / Development](#project-setup-development)
+	1. [Django router + Vue router + URLs - how does all of that work?](#django-router-vue-router-urls-how-does-all-of-that-work)
+	2. [Server (Django) (Backend)](#server-django-backend)
+	3. [Client (Vue) (Frontend)](#client-vue-frontend)
+9. [Variable Injections](#variable-injections)
+10. [Security](#security)
+11. [Useful Links](#useful-links)
+12. [Contribution](#contribution)
+13. [Feature-List](#feature-list)
+14. [FAQ / Troubleshooting](#faq-troubleshooting)
+	1. [CI Build problems](#ci-build-problems)
+	2. [Deploy problems](#deploy-problems)
+	3. [Local Build problems](#local-build-problems)
+	4. [OS and environment](#os-and-environment)
+15. [Uninstall](#uninstall)
+	1. [Uninstall App only](#uninstall-app-only)
+	2. [Uninstall all apps + nginx-proxy](#uninstall-all-apps-nginx-proxy)
+
 
 # Vue-Django CI/CD template using GitLab, Cypress and Django Unit Tests and Docker
 ## What is this?
@@ -51,7 +79,7 @@ This is for you, if you want to start with the development of a Vue-Django Webap
 This is ONLY for you, if you are OK with the listed technologies above. Else, you can experiment and try to replace one technology with another, but no guarantees that it will work!
 
 
-## Prerequesites
+## Prerequisites
 
 If you want to use this boilerplate you need at least:
 1. A **gitlab runner in privileged mode** (needed for the docker-runner to be able to build and start more docker containers)
