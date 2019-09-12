@@ -290,6 +290,9 @@ Currently, the Django-Secret and the postgres password and postgres-username wil
 during the image-build. They will stay there as environment variables. This might not seem like the best solution, so if
 you have any suggestions to improve it feel free to open an issue or contribute.
 
+The docker registry credentials (password, username, domain) will be saved HARDCODED on the DEPLOY-server in each app's
+start-scripts, in order to be able to login to your docker registry and to update the app's images.
+
 The secrets are never committed in the code though, so you will not expose them publicly if you do not expose the docker
 images themselves in public.
 
