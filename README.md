@@ -170,10 +170,8 @@ Here is a short overview of what commands are useful on your local machine:
 | <nobr>`project-root/backend/`</nobr> | <nobr>`python manage.py migrate`</nobr> | `source .venv/bin/activate` or on Windows: `source .venv/Scripts/activate` is needed before you can run this command! After the above 2 commands, you will also most likely want to run this command which will then use the updated information of your migrations-folders and apply them on your database file/instance (`db.sqlite3`). |
 | <nobr>`project-root/backend/`</nobr> | <nobr>`python manage.py createsuperuser`</nobr> | `source .venv/bin/activate` or on Windows: `source .venv/Scripts/activate` is needed before you can run this command! When you have a fresh database, you might want to create a new admin user for your django app, in order to be able to test the app manually on `localhost:8000/admin/`. In this boilerplate I provide a way to add a superuser even in production (because you will definitely want to have at least one admin in production as well, but `python manage.py createsuperuser` is no longer possible in production, thus the first registered user will automatically become a superuser. (`localhost:8000/api/v1/auth/register/`) |
 | <nobr>`project-root/client/`</nobr> | <nobr>`npm run build`</nobr> | Will build the Vue app. This means, npm will use the configuration of `project-root/client/package.json` and will run webpack with its configurations from `project-root/client/build/` and `project-root/client/config`. Webpack will then resolve all node_modules and asset-dependencies (.js, .css, .sass, .png, etc) and will create so-called chunks of your bundled app. It will inject the start-point (a few files (chunks) that represent the "entrypoint") into the main `index.html` file. This command is used when you want to be able to test your full app: Frontend WITH Backend. This command is also already used by the `./deploy.sh` script. |
-| <nobr>`project-root/client/`</nobr> | <nobr>`npm run dev`</nobr> | Will build the Vue app with a few different settings and modes and will immediately start an integrated server to serve the static frontend at `localhost:8080`. It also provides more detailed build-error-messages than `npm run build` and is faster. Useful only if you only want to view your Frontend changes without the need for a connected backend. |
+| <nobr>`project-root/client/`</nobr> | <nobr>`npm run dev`</nobr> | Will build the Vue app with a few different settings and modes and will immediately start an integrated server to serve the static frontend at `localhost:8080`. It also provides more detailed build-error-messages than `npm run build` and is faster. Useful only if you only want to view your Frontend changes without the need for a connected backend. This command is also most likely what you will want to keep opened in a terminal while developing Vue: It auto-updates on file-changes and displays the changes immediately in the browser without the need for manual page-reloads. |
 | <nobr>`project-root/client/`</nobr> | <nobr>`npm run test`</nobr> | Will start cypress and will run your frontend and integration tests using cypress. For this command to work properly, you will need to open a second terminal where you run `./deploy.sh`, because cypress runs its tests against the full app, and not against the static frontend only (as it is configured currently). |
-
-<!-- TODO: Add description of webpack config, Vue src code, api/axios, django router+vue-router and django setup and config -->
 
 ### Django router + Vue router - URLs - how does all of that work?
 
@@ -182,7 +180,6 @@ Here is a short overview of what commands are useful on your local machine:
 3. the nginx server in the app passes the request through gunicorn to Django
 4. Django trys to match the request URL with the api-urls in the urls.py
 5. For the main page with no additional patterns, Django will find the URL `/` matching and will return the mapped index.html.
-![Routes workflow 1](documentation/media/routes_01.svg?raw=true)
 6. If a user makes another request, for example `https://example.com/subpage1`, where the additional pattern `subpage1` occurs,
 	**Django** will no more longer match the incoming URL with `/`, but will try to find another matching entry.
 	1. If found,
@@ -193,12 +190,11 @@ Here is a short overview of what commands are useful on your local machine:
 	which could for example be to return a `404 not found` page, or, in our case, the instruction to just return the `index.html`
 	like we did at the main-page-URL `/`, but this time, Django will also pass the request URL through to Vue, so we load `index.html`,
 	render Vue, and let our **vue-router** decide what to do with the URL:
-	![Routes workflow 2](documentation/media/routes_02.svg?raw=true)
 		1. It's the same game again: If the URL matches a pattern
 	defined in our Vue-Router, the router will navigate to that (sub)-page or perform any code which is mapped to the URL-pattern.
 		2. If NOT found, you can again decide, if you want to display a beautiful-vue-rendered `404 Not Found` or if you just want to
 	kick the user back to the beginning - The main page `example.com`.
-	![Routes workflow 3](documentation/media/routes_03.svg?raw=true)
+	![Routes workflow](documentation/media/routes_03.svg?raw=true)
 
 
 ### Server (Django) (Backend)
@@ -251,7 +247,6 @@ I also added a Preloader to the `client/index.html` consisting of plain css and 
 as soon as the site is completely loaded. As a Single-Page-Application like this is one can become quite bulky for the
 initial load, a Preloader is something you will very likely want to have (like jsfiddle.com has one for example)
 
-
 ## Variable Injections
 
 You might notice that there are some environment variables in use in some of the config or even source files. Please
@@ -261,8 +256,105 @@ For example such variables look like this in the code:
 `process.env.APP_INDEX_HTML_TEMPLATE_DIRECTORY` in `client/config/index.js`
 `os.getenv('DJANGO_SECRET_KEY')` in `backend/vuedj/settings.py`
 
+## Security
+
+Currently, the Django-Secret and the postgres password and postgres-username will get injected into the Docker-Image
+during the image-build. They will stay there as environment variables. This might not seem like the best solution, so if
+you have any suggestions to improve it feel free to open an issue or contribute.
+
+The secrets are never committed in the code though, so you will not expose them publicly if you do not expose the docker
+images themselves in public.
+
+https support is enabled per default and even forced in the production image, but completely handled by the third-party
+nginx-proxy.
+
+You should have a private docker registry and you should keep access to the repo private (or for trusted people) only.
+
 ## Useful Links
 
-coming...
-<!-- TODO: Add links to django docs, vue docs, webpack docs, npm docs, django-restframework docs, etc. -->
+[Vue Documentation](https://vuejs.org/v2/guide/)<br>
+[Vuex Documentation](https://vuex.vuejs.org/guide/)<br>
+[Vue-Router Documentation](https://router.vuejs.org/)<br>
+[CSS Guideline](https://cssguidelin.es/)<br>
+[Django Documentation](https://docs.djangoproject.com/en/2.2/)<br>
+[Django REST Framework Documentation and Tutorials](https://www.django-rest-framework.org/)<br>
+[Webpack Documentation](https://webpack.js.org/concepts/)<br>
+[npm Documentation](https://docs.npmjs.com/)<br>
+[pip Documentation](https://pip.pypa.io/en/stable/)<br>
+[pip Documentation](https://pip.pypa.io/en/stable/)<br>
+[Gitlab CI/CD Documentation](https://docs.gitlab.com/ee/ci/)<br>
+[Docker and Docker-Compose Documentation](https://docs.docker.com/ee/)<br>
+[nginx Documentation](http://nginx.org/en/docs/)<br>
+[postgres Documentation](https://www.postgresql.org/docs/manuals/)<br>
+[Basics of Bash Scripting (for beginners)](https://linuxconfig.org/bash-scripting-tutorial-for-beginners)<br>
 
+
+## Contribution
+
+You feel you can and want add some features or enhance some existing features?
+You feel you could add more documentation?
+Please feel free to ask for contribution permissions or open issues.
+
+## Feature-List
+
+A list of contained features below:
+
+* Gitlab **CI configuration** for automated build and testing
+* **Backend tests** in CI (with example test)
+* **Frontend/Integration tests** in CI (with example test)
+* Gitlab **CD configuration** as CI job
+* **Production deployment** with automatic **https enforcement** (and **auto-update certificates**)
+* **Test deployment** with https+http support (and auto-update certificates)
+* **Debug images** with debug-configuration (Vue devtools, Django exceptions in browser, localhost:8000).
+* **Badges** (You see them on top of this README) (they include **lighthouse analyzis**)
+* **Preloader:** As a SPA (Single Page Application) might be very bulky very fast, the initial load can be slooooow.
+An animated css-preloader for the frontend is already included in order to give a better impression for you customers.
+It is included in the main `index.html` file directly.
+* **Cookies Agreement popup.** Included in `App.vue`: Using [Vue Cookie Law](https://www.npmjs.com/package/vue-cookie-law).
+* **Preconfigured Webpack:** Output in chunks, sass/scss support, bootstrap-vue and bootstrap included.
+* **Bootstrap + Bootstrap-Vue**
+* **axios:** A first simple api is already setup in Vue+Django in order to give you a starting point for the API.
+* **Django + Django Restframework:** The restframework is already configured so, that you can test the accounts-urls.
+* **Admin** on production server: First registered user becomes superadmin in django.
+* **Multiple Apps** on one deploy-server: The nginx-proxy will automatically detect all apps which are deployed to the same
+server using this boilerplate. The deploy mechanism will recognize if nginx-proxy is already up and running on the target.
+* **Local Build** with `./deploy.sh`: This script supports Windows and Linux (tested on Ubuntu 18.04) and is a Zero-Config
+except that you need to install npm and python3 on your system yourself before you can use it.
+* **nginx gzip compression**: Static files are compressed with nginx on the fly. Webpack could be used with a plugin to
+compress the files during build, but that will not work together with chunks, and chunks are more important, and nginx-compression
+works very well.
+* **preload-assets:** Preload the chunks in the `index.html` file.
+
+## FAQ / Troubleshooting
+
+### CI Build problems
+
+1. Did you set all variables in `Gitlab -> Settings -> CI/CD -> Variables`?
+2. Did you add a runner to your gitlab setup in privileged mode?
+3. Did you add a valid docker registry url with valid docker registry credentials to the variables in Gitlab?
+
+### Deploy problems
+
+1. Did you create a `gitlab` user on your production server and did you add it to the docker-group?
+2. Did you add the **CONTENT** of your private key file as a Variable **OF TYPE FILE** in gitlab?
+3. Did you add the public key to the `authorized_keys` file of your gitlab-user on your deploy server?
+4. Did you install docker and docker-compose on your production server?
+5. Are all of the files and directories on the deploy server on `~/` owned by the gitlab user, or are (some of them) they
+owned by root or any other user?
+
+### Local Build problems
+
+1. Delete the `project-root/staticfiles/*` content and the `project-root/client/static-vuedj` directory.
+2. Look at the error messages of webpack and npm closely, **google them**.
+3. Try to build with `cd client && npm run dev`, maybe it has more detailed error messages.
+4. Is the variable you just used in the Vue-template-section a variable or a method?
+5. Did you define the method as a function or as a dictionary/object by mistake?
+
+### OS and environment
+
+I used:
+* Windows: Git-Bash + IntelliJ + WebStorm + PyCharm
+* Ubuntu 18.04: gnome terminal + IntelliJ + WebStorm + PyCharm
+* Ubuntu 18.04 on x86: For the production server for deployments.
+
+I cannot help you if you use a different environment.
