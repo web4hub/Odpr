@@ -173,7 +173,7 @@ Here is a short overview of what commands are useful on your local machine:
 | <nobr>`project-root/client/`</nobr> | <nobr>`npm run dev`</nobr> | Will build the Vue app with a few different settings and modes and will immediately start an integrated server to serve the static frontend at `localhost:8080`. It also provides more detailed build-error-messages than `npm run build` and is faster. Useful only if you only want to view your Frontend changes without the need for a connected backend. This command is also most likely what you will want to keep opened in a terminal while developing Vue: It auto-updates on file-changes and displays the changes immediately in the browser without the need for manual page-reloads. |
 | <nobr>`project-root/client/`</nobr> | <nobr>`npm run test`</nobr> | Will start cypress and will run your frontend and integration tests using cypress. For this command to work properly, you will need to open a second terminal where you run `./deploy.sh`, because cypress runs its tests against the full app, and not against the static frontend only (as it is configured currently). |
 
-### Django router + Vue router - URLs - how does all of that work?
+### Django router + Vue router + URLs - how does all of that work?
 
 1. User requests the site `https://example.com`
 2. nginx-proxy looks if any app with a running nginx server with this domain is listening and passes the request through to this app.
@@ -358,3 +358,18 @@ I used:
 * Ubuntu 18.04 on x86: For the production server for deployments.
 
 I cannot help you if you use a different environment.
+
+
+## Uninstall
+
+### Uninstall App only
+
+ssh to your production server with the gitlab-user and `~/apps/YOUR_APP_DOMAIN/app.sh stop` to gracefully stop the app
+first. Then `rm -rf ~/apps/YOUR_APP_DOMAIN` and do that once for the
+test-domain of that app and once for the production-domain.
+Then delete the docker images which might still be around.
+(`docker images` and `docker rmi IMAGE_ID_APP IMAGE_ID_APP_NGINX IMAGE_ID_APP_POSTGRES`)
+
+### Uninstall all apps + nginx-proxy
+
+Repeat the above process for all apps in `~/` on your deploy server and for the nginx-proxy use `~/nginx-proxy/nginx-proxy.sh stop` instead.
