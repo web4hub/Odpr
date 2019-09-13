@@ -19,6 +19,7 @@
 1. [What is this?](#what-is-this)
 2. [TL;DR](#tldr)
 3. [Prerequisites](#prerequisites)
+	1. [Docker Credential Store on Production Server](#docker-credential-store-on-production-server)
 4. [Installation/Setup](#installationsetup)
 5. [Local execution](#local-execution)
 6. [Continuous Deploy Overview (CD)](#continuous-deploy-overview-cd)
@@ -91,6 +92,24 @@ If you want to use this boilerplate you need at least:
 6. **`docker` and `docker-compose`** must be installed on the production server. I also highly recommend using Ubuntu on x86 for the server, I did not test the setup on `ARM` nor can I guarantee anything on a different environment.
 7. **2 domains**: One **production domain**, where your app will finally be available to the public, and one **test-domain**, which is currently also available to the public, because I did not implement VPN for this purpose yet, but I am sure you can set it up yourself if you need a VPN for testing. The test domain is meant to be available from everywhere but not shared or advertised, so only you will know the URL. Examples: For the development of this boilerplate App I used the domains `production.gitlab.electrocnic.com` and `test.gitlab.electrocnic.com`. Currently they will both be deployed to the same IP, if you need to deploy them to two different IPs, just add another IP-Variable and use that variable in the `.gitlab-ci.yml`
 The Variables for the domains should be added to the CI/CD Variables settings in Gitlab as well and are named `PRODUCTION_DOMAIN` and `TEST_PRODUCTION_DOMAIN`
+
+### Docker Credential Store on Production Server
+
+You might want to configure a docker-credential-store to prevent docker from storing your docker-password in plain-text in the docker-config file.
+For now, this is basically irrelevant, as the docker password is stored in plain-text in the app's startscript `app.sh`.
+However, if you want to configure it, here is a step-by-step solution for Ubuntu, copied from [here](https://github.com/docker/docker-credential-helpers/issues/102#issuecomment-388634452):
+1. `wget https://github.com/docker/docker-credential-helpers/releases/download/v0.6.3/docker-credential-pass-v0.6.3-amd64.tar.gz`
+2. `tar -xf docker-credential-pass-v0.6.3-amd64.tar.gz`
+3. Copy unpacked file(s) to `/usr/bin` or configure `$PATH` to add its current location.
+4. Check that docker-credential-pass works by running `docker-credential-pass`. You should see: `Usage: docker-credential-pass <store|get|erase|list|version>`.
+5. `sudo apt update && sudo apt install gpg pass`
+6. `gpg --generate-key`. Enter your name, mail, etc. You will get gpg-id (pub) like "5BB54DF1XXXXXXXXF87XXXXXXXXXXXXXX945A". Copy it to clipboard. The command will likely hang if you are in a remote-ssh terminal session. Therefore: Open a second ssh connection and run: `sudo dd if=/dev/nbd0p1 of=/dev/zero` which will result in disk-usage while gpg calculates random numbers. Stop this second command when gpg has finished. Instead of `/dev/nbd0p1` you should be able to use any existing device listed under `ls /dev`.
+7. `pass init KEY_FROM_CLIPBOARD`
+8. `pass insert docker-credential-helpers/docker-pass-initialized-check` and set the password to `pass is initialized`.
+9. `pass show docker-credential-helpers/docker-pass-initialized-check` and the output should be `pass is initialized`.
+10. `docker-credential-pass list` should either output `{}` or some data but no error.
+11. `vim ~/.docker/config.json` (from the user where the docker-config json is stored) and set in root node the next line `"credsStore": "pass"`
+12. `docker login` should work now and the password should not be stored in plain text in the `~/.docker/config.json`.
 
 ## Installation/Setup
 
