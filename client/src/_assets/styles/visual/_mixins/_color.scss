@@ -1,0 +1,7 @@
+@mixin odpr--color($color-value) {
+	color: $color-value;
+}
+
+@mixin odpr--bg($color-value) {
+	background: $color-value;
+}
