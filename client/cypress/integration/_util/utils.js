@@ -1,11 +1,25 @@
 import axios from 'axios'
 import urls from '../../../src/_api/urls'
+let fs = require('fs')
 
 axios.defaults.baseURL = urls.SERVER_URL + urls.API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
 
+export const getAbsoluteExisitingPath = (relativeOrAbsolutePath) => {
+	console.log(cy.exec('ls'))
+	return relativeOrAbsolutePath
+}
+export const deleteFolderRecursive = (pathToDelete) => {
+	pathToDelete = getAbsoluteExisitingPath(pathToDelete)
+	console.log('path to delete: ' + pathToDelete)
+}
+
+export const listFiles = (path) => {
+	path = getAbsoluteExisitingPath(path)
+	return fs.readdirSync(path);
+}
 
 function performAxios (url, request, method) {
 	let token = localStorage.getItem(stateToken)
@@ -57,6 +71,3 @@ export const userServicePasswordResetMock = (email) => {
 			return { response: response.data }
 		})
 }
-
-export const getApp = () => cy.get('div#App')
-export const visit = () => cy.visit('/')
