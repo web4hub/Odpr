@@ -24,7 +24,7 @@
 				</div>
 			</cookie-law>
 		</div>
-		<footer class="footer">
+		<div class="footer page-footer">
 			<p class="footer-copyright mb-0 py-3 text-center">
 				&copy; {{ new Date().getFullYear() }} Copyright: <a
 					href="https://odpr.cg.tuwien.ac.at"
@@ -46,7 +46,7 @@
 					Terms of Use
 				</router-link>
 			</p>
-		</footer>
+		</div>
 	</div>
 </template>
 
@@ -92,6 +92,7 @@ export default {
 }
 </script>
 
+<style lang="scss" src="@/style/Main.scss"></style>
 <style>
 	html {
 		height: 100%;
@@ -130,15 +131,4 @@ export default {
 		justify-content: space-between;
 		width: 100%;
 	}
-
-	.footer {
-		position: fixed;
-		left: 0;
-		right: 0;
-		justify-content: center;
-		background: #3d4552;
-		z-index: 50;
-	}
 </style>
-
-<style lang="scss" src="@/style/Main.scss"></style>
