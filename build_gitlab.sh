@@ -34,7 +34,7 @@ echo 'Done...'
 
 echo 'Run Django Tests...'
 unset DJANGO_DATABASE_NAME # Will only unset within this script, not outside this script. Needed, to test with sqlite3 instead of postgres.
-python3 manage.py makemigrations accounts api app
+python3 manage.py makemigrations accounts api filer odpr_shared_models documentation sceneries scenery_requests
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py test --attr='assertAlmostEqual' 2>&1 | tee test_results.txt # The --attr filters subclasses of unittest.TestCase (else every helper method and everything would be considered a test-method by nose, which is annoying because it fails)
