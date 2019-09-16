@@ -1,6 +1,6 @@
 {
   "name": "vue-django-with-tests",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "Vue-Django Gitlab CI/CD Setup with Docker Images and Cypress Tests (and Django Unit Tests)",
   "main": "src/main.js",
   "directories": {
@@ -11,7 +11,8 @@
     "test": "cypress run",
     "test-ci": "cypress run --config baseUrl=http://docker:8000",
     "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "lint": "eslint --ext .js,.vue src",
+    "lint-fix": "eslint --fix --ext .js,.vue src"
   },
   "repository": {
     "type": "git",
