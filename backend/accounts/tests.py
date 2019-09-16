@@ -30,11 +30,11 @@ from odpr_shared_models.test_util.user_tests.user_update_tests import \
 	verify_authenticated_staff_can_update_other_user, \
 	verify_authenticated_admin_can_update_other_user
 from odpr_shared_models.test_util.user_tests.user_delete_tests import \
- 	verify_unauthenticated_user_delete_fails, \
- 	verify_authenticated_viewer_user_delete_fails, \
- 	verify_authenticated_author_user_delete_succeeds, \
+	verify_unauthenticated_user_delete_fails, \
+	verify_authenticated_viewer_user_delete_fails, \
+	verify_authenticated_author_user_delete_succeeds, \
 	verify_authenticated_staff_can_delete_other_user, \
- 	verify_authenticated_admin_can_delete_other_user
+	verify_authenticated_admin_can_delete_other_user
 # https://www.django-rest-framework.org/api-guide/testing/
 
 
@@ -97,10 +97,7 @@ def assert_register_response_has_expected_content_and_user_created(self, respons
 	assert get_user_by_token(response.data['key']) is not None
 
 
-class UserCreateTests(TestCase):
-	""" Register tests """
-	fixtures = ('user_fixtures',)
-
+class UserCreateTestsNoFixtures(TestCase):
 	def test_first_user_becomes_superuser(self):
 		response = register_test_user(valid_test_user1)
 		assert_register_response_has_expected_content_and_user_created(self, response)
@@ -117,6 +114,10 @@ class UserCreateTests(TestCase):
 		second_user = get_user_by_token(response.data['key'])
 		assert not second_user.is_admin
 		assert not second_user.is_staff
+
+class UserCreateTests(TestCase):
+	""" Register tests """
+	fixtures = ('user_fixtures',)
 
 	def test_unauthenticated_user_create_registers_new_user_successfully(self):
 		print('=================== Test 1:  User create should succeed ===================================================')
