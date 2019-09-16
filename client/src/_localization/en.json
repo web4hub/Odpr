@@ -1,0 +1,175 @@
+{
+	"testData": {
+		"testNested1": "value1",
+		"testNested2": {
+			"testNested2.1": "value2.1",
+			"testNested2.2": {
+				"testNested2.2.1": "value2.2.1"
+			}
+		}
+	},
+	"navBar": {
+		"searchBox": {
+			"placeholder": "Search"
+		},
+		"navigation": {
+			"sceneries": "Sceneries",
+			"requests": "Requests",
+			"community": "Community",
+			"login": "Login",
+			"register": "Register",
+			"logout": "Logout",
+			"profile": "Profile",
+			"post": "Upload",
+			"uploadScenery": "Upload Scenery",
+			"uploadRequest": "Upload Request",
+			"uploadDocument": "Upload Document"
+		}
+	},
+	"loginModal": {
+		"registerTab": {
+			"inputFields": {
+				"placeholders": {
+					"username": "Username",
+					"email": "Email",
+					"password": "Password",
+					"password_confirmation": "Confirm Password"
+				}
+			},
+			"warnings": {
+				"username": {
+					"required": "The Username field is required."
+				},
+				"email": {
+					"required": "The Email field is required.",
+					"invalid": "The provided email is not a valid email."
+				},
+				"password": {
+					"required": "The Password field is required.",
+					"minLength": "The Password field must be at least 8 characters.",
+					"strength": "The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)"
+				},
+				"password_confirmation": {
+					"confirmed": "The Password Confirmation field does not match the Password field.",
+					"required": "The Password Confirmation field is required."
+				}
+			}
+		},
+		"loginTab": {
+			"inputFields": {
+				"placeholders": {
+					"usernameOrEmail": "Email or Username",
+					"password": "Password"
+				}
+			},
+			"warnings": {
+				"usernameEmail": {
+					"required": "The username OR the email is required in order to login."
+				},
+				"password": {
+					"required": "The password is required in order to login."
+				}
+			}
+		},
+		"passwordResetTab": {
+			"inputFields": {
+				"placeholders": {
+					"email": "Email"
+				}
+			},
+			"warnings": {
+				"email": {
+					"required": "The email of your account is required in order to reset your password.",
+					"invalid": "The provided email is not a valid email."
+				}
+			},
+			"successNotifications": {
+				"successfulPasswordResetLinkSent": "We have sent a password-reset link via E-Mail to you. Please have a look into your mail folder and open the link to reset your password."
+			}
+		},
+		"buttons": {
+			"registerSubmit": "Register",
+			"loginSubmit": "Login",
+			"passwordSubmit": "Reset Password",
+			"registerSubmitInProgress": "Registering...",
+			"loginSubmitInProgress": "Logging in...",
+			"passwordSubmitInProgress": "Resetting password..."
+		},
+		"links": {}
+	},
+	"passwordResetModal": {
+		"buttons": {
+			"passwordResetSubmit": "Submit",
+			"passwordResetSubmitInProgress": "Submitting..."
+		},
+		"successNotifications": {
+			"successfulPasswordResetDone": "Password successfully reset. Please log now into your account with your new password."
+		}
+	},
+	"passwordChangeModal": {
+		"buttons": {
+			"passwordChangeSubmit": "Submit",
+			"passwordChangeSubmitInProgress": "Submitting..."
+		}
+	},
+	"sceneryUpload": {
+		"name": "Scenery",
+		"inputFields": {
+			"placeholders": {
+				"title": "Title",
+				"description": "Description",
+				"filterProperties": "Filter Properties",
+				"effects": "Effects",
+				"materials": "Materials",
+				"lights": "Lights",
+				"sceneryComplexity": "Scenery Complexity",
+				"tags": "Tags",
+				"files": "Files",
+				"images": "Images"
+			},
+			"help": {
+				"title": "Enter a short and pregnant title for your new Scenery",
+				"description": "Optional: Please describe what your Scenery contains, for what purpose you made it, which effects and caustics should be visible after render, etc.",
+				"effects": "Please provide effect-tags for your Scenery. These should be single words, as short and pregnant as possible, seperated by commas. E.g.: \"Reflection, Bloom, Glow\"",
+				"materials": "Please provide material-tags for your Scenery. These should be single words, as short and pregnant as possible, seperated by commas. E.g.: \"Diffuse, Glossy, Transparent, Translucent\"",
+				"lights": "Please provide light-tags for your Scenery. These should be single words, as short and pregnant as possible, seperated by commas. E.g.: \"Point, Spot, Area, Sun\"",
+				"tags": "Please provide tags for your Scenery which do not fit to any of the above tags. These should be single words, as short and pregnant as possible, seperated by commas. E.g.: \"Nature, Chemicals, Gas, Water, Sky, Animals, Fur, ...\""
+			}
+		},
+		"warnings": {
+			"title": {
+				"required": "The Title of your new Scenery is required.",
+				"toolong": "The Title can have a maximum length of 200 characters."
+			},
+			"description": {
+				"toolong": "The Description can have a maximum length of 2000 characters."
+			},
+			"effects": {
+				"toolong": "Each tag can have a maximum length of 40 characters."
+			},
+			"materials": {
+				"toolong": "Each tag can have a maximum length of 40 characters."
+			},
+			"lights": {
+				"toolong": "Each tag can have a maximum length of 40 characters."
+			},
+			"tags": {
+				"toolong": "Each tag can have a maximum length of 45 characters."
+			}
+		}
+	},
+	"errors": {
+		"generalServerError": "Error: Something went wrong. Please try again. Sorry for the inconvenience!",
+		"userAlreadyExists": "Error: User already exists!",
+		"invalidResetToken": "Error: Token Invalid or already used!",
+		"expiredResetToken": "Error: Token Expired! Please request a new one.",
+		"irrelevantToken": "Error: Token valid but user has no password. This should not happen. Maybe you were hacked or you are the hacker?"
+	},
+	"successNotifications": {
+		"successfulRegistration": "The Registration was successful! Please log now in to your new Account..."
+	},
+	"global": {
+		"contactMail": "odpr@cg.tuwien.ac.at",
+		"scenery": "Scenery"
+	}
+}

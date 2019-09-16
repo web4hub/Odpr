@@ -8,6 +8,8 @@ from api import views as api_views
 app_name = 'main'
 urlpatterns = [
 	path('admin/', admin.site.urls),
+	path('files/', include('filer.urls')),
+	path('', include('filer.server.urls')),
 	path('api/v1/', include('api.urls')),
 	path('accounts/', include('allauth.urls')),
 	path('', api_views.index, name='home')

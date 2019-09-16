@@ -1,0 +1,197 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "username": "John",
+      "email": "john@gmail.com",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 500
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "username": "Paul",
+      "email": "paul@gmail.com",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 100
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+      "username": "Sandra",
+      "email": "sandra@gmail.com",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 1538
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+      "username": "C00lGuy!1elf",
+      "email": "yoyo@gmail.ru",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 4023178
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+      "username": "Moderator 1",
+      "email": "mod1@odpr.cg.tuwien.ac.at",
+			"is_staff": "True",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 2,
+			"points": 10133179
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 7,
+    "fields": {
+      "username": "Sarah_Hopkins",
+      "email": "sarah.hopkins@yandex.ru",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 1711
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 8,
+    "fields": {
+      "username": "Fake_user_with_fake_content",
+      "email": "fake@yandex.ru",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 7
+    }
+  },
+	{
+    "model": "accounts.user",
+    "pk": 9,
+    "fields": {
+      "username": "Maria",
+      "email": "maria.lowath@gmail.com",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 575
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 10,
+    "fields": {
+      "username": "MySuperCoolUsername",
+      "email": "some_account@yahoo.com",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 14098
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 11,
+    "fields": {
+      "username": "Herkules",
+      "email": "roman.wenzinger@gmail.com",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 24213
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 12,
+    "fields": {
+      "username": "WhyThough?",
+      "email": "sebastian357@gmail.com",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 40
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 13,
+    "fields": {
+      "username": "SuperMod!1!11elf",
+      "email": "mod2@odpr.cg.tuwien.ac.at",
+			"is_staff": "True",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 2,
+			"points": 378945
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 14,
+    "fields": {
+      "username": "Loli9",
+      "email": "some_weird_creep@yandex.ru",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 5097889
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 15,
+    "fields": {
+      "username": "IRobot",
+      "email": "irobot@yandex.ru",
+			"is_staff": "False",
+			"is_active": "True",
+			"is_admin": "False",
+			"user_type": 3,
+			"points": 22
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 16,
+    "fields": {
+      "username": "TestAdmin",
+      "email": "testadmin@yandex.ru",
+			"is_staff": "True",
+			"is_active": "True",
+			"is_admin": "True",
+			"user_type": 0,
+			"points": 2209988
+    }
+  }
+]

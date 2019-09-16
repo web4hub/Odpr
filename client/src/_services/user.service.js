@@ -29,7 +29,7 @@ function login (username, password) {
 			const token = response.data.key
 			// const user = response.data.user
 			localStorage.setItem(stateToken, token)
-			axios.defaults.headers.common['Authorization'] = token
+			axios.defaults.headers.common.Authorization = token
 			return { token: token }
 		})
 }
@@ -38,7 +38,7 @@ function logout () {
 	// remove user from local storage to log user out
 	localStorage.removeItem(stateUser)
 	localStorage.removeItem(stateToken)
-	delete axios.defaults.headers.common['Authorization']
+	delete axios.defaults.headers.common.Authorization
 }
 
 function register (user) {

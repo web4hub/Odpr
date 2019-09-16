@@ -1,0 +1,122 @@
+[
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 1,
+    "fields": {
+      "author": 2,
+      "type": 0,
+			"title": "Fake account",
+			"description": "User seems to be fake. Spam content and advertisments for other services.",
+			"reference": 8,
+			"resolved": "False"
+    }
+  },
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 2,
+    "fields": {
+      "author": 5,
+      "type": 0,
+			"title": "Please block User",
+			"description": "So much Spam!",
+			"reference": 8,
+			"resolved": "False"
+    }
+  },
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 3,
+    "fields": {
+      "author": 7,
+      "type": 0,
+			"title": "Bot account?",
+			"description": "User always posts ads and spam and comments everywhere with links to insecure websites!",
+			"reference": 8,
+			"resolved": "False"
+    }
+  },
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 4,
+    "fields": {
+      "author": 5,
+      "type": 0,
+			"title": "User posted sexual content",
+			"description": "Is this allowed?",
+			"reference": 3,
+			"resolved": "False"
+    }
+  },
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 4,
+    "fields": {
+      "author": 2,
+      "type": 3,
+			"title": "Insulting comment",
+			"description": "This comment is clearly insulting me",
+			"reference": 1,
+			"resolved": "False"
+    }
+  },
+	{
+    "model": "odpr_shared_models.report",
+    "pk": 5,
+    "fields": {
+      "author": 10,
+      "type": 0,
+			"title": "Seems to be spam",
+			"description": "User seems to be a robot. Can you check this?",
+			"reference": 15,
+			"resolved": "False"
+    }
+  },
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 6,
+    "fields": {
+      "author": 11,
+      "type": 2,
+			"title": "Request for sexual content :O",
+			"description": "I don't believe it: This guy is requesting some naked girl models. Can someone block this guy please?",
+			"reference": 14,
+			"resolved": "False"
+    }
+  },
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 7,
+    "fields": {
+      "author": 13,
+      "type": 3,
+			"title": "Insulting Comment",
+			"description": "Internal report to remember this person. If she will continue being so rude we will block her.",
+			"reference": 2,
+			"resolved": "False"
+    }
+  },
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 8,
+    "fields": {
+      "author": 9,
+      "type": 3,
+			"title": "Look at that bastard!",
+			"description": "Is he serious? I was answering a Request and this asshole believes that he has to comment his bullshit underneath? Can you PLEASE ban him from this page?!",
+			"reference": 2,
+			"resolved": "False"
+    }
+  },
+  {
+    "model": "odpr_shared_models.report",
+    "pk": 9,
+    "fields": {
+      "author": 2,
+      "type": 1,
+			"title": "Virus in Files",
+			"description": "This Scenery seems to be spam. Not only that, but also the files are not usable and my antivirus said it is malicious!",
+			"reference": 2,
+			"resolved": "False"
+    }
+  }
+]

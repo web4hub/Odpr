@@ -1,0 +1,493 @@
+@import '_mixins/container.scss';
+@import 'tags/tags';
+@import '_functional/structural_functional';
+
+/**
+ * #l  = left
+ * #r  = right
+ * #b  = bottom
+ * #t  = top
+ * #lr = left-right
+ * #p  = padding
+ * #bt = bottom-top
+ * #m  = margin
+ * #0  = 0 size
+ * #min = minimum amount after 0
+ * #small = next size after minimum (commonly 2*min)
+ * #mid = middle amount (3*min)
+ * #large = 4*min
+ * #xlarge = 5*min
+ * #xxlarge = 6*min
+ */
+
+$padding-0: 0;
+$padding-min: 3px;
+$padding-small: 2 * $padding-min;
+$padding-mid: 3 * $padding-min;
+$padding-large: 4 * $padding-min;
+$padding-xlarge: 5 * $padding-min;
+$padding-xxlarge: 6 * $padding-min;
+
+$margin-0: 0;
+$margin-min: 3px;
+$margin-small: 2 * $margin-min;
+$margin-mid: 3 * $margin-min;
+$margin-large: 4 * $margin-min;
+$margin-xlarge: 5 * $margin-min;
+$margin-xxlarge: 6 * $margin-min;
+
+.odpr--p-0 {
+	@include odpr--left-right-padding($padding-0!important);
+	@include odpr--top-bottom-padding($padding-0!important);
+}
+
+.odpr--lr-p-0 {
+	@include odpr--left-right-padding($padding-0!important);
+}
+
+.odpr--lr-p-min {
+	@include odpr--left-right-padding($padding-min!important);
+}
+
+.odpr--lr-p-small {
+	@include odpr--left-right-padding($padding-small!important);
+}
+
+.odpr--lr-p-mid {
+	@include odpr--left-right-padding($padding-mid!important);
+}
+
+.odpr--lr-p-large {
+	@include odpr--left-right-padding($padding-large!important);
+}
+
+.odpr--lr-p-xlarge {
+	@include odpr--left-right-padding($padding-xlarge!important);
+}
+
+.odpr--lr-p-xxlarge {
+	@include odpr--left-right-padding($padding-xxlarge!important);
+}
+
+.odpr--l-p-0 {
+	@include odpr--left-padding($padding-0!important);
+}
+
+.odpr--l-p-min {
+	@include odpr--left-padding($padding-min!important);
+}
+
+.odpr--l-p-small {
+	@include odpr--left-padding($padding-small!important);
+}
+
+.odpr--l-p-mid {
+	@include odpr--left-padding($padding-mid!important);
+}
+
+.odpr--l-p-large {
+	@include odpr--left-padding($padding-large!important);
+}
+
+.odpr--l-p-xlarge {
+	@include odpr--left-padding($padding-xlarge!important);
+}
+
+.odpr--l-p-xxlarge {
+	@include odpr--left-padding($padding-xxlarge!important);
+}
+
+.odpr--r-p-0 {
+	@include odpr--right-padding($padding-0!important);
+}
+
+.odpr--r-p-min {
+	@include odpr--right-padding($padding-min!important);
+}
+
+.odpr--r-p-small {
+	@include odpr--right-padding($padding-small!important);
+}
+
+.odpr--r-p-mid {
+	@include odpr--right-padding($padding-mid!important);
+}
+
+.odpr--r-p-large {
+	@include odpr--right-padding($padding-large!important);
+}
+
+.odpr--r-p-xlarge {
+	@include odpr--right-padding($padding-xlarge!important);
+}
+
+.odpr--r-p-xxlarge {
+	@include odpr--right-padding($padding-xxlarge!important);
+}
+
+
+
+.odpr--bt-p-0 {
+	@include odpr--top-bottom-padding($padding-0!important);
+}
+
+.odpr--bt-p-min {
+	@include odpr--top-bottom-padding($padding-min!important);
+}
+
+.odpr--bt-p-small {
+	@include odpr--top-bottom-padding($padding-small!important);
+}
+
+.odpr--bt-p-mid {
+	@include odpr--top-bottom-padding($padding-mid!important);
+}
+
+.odpr--bt-p-large {
+	@include odpr--top-bottom-padding($padding-large!important);
+}
+
+.odpr--bt-p-xlarge {
+	@include odpr--top-bottom-padding($padding-xlarge!important);
+}
+
+.odpr--bt-p-xxlarge {
+	@include odpr--top-bottom-padding($padding-xxlarge!important);
+}
+
+.odpr--t-p-0 {
+	@include odpr--top-padding($padding-0!important);
+}
+
+.odpr--t-p-min {
+	@include odpr--top-padding($padding-min!important);
+}
+
+.odpr--t-p-small {
+	@include odpr--top-padding($padding-small!important);
+}
+
+.odpr--t-p-mid {
+	@include odpr--top-padding($padding-mid!important);
+}
+
+.odpr--t-p-large {
+	@include odpr--top-padding($padding-large!important);
+}
+
+.odpr--t-p-xlarge {
+	@include odpr--top-padding($padding-xlarge!important);
+}
+
+.odpr--t-p-xxlarge {
+	@include odpr--top-padding($padding-xxlarge!important);
+}
+
+.odpr--b-p-0 {
+	@include odpr--bottom-padding($padding-0!important);
+}
+
+.odpr--b-p-min {
+	@include odpr--bottom-padding($padding-min!important);
+}
+
+.odpr--b-p-small {
+	@include odpr--bottom-padding($padding-small!important);
+}
+
+.odpr--b-p-mid {
+	@include odpr--bottom-padding($padding-mid!important);
+}
+
+.odpr--b-p-large {
+	@include odpr--bottom-padding($padding-large!important);
+}
+
+.odpr--b-p-xlarge {
+	@include odpr--bottom-padding($padding-xlarge!important);
+}
+
+.odpr--b-p-xxlarge {
+	@include odpr--bottom-padding($padding-xxlarge!important);
+}
+
+
+.odpr--m-0 {
+	@include odpr--left-right-margin($margin-0!important);
+	@include odpr--top-bottom-margin($margin-0!important);
+}
+
+.odpr--lr-m-0 {
+	@include odpr--left-right-margin($margin-0!important);
+}
+
+.odpr--lr-m-min {
+	@include odpr--left-right-margin($margin-min!important);
+}
+
+.odpr--lr-m-small {
+	@include odpr--left-right-margin($margin-small!important);
+}
+
+.odpr--lr-m-mid {
+	@include odpr--left-right-margin($margin-mid!important);
+}
+
+.odpr--lr-m-large {
+	@include odpr--left-right-margin($margin-large!important);
+}
+
+.odpr--lr-m-xlarge {
+	@include odpr--left-right-margin($margin-xlarge!important);
+}
+
+.odpr--lr-m-xxlarge {
+	@include odpr--left-right-margin($margin-xxlarge!important);
+}
+
+.odpr--l-m-0 {
+	@include odpr--left-margin($margin-0!important);
+}
+
+.odpr--l-m-min {
+	@include odpr--left-margin($margin-min!important);
+}
+
+.odpr--l-m-small {
+	@include odpr--left-margin($margin-small!important);
+}
+
+.odpr--l-m-mid {
+	@include odpr--left-margin($margin-mid!important);
+}
+
+.odpr--l-m-large {
+	@include odpr--left-margin($margin-large!important);
+}
+
+.odpr--l-m-xlarge {
+	@include odpr--left-margin($margin-xlarge!important);
+}
+
+.odpr--l-m-xxlarge {
+	@include odpr--left-margin($margin-xxlarge!important);
+}
+
+.odpr--r-m-0 {
+	@include odpr--right-margin($margin-0!important);
+}
+
+.odpr--r-m-min {
+	@include odpr--right-margin($margin-min!important);
+}
+
+.odpr--r-m-small {
+	@include odpr--right-margin($margin-small!important);
+}
+
+.odpr--r-m-mid {
+	@include odpr--right-margin($margin-mid!important);
+}
+
+.odpr--r-m-large {
+	@include odpr--right-margin($margin-large!important);
+}
+
+.odpr--r-m-xlarge {
+	@include odpr--right-margin($margin-xlarge!important);
+}
+
+.odpr--r-m-xxlarge {
+	@include odpr--right-margin($margin-xxlarge!important);
+}
+
+
+.odpr--bt-m-0 {
+	@include odpr--top-bottom-margin($margin-0!important);
+}
+
+.odpr--bt-m-min {
+	@include odpr--top-bottom-margin($margin-min!important);
+}
+
+.odpr--bt-m-small {
+	@include odpr--top-bottom-margin($margin-small!important);
+}
+
+.odpr--bt-m-mid {
+	@include odpr--top-bottom-margin($margin-mid!important);
+}
+
+.odpr--bt-m-large {
+	@include odpr--top-bottom-margin($margin-large!important);
+}
+
+.odpr--bt-m-xlarge {
+	@include odpr--top-bottom-margin($margin-xlarge!important);
+}
+
+.odpr--bt-m-xxlarge {
+	@include odpr--top-bottom-margin($margin-xxlarge!important);
+}
+
+.odpr--t-m-0 {
+	@include odpr--top-margin($margin-0!important);
+}
+
+.odpr--t-m-min {
+	@include odpr--top-margin($margin-min!important);
+}
+
+.odpr--t-m-small {
+	@include odpr--top-margin($margin-small!important);
+}
+
+.odpr--t-m-mid {
+	@include odpr--top-margin($margin-mid!important);
+}
+
+.odpr--t-m-large {
+	@include odpr--top-margin($margin-large!important);
+}
+
+.odpr--t-m-xlarge {
+	@include odpr--top-margin($margin-xlarge!important);
+}
+
+.odpr--t-m-xxlarge {
+	@include odpr--top-margin($margin-xxlarge!important);
+}
+
+.odpr--b-m-0 {
+	@include odpr--bottom-margin($margin-0!important);
+}
+
+.odpr--b-m-min {
+	@include odpr--bottom-margin($margin-min!important);
+}
+
+.odpr--b-m-small {
+	@include odpr--bottom-margin($margin-small!important);
+}
+
+.odpr--b-m-mid {
+	@include odpr--bottom-margin($margin-mid!important);
+}
+
+.odpr--b-m-large {
+	@include odpr--bottom-margin($margin-large!important);
+}
+
+.odpr--b-m-xlarge {
+	@include odpr--bottom-margin($margin-xlarge!important);
+}
+
+.odpr--b-m-xxlarge {
+	@include odpr--bottom-margin($margin-xxlarge!important);
+}
+
+
+
+/**
+ ############################################### Detail Page Layout ####################################################
+ */
+
+$main-content-full-width: 880px;
+$main-content-dyn-large-width: 70%;
+$main-content-dyn-small-width: 740px;
+$main-content-min-width: 80%;
+
+$min-width-dyn-full: 1300px;
+$min-width-dyn-large: 1100px;
+$min-width-dyn-small: 925px;
+
+$min-width-dyn-collapse: 767px;
+
+/**
+ * #odpr-grid
+ * Used for wrapping main content in the middle which can have anything inside. This controls the width.
+ */
+.odpr-grid {
+	margin: auto;
+	width: $main-content-min-width;
+}
+
+@media (min-width: $min-width-dyn-small) {
+	.odpr-grid {
+		width: $main-content-dyn-small-width;
+	}
+}
+
+@media (min-width: $min-width-dyn-large) {
+	.odpr-grid {
+		width: $main-content-dyn-large-width;
+	}
+}
+
+@media (min-width: $min-width-dyn-full) {
+	.odpr-grid {
+		width: $main-content-full-width;
+	}
+}
+
+
+
+.odpr-grid__main {
+}
+
+.odpr-grid__col {
+	@extend .odpr--p-0;
+}
+
+.odpr-grid__row {
+	@extend .odpr--m-0;
+}
+
+.odpr-grid__cell {
+	@extend .odpr--lr-p-mid;
+	@extend .odpr--bt-p-mid;
+}
+
+
+
+.odpr-grid__r-sidebar-col {
+	@extend .odpr--p-0;
+	@extend .odpr--m-0;
+}
+
+.odpr-grid__r_sidebar-row {
+	@extend .odpr--p-0;
+	@extend .odpr--m-0;
+}
+
+@media (min-width: $min-width-dyn-collapse) {
+	.odpr-grid__r-sidebar-col {
+		padding-left: $padding-large!important;
+	}
+}
+
+@media (max-width: $min-width-dyn-collapse) {
+	.odpr-grid__r_sidebar-row {
+		margin-bottom: $margin-large!important;
+	}
+}
+
+
+
+.odpr-shadow {
+	position: relative;
+}
+
+.odpr-shadow:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+
+.odpr__input-field--full-width {
+	width: 100%;
+}
+
+/* TODO: make working classes and rules for the main content sidebar (plus @media)*/

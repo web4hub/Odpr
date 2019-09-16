@@ -5,6 +5,13 @@ export const ROUTE_REGISTER = '/register'
 export const ROUTE_PW_RESET = '/password'
 export const ROUTE_PW_RESET_WITH_TOKEN = '/password-reset/:pw_reset_token'
 export const ROUTE_PW_RESET_NEW_PW = '/password-reset'
+export const ROUTE_SCENERIES = '/sceneries'
+export const ROUTE_SCENERY_DETAIL = '/sceneries/:id'
+export const ROUTE_REQUESTS = '/requests'
+export const ROUTE_COMMUNITY = '/community'
+export const ROUTE_NEW_SCENERY = '/post-scenery'
+export const ROUTE_NEW_REQUEST = '/post-request'
+export const ROUTE_NEW_DOCUMENT = '/post-document'
 export const ROUTE_DISCLAIMER = '/disclaimer'
 export const ROUTE_IMPRESSUM = '/impressum'
 export const ROUTE_PRIVACY_POLICY = '/privacy'
@@ -17,6 +24,9 @@ export const NON_SIGNIFICANT_ROUTES = [
 	ROUTE_PW_RESET,
 	ROUTE_PW_RESET_WITH_TOKEN,
 	ROUTE_PW_RESET_NEW_PW,
+	ROUTE_NEW_SCENERY,
+	ROUTE_NEW_REQUEST,
+	ROUTE_NEW_DOCUMENT,
 	ROUTE_DISCLAIMER,
 	ROUTE_IMPRESSUM,
 	ROUTE_PRIVACY_POLICY,

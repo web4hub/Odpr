@@ -1,0 +1,59 @@
+
+/*.row {
+	margin-left: 0;
+	margin-right: 0;
+	padding: 0 12px;
+}*/
+
+.detail-summary-column-list {
+	text-align: left;
+}
+
+.icon {
+	/*@extend .mr-1;*/
+	/*width: 1.1em;*/
+	/*padding-bottom: 0.1em;*/
+}
+
+.icon-and-text {
+	display: inline-block;
+	text-align: left;
+}
+
+.detail-summary {
+	color: rgba(0,0,0,0.3);
+	font-size: small;
+	text-align: left;
+}
+
+.effects-color {
+	color: lightslategrey;
+}
+
+.materials-color {
+	color: sienna;
+}
+
+.lights-color {
+	color: rosybrown;
+}
+
+.tags-color {
+	color: dimgrey;
+}
+
+.minimalistic-color {
+	color: darkkhaki;
+}
+
+.simple-color {
+	color: olivedrab;
+}
+
+.intermediate-color {
+	color: darkgoldenrod;
+}
+
+.complex-color {
+	color: crimson;
+}

@@ -1,4 +1,4 @@
-import { visit, getApp } from './_util/_util'
+import { visit, getApp } from './_util/utils'
 
 describe('The Home Page', function() {
   it('successfully loads', function() {

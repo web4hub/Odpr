@@ -1,0 +1,91 @@
+// all variables are imported from bootstrap in Main.scss
+.btn-blue {
+	@include button-variant($blue, $blue);
+}
+.btn-indigo {
+	@include button-variant($indigo, $indigo);
+}
+.btn-purple {
+	@include button-variant($purple, $purple);
+}
+.btn-pink {
+	@include button-variant($pink, $pink);
+}
+.btn-red {
+	@include button-variant($red, $red);
+}
+.btn-orange {
+	@include button-variant($orange, $orange);
+}
+.btn-yellow {
+	@include button-variant($yellow, $yellow);
+}
+.btn-green {
+	@include button-variant($green, $green);
+}
+.btn-teal {
+	@include button-variant($teal, $teal);
+}
+.btn-cyan {
+	@include button-variant($cyan, $cyan);
+}
+.btn-white {
+	@include button-variant($white, $white);
+}
+.btn-gray-100 {
+	@include button-variant($gray-100, $gray-100);
+}
+.btn-gray-200 {
+	@include button-variant($gray-200, $gray-200);
+}
+.btn-gray-300 {
+	@include button-variant($gray-300, $gray-300);
+}
+.btn-gray-400 {
+	@include button-variant($gray-400, $gray-400);
+}
+.btn-gray-500 {
+	@include button-variant($gray-500, $gray-500);
+}
+.btn-gray-600 {
+	@include button-variant($gray-600, $gray-600);
+}
+.btn-gray-700 {
+	@include button-variant($gray-700, $gray-700);
+}
+.btn-gray-800 {
+	@include button-variant($gray-800, $gray-800);
+}
+.btn-gray-900 {
+	@include button-variant($gray-900, $gray-900);
+}
+.btn-black {
+	@include button-variant($black, $black);
+}
+
+$theme-colors: map-merge(
+		(
+			'blue': $blue,
+			'indigo': $indigo,
+			'purple': $purple,
+			'pink': $pink,
+			'red': $red,
+			'orange': $orange,
+			'yellow': $yellow,
+			'green': $green,
+			'teal': $teal,
+			'cyan': $cyan,
+			'white': $white,
+			'gray-100': $gray-100,
+			'gray-200': $gray-200,
+			'gray-300': $gray-300,
+			'gray-400': $gray-400,
+			'gray-500': $gray-500,
+			'gray-600': $gray-600,
+			'gray-700': $gray-700,
+			'gray-800': $gray-800,
+			'gray-900': $gray-900,
+			'black': $black,
+		),
+		$theme-colors
+);

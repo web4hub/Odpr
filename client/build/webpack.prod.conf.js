@@ -64,14 +64,14 @@ const webpackConfig = merge(baseWebpackConfig, {
 			chunksSortMode: 'dependency'
 		}),
 		new FaviconsWebpackPlugin({
-			logo: path.resolve(__dirname,'../src/assets/favicon.png'),
+			logo: path.resolve(__dirname,'../src/_assets/favicon.png'),
 			outputPath: path.join(config.build.assetsSubDirectory, 'favicon'),
 			prefix: path.join(config.build.assetsSubDirectory, 'favicon'),
 		}),
 		new PreloadWebpackPlugin(),
 		// keep module.id stable when vender modules does not change
 		new webpack.HashedModuleIdsPlugin(),
-		// copy custom static assets
+		// copy custom static _assets
 		new CopyWebpackPlugin([
 			{
 				from: path.resolve(__dirname, '../static'),

@@ -23,13 +23,13 @@ const api = {
 }
 
 function performAxios (url, request, method) {
-	let token = localStorage.getItem(stateToken)
+	const token = localStorage.getItem(stateToken)
 	let headers = {
 		'Content-Type': 'application/json'
 	}
 	if (token) {
 		headers = {
-			'Authorization': 'Token ' + token,
+			Authorization: 'Token ' + token,
 			'Content-Type': 'application/json'
 		}
 	}
@@ -67,13 +67,13 @@ function _delete (url, request) {
 }
 
 function putImage (url, request) {
-	let token = localStorage.getItem(stateToken)
+	const token = localStorage.getItem(stateToken)
 	let headers = {
 		'Content-Type': 'multipart/form-data'
 	}
 	if (token) {
 		headers = {
-			'Authorization': 'Token ' + token,
+			Authorization: 'Token ' + token,
 			'Content-Type': 'multipart/form-data'
 		}
 	}
@@ -87,13 +87,13 @@ function putImage (url, request) {
 }
 
 function putFile (url, request) {
-	let token = localStorage.getItem(stateToken)
+	const token = localStorage.getItem(stateToken)
 	let headers = {
 		'Content-Type': 'multipart/form-data'
 	}
 	if (token) {
 		headers = {
-			'Authorization': 'Token ' + token,
+			Authorization: 'Token ' + token,
 			'Content-Type': 'multipart/form-data'
 		}
 	}

@@ -1,20 +1,26 @@
 <!-- Badges are (except for pipeline status and coverage report) created in util/run_lighthouse.sh, there they will also be uploaded to the URLs listed below. -->
-[![version](https://test.gitlab.electrocnic.com/gitlab-badges/latest_release_tag.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
+[![version](https://test.odpr.electrocnic.com/gitlab-badges/latest_release_tag.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
 [![pipeline status](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/badges/master/pipeline.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
-[![coverage report](https://test.gitlab.electrocnic.com/gitlab-badges/coverage.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
-[![webpack version](https://test.gitlab.electrocnic.com/gitlab-badges/webpack_version.svg)](https://www.npmjs.com/package/webpack)
-[![vue version](https://test.gitlab.electrocnic.com/gitlab-badges/vue_version.svg)](https://www.npmjs.com/package/vue)
-[![django version](https://test.gitlab.electrocnic.com/gitlab-badges/django_version.svg)](https://www.djangoproject.com/download/)
-[![nginx version](https://test.gitlab.electrocnic.com/gitlab-badges/nginx_version.svg)](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/)
-[![postgres version](https://test.gitlab.electrocnic.com/gitlab-badges/postgres_version.svg)](https://www.postgresql.org/download/linux/ubuntu/)
-[![lighthouse performance](https://test.gitlab.electrocnic.com/gitlab-badges/performance.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse accessibility](https://test.gitlab.electrocnic.com/gitlab-badges/accessibility.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse best practices](https://test.gitlab.electrocnic.com/gitlab-badges/best_practices.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse search engine results ranking](https://test.gitlab.electrocnic.com/gitlab-badges/search_engine_results_ranking.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
-[![pip dependencies](https://test.gitlab.electrocnic.com/gitlab-badges/outdated_pip.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/outdated.html)
-[![npm dependencies](https://test.gitlab.electrocnic.com/gitlab-badges/outdated_npm.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/outdated.html)
+[![coverage report](https://test.odpr.electrocnic.com/gitlab-badges/coverage.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
+[![webpack version](https://test.odpr.electrocnic.com/gitlab-badges/webpack_version.svg)](https://www.npmjs.com/package/webpack)
+[![vue version](https://test.odpr.electrocnic.com/gitlab-badges/vue_version.svg)](https://www.npmjs.com/package/vue)
+[![django version](https://test.odpr.electrocnic.com/gitlab-badges/django_version.svg)](https://www.djangoproject.com/download/)
+[![nginx version](https://test.odpr.electrocnic.com/gitlab-badges/nginx_version.svg)](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/)
+[![postgres version](https://test.odpr.electrocnic.com/gitlab-badges/postgres_version.svg)](https://www.postgresql.org/download/linux/ubuntu/)
+[![lighthouse performance](https://test.odpr.electrocnic.com/gitlab-badges/performance.svg)](https://test.odpr.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse accessibility](https://test.odpr.electrocnic.com/gitlab-badges/accessibility.svg)](https://test.odpr.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse best practices](https://test.odpr.electrocnic.com/gitlab-badges/best_practices.svg)](https://test.odpr.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse search engine results ranking](https://test.odpr.electrocnic.com/gitlab-badges/search_engine_results_ranking.svg)](https://test.odpr.electrocnic.com/gitlab-badges/report.html)
+[![pip dependencies](https://test.odpr.electrocnic.com/gitlab-badges/outdated_pip.svg)](https://test.odpr.electrocnic.com/gitlab-badges/outdated.html)
+[![npm dependencies](https://test.odpr.electrocnic.com/gitlab-badges/outdated_npm.svg)](https://test.odpr.electrocnic.com/gitlab-badges/outdated.html)
 
-# Content
+# ODPR - Open Database for Physically Based Rendering
+
+A Vue-Django Webapp to provide user-provided scenes (3D Models and sceneries) for the public use.
+
+# vue-django-ci-cd-boilerplate
+
+## Content
 
 1. [What is this?](#what-is-this)
 2. [TL;DR](#tldr)
