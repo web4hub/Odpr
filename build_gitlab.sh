@@ -34,9 +34,7 @@ echo 'Done...'
 
 echo 'Run Django Tests...'
 unset DJANGO_DATABASE_NAME # Will only unset within this script, not outside this script. Needed, to test with sqlite3 instead of postgres.
-python3 manage.py makemigrations accounts api filer odpr_shared_models documentation sceneries scenery_requests
-python3 manage.py makemigrations
-python3 manage.py migrate
+python3 manage.py migrate || (echo "Migrating did not work, did you run 'python manage.py makemigrations' for all apps and did you stage and commit the generated migrations folders to your git repo?"; exit 1;)
 python3 manage.py test --attr='assertAlmostEqual' 2>&1 | tee test_results.txt # The --attr filters subclasses of unittest.TestCase (else every helper method and everything would be considered a test-method by nose, which is annoying because it fails)
 COVERAGE_RESULT=$(cat test_results.txt | sed -rn 's~^[^TOTAL](.*)\s+([[:digit:]]+)\s+([[:digit:]]+)\s+([[:digit:]]+)\%.*$~\1 \2 \3~p' | awk '{ result+=$2; if($1!~"admin|models") { statements+=$2; miss+=$3} } END { printf "%.2f", (1-miss/statements)*100 }')
 echo "COVERAGE_RESULT ${COVERAGE_RESULT}"
