@@ -1,12 +1,9 @@
 <template>
-	<div
-		id="app"
-		class="flyout"
-	>
+	<div id="app">
 		<NavBar />
 		<main
 			id="main"
-			class="main-content"
+			class="main-content flyout"
 		>
 			<visible-functional-router-component />
 			<router-view />
@@ -109,6 +106,7 @@ export default {
 		/* max-width: 600px; */
 		font-family: Source Sans Pro, Helvetica, Arial, sans-serif;
 		text-align: center;
+		width: 100%;
 	}
 
 	.main-content {
@@ -129,6 +127,6 @@ export default {
 		flex-direction: column;
 		min-height: 100vh;
 		justify-content: space-between;
-		width: 100%;
+		/* width: 100%; */
 	}
 </style>
