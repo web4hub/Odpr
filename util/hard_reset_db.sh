@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"
+
 source resolve_os.sh
 source ../backend/.venv/"${VBIN}"/activate
 
