@@ -1,0 +1,12 @@
+[
+	{
+		"model": "scenery_requests.answer",
+    "pk": 1,
+    "fields": {
+      "author": 6,
+			"content": 10,
+			"parent_id": 1,
+			"marked_as_accepted": "False"
+    }
+	}
+]
