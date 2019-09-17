@@ -67,13 +67,13 @@ export default {
 	},
 	methods: {
 		...mapLoginModalActions({
-			flipLoginModal: [actionLoginFlipModal]
+			flipLoginModal: actionLoginFlipModal
 		}),
 		...mapPasswordResetModalActions({
-			flipPasswordResetModal: [actionPWResetFlipModal]
+			flipPasswordResetModal: actionPWResetFlipModal
 		}),
 		...mapPasswordChangeModalActions({
-			flipPasswordChangeModal: [actionPWChangeFlipModal]
+			flipPasswordChangeModal: actionPWChangeFlipModal
 		})
 	}
 }

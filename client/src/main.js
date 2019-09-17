@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import router from './_router'
 import store from './_store'
-import { validate } from 'vee-validate'
+import VeeValidate from 'vee-validate'
 import Axios from 'axios'
 import veeValidateRules from './_util/veeValidateRules.js'
 import {
@@ -15,7 +15,7 @@ if (token) {
 	Vue.prototype.$http.defaults.headers.common.Authorization = token
 }
 
-Vue.use(validate)
+Vue.use(VeeValidate)
 veeValidateRules.applyCustomRules()
 
 Vue.config.productionTip = (process.env.VUE_DEBUG !== 'False')

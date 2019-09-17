@@ -63,7 +63,7 @@ const router = new Router({
 		},
 		{
 			path: ROUTE_SCENERY_DETAIL,
-			name: 'sceneries',
+			name: 'scenery',
 			component: () => import('@/components/sceneries/SceneryDetail')
 		},
 		{
@@ -110,7 +110,7 @@ const router = new Router({
 		},
 		{
 			path: ROUTE_PW_RESET_NEW_PW,
-			name: 'password-reset',
+			name: 'password-reset-2',
 			meta: {
 				showPasswordResetModal: 'new_pw'
 			}
