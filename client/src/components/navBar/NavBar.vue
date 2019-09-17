@@ -3,11 +3,10 @@
 	<b-navbar
 		position="top"
 		class="grey lighten-4 navbar-shadow"
-		sticky="true"
+		:sticky="true"
 	>
-		<!--		<mdb-navbar-toggler @click.stop> TODO: migrate to bootstrap-vue -->
 		<b-navbar-brand
-			href="./"
+			:to="homeRoute"
 			style="font-weight: bolder;"
 		>
 			<img
@@ -24,7 +23,7 @@
 		>
 			<b-navbar-nav class="mr-auto">
 				<b-nav-item
-					:href="scneriesRoute"
+					:to="scneriesRoute"
 					class="navbar-link-padding"
 				>
 					<img
@@ -35,7 +34,7 @@
 					{{ i18nJson().navBar.navigation.sceneries }}
 				</b-nav-item>
 				<b-nav-item
-					:href="requestsRoute"
+					:to="requestsRoute"
 					disabled
 					class="navbar-link-padding"
 				>
@@ -47,7 +46,7 @@
 					{{ i18nJson().navBar.navigation.requests }}
 				</b-nav-item>
 				<b-nav-item
-					:href="communityRoute"
+					:to="communityRoute"
 					disabled
 					class="navbar-link-padding"
 				>
@@ -75,7 +74,7 @@
 						class="my-2 my-sm-0"
 						style="margin-bottom: 0.4em !important; margin-top: 0.4em !important;"
 						variant="teal"
-						:href="loginRoute"
+						:to="loginRoute"
 					>
 						{{ i18nJson().navBar.navigation.login }}
 					</b-button>
@@ -84,7 +83,7 @@
 						class="my-2 my-sm-0"
 						style="margin-bottom: 0.4em !important; margin-top: 0.4em !important;"
 						variant="cyan"
-						:href="registerRoute"
+						:to="registerRoute"
 					>
 						{{ i18nJson().navBar.navigation.register }}
 					</b-button>
@@ -104,7 +103,7 @@
 						>
 						{{ i18nJson().navBar.navigation.post }}
 					</template>
-					<b-dropdown-item :href="postNewSceneryRoute">
+					<b-dropdown-item :to="postNewSceneryRoute">
 						<img
 							src="@/_assets/open-iconic-master/svg/brush.svg"
 							alt="New-Scenery-Icon"
@@ -128,7 +127,7 @@
 						>
 						{{ i18nJson().navBar.navigation.profile }}
 					</template>
-					<b-dropdown-item :href="logoutRoute">
+					<b-dropdown-item :to="logoutRoute">
 						<img
 							src="@/_assets/open-iconic-master/svg/account-logout.svg"
 							alt="Logout-Icon"
@@ -140,67 +139,6 @@
 			</b-navbar-nav>
 		</b-collapse>
 	</b-navbar>
-	<!--<form class="form-inline navbar-search-field" style="width: 20em">
-              <input class="form-control p-2"
-                          style="width: 100%;"
-                          type="text"
-                          :placeholder="i18nJson().navBar.searchBox.placeholder"
-                          :aria-label="i18nJson().navBar.searchBox.placeholder">
-          </form>
-          <navbar-collapse>
-              <navbar-nav class="ml-0 ml-lg-5">
-                  <navbar-item class="nav-bar-buttons-color mr-1" router exact :href="scneriesRoute" active><img
-                      src="@/_assets/open-iconic-master/svg/home.svg" alt="Sceneries-Icon" class="nav-bar-icon"> {{
-                      i18nJson().navBar.navigation.sceneries }}</navbar-item>
-                  &lt;!&ndash;<navbar-item class="nav-bar-buttons-color mr-1" router :href="requestsRoute"><img
-                      src="@/_assets/open-iconic-master/svg/pencil.svg" alt="Requests-Icon" class="nav-bar-icon"> {{
-                      i18nJson().navBar.navigation.requests }}</navbar-item>
-                  <navbar-item class="nav-bar-buttons-color" router :href="communityRoute"><img
-                      src="@/_assets/open-iconic-master/svg/people.svg" alt="Community-Icon" class="nav-bar-icon"> {{
-                      i18nJson().navBar.navigation.community }}</navbar-item> TODO: re-activate when implemented. &ndash;&gt;
-              </navbar-nav>
-              &lt;!&ndash;</navbar-collapse>
-              <navbar-collapse>&ndash;&gt;
-              <navbar-nav class="ml-0 ml-lg-5" right>
-                  <navbar-item v-if="!isLoggedIn" class="nav-bar-buttons-color mr-1" router exact :href="loginRoute"
-                                          waves-fixed><img src="@/_assets/open-iconic-master/svg/account-login.svg" alt="Login-Icon"
-                                                                              class="nav-bar-icon"> {{ i18nJson().navBar.navigation.login }}</navbar-item>
-                  <navbar-item v-if="!isLoggedIn" class="nav-bar-buttons-color" router :href="registerRoute" waves-fixed><img
-                      src="@/_assets/open-iconic-master/svg/chevron-top.svg" alt="Register-Icon" class="nav-bar-icon"> {{
-                      i18nJson().navBar.navigation.register }}</navbar-item>
-                  &lt;!&ndash;<navbar-item v-if="isLoggedIn" :href="logoutRoute" router waves-fixed><img src="../_assets/open-iconic-master/svg/account-logout.svg" alt="Logout-Icon" class="nav-bar-icon"> {{ i18nJson().navBar.navigation.logout }}</navbar-item>&ndash;&gt;
-                  <dropdown v-if="isLoggedIn" tag="li" class="nav-item" btnGroup>
-                      <dropdown-toggle class="nav-bar-buttons-color navbar-dropdown-profile-button" tag="a" navLink slot="toggle" waves-fixed color="transparent">
-                          <img src="@/_assets/open-iconic-master/svg/plus.svg" alt="Profile-Icon" class="nav-bar-icon"> {{
-                          i18nJson().navBar.navigation.post }}</dropdown-toggle>
-                      <dropdown-menu class="nav-bar-buttons-color dropdown-menu-fix">
-                          &lt;!&ndash;<dropdown-item>Another action</dropdown-item>&ndash;&gt;
-                          &lt;!&ndash;<dropdown-item>Something else here</dropdown-item>&ndash;&gt;
-                          <dropdown-item :href="postNewSceneryRoute"><img src="@/_assets/open-iconic-master/svg/brush.svg"
-                                                                                                          alt="New-Scenery-Icon" class="nav-bar-icon"> {{
-                              i18nJson().navBar.navigation.uploadScenery }}</dropdown-item>
-                          &lt;!&ndash;<dropdown-item :href="postNewRequestRoute"><img src="@/_assets/open-iconic-master/svg/people.svg"
-                                                                                                          alt="New-Request-Icon" class="nav-bar-icon"> {{
-                              i18nJson().navBar.navigation.uploadRequest }}</dropdown-item>
-                          <dropdown-item :href="postNewDocumentRoute"><img src="@/_assets/open-iconic-master/svg/book.svg"
-                                                                                                          alt="New-Document-Icon" class="nav-bar-icon"> {{
-                              i18nJson().navBar.navigation.uploadDocument }}</dropdown-item> TODO: uncomment when features are implemented. &ndash;&gt;
-                      </dropdown-menu>
-                  </dropdown>
-                  <dropdown v-if="isLoggedIn" tag="li" class="nav-item" btnGroup>
-                      <dropdown-toggle class="nav-bar-buttons-color navbar-dropdown-profile-button" tag="a" navLink slot="toggle" waves-fixed color="transparent">
-                          <img src="@/_assets/open-iconic-master/svg/person.svg" alt="Profile-Icon" class="nav-bar-icon"> {{
-                          i18nJson().navBar.navigation.profile }}</dropdown-toggle>
-                      <dropdown-menu class="nav-bar-buttons-color dropdown-menu-fix">
-                          <dropdown-item :href="logoutRoute"><img src="@/_assets/open-iconic-master/svg/account-logout.svg"
-                                                                                                          alt="Logout-Icon" class="nav-bar-icon"> {{
-                              i18nJson().navBar.navigation.logout }}</dropdown-item>
-                      </dropdown-menu>
-                  </dropdown>
-                  &lt;!&ndash;<navbar-item router :href="logoutRoute" waves-fixed><img src="../_assets/open-iconic-master/svg/account-login.svg" alt="Profile-Icon">{{ i18nJson().navBar.navigation.profile }}</navbar-item>&ndash;&gt;
-              </navbar-nav>
-          </navbar-collapse>-->
-	<!--		</mdb-navbar-toggler>-->
 </template>
 
 <script>
@@ -218,21 +156,10 @@ import {
 	BNavItemDropdown,
 	BDropdownItem
 } from 'bootstrap-vue'
-	// import {
-	// 	Navbar,
-	// 	NavbarItem,
-	// 	NavbarNav,
-	// 	NavbarCollapse,
-	// 	mdbNavbarBrand,
-	// 	mdbNavbarToggler,
-	// 	Dropdown,
-	// 	DropdownToggle,
-	// 	DropdownMenu,
-	// 	DropdownItem
-	// } from '@/_util/mdbvue/src'
 import I18N from '@/_mixins/I18N.mixin'
 import getByKey from '@/_util/getObjectByKey'
 import {
+	ROUTE_HOME,
 	ROUTE_LOGIN,
 	ROUTE_REGISTER,
 	ROUTE_LOGOUT,
@@ -273,6 +200,7 @@ export default {
 	mixins: [I18N],
 	data: function () {
 		return {
+			homeRoute: ROUTE_HOME,
 			scneriesRoute: ROUTE_SCENERIES,
 			requestsRoute: ROUTE_REQUESTS,
 			communityRoute: ROUTE_COMMUNITY,

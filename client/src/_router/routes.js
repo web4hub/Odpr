@@ -1,4 +1,5 @@
 'use strict'
+export const ROUTE_HOME = '/'
 export const ROUTE_LOGIN = '/login'
 export const ROUTE_LOGOUT = '/logout'
 export const ROUTE_REGISTER = '/register'
@@ -18,6 +19,7 @@ export const ROUTE_PRIVACY_POLICY = '/privacy'
 export const ROUTE_TERMS_OF_USE = '/terms'
 
 export const NON_SIGNIFICANT_ROUTES = [
+	ROUTE_HOME,
 	ROUTE_LOGIN,
 	ROUTE_LOGOUT,
 	ROUTE_REGISTER,
