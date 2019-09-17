@@ -1,7 +1,7 @@
-from .test_util import \
+from odpr_shared_models.test_util.user_tests.test_util import \
 	perform_post_and_retrieve_and_analyze, delete_user_instance_and_verify_status_code
-from ..test_util import AUTHOR, VIEWER, ADMIN, STAFF, CUSTOM_ID
-from .test_data import create_user_test_data
+from odpr_shared_models.test_util.test_util import AUTHOR, VIEWER, ADMIN, STAFF, CUSTOM_ID
+from odpr_shared_models.test_util.user_tests.test_data import create_user_test_data
 from accounts.models import User
 from django.core.exceptions import ObjectDoesNotExist
 

@@ -1,4 +1,4 @@
-from ..test_util import make_get_request, make_post_request, make_put_request, make_patch_request, \
+from odpr_shared_models.test_util.test_util import make_get_request, make_post_request, make_put_request, make_patch_request, \
 	make_delete_request, verify_response_status_code, \
 	AUTHOR, authenticate_by_user_type
 from documentation.views import DocumentDetailView, DocumentCreateView

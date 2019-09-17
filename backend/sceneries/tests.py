@@ -143,29 +143,29 @@ class SceneryCreateTests(TestCase):
 #urlpatterns = app_patterns + []  # Add custom patterns if needed.
 
 #@override_settings(ROOT_URLCONF=__name__)
-class FileTests(APITestCase):
-	#urls = 'vuedj.urls'
-
-	fixtures = (
-		'user_fixtures',
-		'badge_fixtures',
-		'text_with_history_fixtures',
-		'filter_property_fixtures',
-		'filter_properties_fixtures',
-		'scenery_fixtures',
-		'tag_fixtures',
-	)
-
-	@classmethod
-	def setUpClass(cls):
-		super().setUpClass()
-		set_urlconf('vuedj.urls')
-
-	def test_authenticated_user_scenery_image_create_should_succeed(self):
-		print('=================== Test 5:  Scenery Image create should succeed ==========================================')
-
-		verify_scenery_create_image_create_succeeds(self)
-		print('================================================= End of Test 5 ===========================================')
+# class FileTests(APITestCase):
+# 	#urls = 'vuedj.urls'
+#
+# 	fixtures = (
+# 		'user_fixtures',
+# 		'badge_fixtures',
+# 		'text_with_history_fixtures',
+# 		'filter_property_fixtures',
+# 		'filter_properties_fixtures',
+# 		'scenery_fixtures',
+# 		'tag_fixtures',
+# 	)
+#
+# 	@classmethod
+# 	def setUpClass(cls):
+# 		super().setUpClass()
+# 		set_urlconf('vuedj.urls')
+#
+# 	def test_authenticated_user_scenery_image_create_should_succeed(self):
+# 		print('=================== Test 5:  Scenery Image create should succeed ==========================================')
+#
+# 		verify_scenery_create_image_create_succeeds(self)
+# 		print('================================================= End of Test 5 ===========================================')
 
 
 class SceneryUpdateTests(TestCase):

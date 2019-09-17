@@ -182,25 +182,25 @@ class NestedModelSerializer(serializers.ModelSerializer):
 
 	def create(self, validated_data):
 		"""
-      We have a bit of extra checking around this in order to provide
-      descriptive messages when something goes wrong, but this method is
-      essentially just:
+			We have a bit of extra checking around this in order to provide
+			descriptive messages when something goes wrong, but this method is
+			essentially just:
 
-          return ExampleModel.objects.create(**validated_data)
+					return ExampleModel.objects.create(**validated_data)
 
-      If there are many to many fields present on the instance then they
-      cannot be set until the model is instantiated, in which case the
-      implementation is like so:
+			If there are many to many fields present on the instance then they
+			cannot be set until the model is instantiated, in which case the
+			implementation is like so:
 
-          example_relationship = validated_data.pop('example_relationship')
-          instance = ExampleModel.objects.create(**validated_data)
-          instance.example_relationship = example_relationship
-          return instance
+					example_relationship = validated_data.pop('example_relationship')
+					instance = ExampleModel.objects.create(**validated_data)
+					instance.example_relationship = example_relationship
+					return instance
 
-      The default implementation also does not handle nested relationships.
-      If you want to support writable nested relationships you'll need
-      to write an explicit `.create()` method.
-      """
+			The default implementation also does not handle nested relationships.
+			If you want to support writable nested relationships you'll need
+			to write an explicit `.create()` method.
+			"""
 		# raise_errors_on_nested_writes('create', self, validated_data)
 
 		ModelClass = self.Meta.model
@@ -244,8 +244,8 @@ class NestedModelSerializer(serializers.ModelSerializer):
 
 	def to_internal_value(self, data):
 		"""
-      Dict of native values <- Dict of primitive datatypes.
-      """
+			Dict of native values <- Dict of primitive datatypes.
+			"""
 		#if self.serializer_type is not NestedModelSerializer.POST:
 		#	return super(NestedModelSerializer, self).to_internal_value(data)
 		# Changed: Do not check mapping. Now we can use both strings and integers.
@@ -328,10 +328,10 @@ class NestedModelSerializer(serializers.ModelSerializer):
 
 	def run_validation(self, data=empty):
 		"""
-      We override the default `run_validation`, because the validation
-      performed by validators and the `.validate()` method should
-      be coerced into an error dictionary with a 'non_fields_error' key.
-      """
+			We override the default `run_validation`, because the validation
+			performed by validators and the `.validate()` method should
+			be coerced into an error dictionary with a 'non_fields_error' key.
+			"""
 		# if self.serializer_type is not NestedModelSerializer.POST:
 		#	return super(NestedModelSerializer, self).run_validation(data)
 		(is_empty_value, data) = self.validate_empty_values(data)

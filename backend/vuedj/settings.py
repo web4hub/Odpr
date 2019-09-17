@@ -258,5 +258,5 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # Tell nose to measure coverage on the apps
 NOSE_ARGS = [
 	'--with-coverage',  # disable if tests cannot be breakpointed
-	'--cover-package=accounts, api',  # For multiple apps use '--cover-package=foo, bar'
+	'--cover-package=accounts, api, documentation, odpr_shared_models, sceneries, scenery_requests',  # For multiple apps use '--cover-package=foo, bar'
 ]

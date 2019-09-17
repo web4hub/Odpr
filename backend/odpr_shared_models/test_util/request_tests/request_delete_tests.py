@@ -1,7 +1,7 @@
-from .test_util import \
+from odpr_shared_models.test_util.request_tests.test_util import \
 	perform_post_and_retrieve_and_analyze, delete_request_instance_and_verify_status_code
-from ..test_util import AUTHOR, VIEWER, ADMIN, STAFF
-from .test_data import create_request_test_data
+from odpr_shared_models.test_util.test_util import AUTHOR, VIEWER, ADMIN, STAFF
+from odpr_shared_models.test_util.request_tests.test_data import create_request_test_data
 from scenery_requests.models import Request
 from django.core.exceptions import ObjectDoesNotExist
 

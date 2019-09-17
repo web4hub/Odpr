@@ -1,6 +1,6 @@
-from .test_util import perform_post_and_retrieve_and_analyze, perform_put_and_retrieve_and_analyze
-from ..test_util import AUTHOR, STAFF, ADMIN, VIEWER
-from .test_data import create_complex_test_data, modify_existing_request, normalize_list
+from odpr_shared_models.test_util.request_tests.test_util import perform_post_and_retrieve_and_analyze, perform_put_and_retrieve_and_analyze
+from odpr_shared_models.test_util.test_util import AUTHOR, STAFF, ADMIN, VIEWER
+from odpr_shared_models.test_util.request_tests.test_data import create_complex_test_data, modify_existing_request, normalize_list
 from odpr_shared_models.models import FilterProperty
 
 def create_and_update_request(

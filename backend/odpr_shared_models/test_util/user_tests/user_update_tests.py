@@ -2,9 +2,9 @@
 # TODO: pw-reset tests are omitted, due to complexity.
 # TODO: maybe add a test which verifies that the pw is never returned.
 
-from .test_util import perform_post_and_retrieve_and_analyze, perform_put_and_retrieve_and_analyze
-from ..test_util import AUTHOR, STAFF, ADMIN, VIEWER, GUEST, CUSTOM_ID
-from .test_data import modify_existing_user, create_user_test_data
+from odpr_shared_models.test_util.user_tests.test_util import perform_post_and_retrieve_and_analyze, perform_put_and_retrieve_and_analyze
+from odpr_shared_models.test_util.test_util import AUTHOR, STAFF, ADMIN, VIEWER, GUEST, CUSTOM_ID
+from odpr_shared_models.test_util.user_tests.test_data import modify_existing_user, create_user_test_data
 
 def create_and_update_user(
 	self, authenticated=True, expected_success=True, user_type_write=AUTHOR, user_type_retrieve=AUTHOR

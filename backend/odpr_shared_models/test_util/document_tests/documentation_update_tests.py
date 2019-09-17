@@ -1,6 +1,6 @@
-from .test_util import perform_post_and_retrieve_and_analyze, perform_put_and_retrieve_and_analyze
-from ..test_util import AUTHOR, STAFF, ADMIN, VIEWER
-from .test_data import create_complex_test_data, modify_existing_document, normalize_list
+from odpr_shared_models.test_util.document_tests.test_util import perform_post_and_retrieve_and_analyze, perform_put_and_retrieve_and_analyze
+from odpr_shared_models.test_util.test_util import AUTHOR, STAFF, ADMIN, VIEWER
+from odpr_shared_models.test_util.document_tests.test_data import create_complex_test_data, modify_existing_document, normalize_list
 from documentation.models import DocumentationTag
 
 def create_and_update_document(

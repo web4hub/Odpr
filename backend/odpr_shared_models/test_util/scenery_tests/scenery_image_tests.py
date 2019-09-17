@@ -1,8 +1,8 @@
-from .test_util import post_scenery_test_data_and_verify_status_code, \
-	perform_post_and_retrieve_and_analyze, post_scenery_image_and_verify_status_code
-from .test_data import create_scenery_test_data, create_complex_test_data, create_image
-from django.core.files.uploadedfile import SimpleUploadedFile, InMemoryUploadedFile
-import io
+from django.core.files.uploadedfile import SimpleUploadedFile
+from odpr_shared_models.test_util.scenery_tests.test_data import create_complex_test_data, create_image
+from odpr_shared_models.test_util.scenery_tests.test_util import perform_post_and_retrieve_and_analyze, \
+	post_scenery_image_and_verify_status_code
+
 
 def verify_scenery_create_image_create_succeeds(self):
 	test_data, normalized_test_data = create_complex_test_data()

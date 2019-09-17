@@ -1,6 +1,6 @@
-from .test_util import post_request_test_data_and_verify_status_code, \
+from odpr_shared_models.test_util.request_tests.test_util import post_request_test_data_and_verify_status_code, \
 	perform_post_and_retrieve_and_analyze
-from .test_data import create_request_test_data, create_complex_test_data
+from odpr_shared_models.test_util.request_tests.test_data import create_request_test_data, create_complex_test_data
 
 def verify_unauthenticated_request_create_fails(self):
 	post_request_test_data_and_verify_status_code(

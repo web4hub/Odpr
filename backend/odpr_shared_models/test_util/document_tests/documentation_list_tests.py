@@ -1,4 +1,4 @@
-from ..test_util import make_get_request, assert_response_200, assert_has_data_field, \
+from odpr_shared_models.test_util.test_util import make_get_request, assert_response_200, assert_has_data_field, \
 	assert_list_response_matches_whitelist, authenticate_admin, authenticate_staff, \
 	authenticate_viewer_user
 from documentation.permissions import UNAUTHENTICATED_DOCUMENT_LIST_DATA_ACCESS_FULL, \

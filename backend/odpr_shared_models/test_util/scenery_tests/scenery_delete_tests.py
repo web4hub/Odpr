@@ -1,7 +1,7 @@
-from .test_util import \
+from odpr_shared_models.test_util.scenery_tests.test_util import \
 	perform_post_and_retrieve_and_analyze, delete_scenery_instance_and_verify_status_code
-from ..test_util import AUTHOR, VIEWER, ADMIN, STAFF
-from .test_data import create_scenery_test_data
+from odpr_shared_models.test_util.test_util import AUTHOR, VIEWER, ADMIN, STAFF
+from odpr_shared_models.test_util.scenery_tests.test_data import create_scenery_test_data
 from sceneries.models import Scenery
 from django.core.exceptions import ObjectDoesNotExist
 
