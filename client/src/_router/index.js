@@ -167,4 +167,14 @@ router.beforeEach((to, from, next) => {
 	next()
 })
 
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location, onResolve, onReject) {
+	if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+	try {
+		return originalPush.call(this, location).catch(err => err)
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 export default router
