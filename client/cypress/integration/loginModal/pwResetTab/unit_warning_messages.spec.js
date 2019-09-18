@@ -1,13 +1,10 @@
 import {
 	wait_time,
-	visit,
 	closeModalWindow
 } from '../../_util/loginModal/loginModalUtil'
-
 import {
 	openAndVerifyLoginTab
 } from '../../_util/loginModal/loginModal_loginTabUtil'
-
 import {
 	getPasswordResetEmailInputField,
 	getPasswordResetSubmitButton,
@@ -17,7 +14,7 @@ import {
 	verifyPasswordResetSubmitDisabledAndErrorMatchesEmailInvalid,
 	verifyPasswordResetSubmitDisabledAndErrorMatchesEmailRequired
 } from "../../_util/loginModal/loginModal_pwResetTabUtil";
-
+import {visit} from '../../_util/utils'
 
 describe('Password Reset Tab Warning messages', () => {
 	beforeEach(function () {

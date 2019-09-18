@@ -1,16 +1,6 @@
-import {
-	wait_time,
-	visit,
-	logout
-} from '../../_util/loginModal/loginModalUtil'
-import {
-	verifyInLoginTab
-} from '../../_util/loginModal/loginModal_loginTabUtil'
-import {
-	openAndVerifyRegisterTab,
-	registerNewRandomUser
-} from '../../_util/loginModal/loginModal_registerTabUtil'
-import i18n from '../../../../src/_localization/localization'
+import {logout, wait_time} from '../../_util/loginModal/loginModalUtil'
+import {verifyInLoginTab} from '../../_util/loginModal/loginModal_loginTabUtil'
+import {openAndVerifyRegisterTab, registerNewRandomUser} from '../../_util/loginModal/loginModal_registerTabUtil'
 import {
 	getPasswordResetEmailInputField,
 	getPasswordResetSubmitButton,
@@ -20,12 +10,8 @@ import {
 	verifyPasswordResetSendMailErrorMessageVisible,
 	verifyPasswordResetSendMailSuccessMessageInvisible,
 	verifyPasswordResetSendMailSuccessMessageVisible
-} from "../../_util/loginModal/loginModal_pwResetTabUtil";
-import {
-	deleteFolderRecursive,
-	listFiles,
-	userServicePasswordResetMock
-} from '../../_util/utils'
+} from '../../_util/loginModal/loginModal_pwResetTabUtil'
+import {visit} from '../../_util/utils'
 
 describe('Password Reset Integration Tests', () => {
 	beforeEach(visit)

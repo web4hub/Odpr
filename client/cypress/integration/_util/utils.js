@@ -7,6 +7,9 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 axios.defaults.xsrfCookieName = 'csrftoken'
 
+export const visit = () => cy.visit('/')
+export const getApp = () => cy.get('div#app')
+export const getStore = () => cy.window().its('app.$store')
 export const getAbsoluteExisitingPath = (relativeOrAbsolutePath) => {
 	console.log(cy.exec('ls'))
 	return relativeOrAbsolutePath

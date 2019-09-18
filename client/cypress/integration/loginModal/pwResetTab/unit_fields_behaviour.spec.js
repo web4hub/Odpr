@@ -1,22 +1,18 @@
 import {
 	wait_time,
-	visit,
 	closeModalWindow
 } from '../../_util/loginModal/loginModalUtil'
-
 import {
 	openAndVerifyLoginTab,
 	getLoginUsernameOrEmailInputField,
 	triggerLoginPasswordRequiredError,
 	verifyLoginPasswordRequiredErrorVisible,
 } from '../../_util/loginModal/loginModal_loginTabUtil'
-
 import {
 	getRegisterEmailInputField,
 	openAndVerifyRegisterTab,
 	verifyRegisterEmailErrorVisible
 } from '../../_util/loginModal/loginModal_registerTabUtil'
-
 import {
 	getPasswordResetEmailInputField,
 	openAndVerifyPasswordResetTab,
@@ -24,6 +20,7 @@ import {
 	verifyPasswordResetSubmitButtonDisabled,
 	verifyPasswordResetSubmitButtonEnabled
 } from "../../_util/loginModal/loginModal_pwResetTabUtil";
+import {visit} from '../../_util/utils'
 
 
 describe('PW-Reset Field Input and warning message clearing/reset behaviour', () => {

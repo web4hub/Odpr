@@ -24,7 +24,7 @@ Vue.config.devtools = (process.env.VUE_DEBUG !== 'False')
 Vue.use(() => import('bootstrap-vue'))
 
 /* eslint-disable no-new */
-new Vue({
+const v = new Vue({
 	el: '#app',
 	router,
 	components: {
@@ -33,3 +33,6 @@ new Vue({
 	template: '<App/>',
 	store: store
 })
+if (window.Cypress) {
+	window.app = v
+}

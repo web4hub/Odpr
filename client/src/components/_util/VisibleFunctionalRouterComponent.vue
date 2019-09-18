@@ -4,7 +4,10 @@
 						to enable the child components being displayed on specific routes being done.
 						DO ONLY USE THIS COMPONENT IN THE ROOT TEMPLATE (App.vue) ONCE, never in other templates and
 						never directly in the router mappings. -->
-	<div id="visible-helper-router-component" class="overlay">
+	<div
+		id="visible-helper-router-component"
+		class="overlay"
+	>
 		<login-modal class="modal" />
 		<password-reset-modal class="modal" />
 		<password-change-modal class="modal" />

@@ -1,12 +1,10 @@
 import {
 	wait_time,
-	visit,
 	verifyModalInactive,
 	logout,
 	verifyLoggedIn,
 	verifyLoggedOut
 } from '../../_util/loginModal/loginModalUtil'
-
 import {
 	verifyInLoginTab,
 	openAndVerifyLoginTab,
@@ -15,11 +13,11 @@ import {
 	getLoginSubmitButton,
 	verifyLoginErrorMessageVisible
 } from '../../_util/loginModal/loginModal_loginTabUtil'
-
 import {
 	openAndVerifyRegisterTab,
 	registerNewRandomUser
 } from '../../_util/loginModal/loginModal_registerTabUtil'
+import {visit} from '../../_util/utils'
 
 describe('User Login Integration Tests', () => {
 	beforeEach(visit)
