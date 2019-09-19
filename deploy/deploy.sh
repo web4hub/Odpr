@@ -3,6 +3,8 @@ set -eo pipefail
 
 cd "$(dirname "$0")"
 
+# TODO: add proxy-server support and use the variables PROXY_SERVER_IP, PROXY_SERVER_USER, PROXY_SERVER_PRIVATE_KEY
+
 help() {
 	echo "Usage: $0"
 	echo "  Remote-scp and remote-ssh to (production) deploy-server to copy the nginx-proxy files if not already there,"
@@ -13,54 +15,54 @@ help() {
 
 delete_old_app_images_on_server() {
 	set +e
-	OLD_IMAGES=$(ssh gitlab@$DEPLOY_SERVER_IP "docker-compose -f apps/${NGINX_SERVER_NAME}/docker-compose.yml images -q 2>/dev/null")
+	OLD_IMAGES=$(ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "docker-compose -f apps/${NGINX_SERVER_NAME}/docker-compose.yml images -q 2>/dev/null")
 	while read -r line; do
-    ssh gitlab@$DEPLOY_SERVER_IP "docker image rm --force ${line} 2>/dev/null"
+    ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "docker image rm --force ${line} 2>/dev/null"
 	done <<< "${OLD_IMAGES}"
 	set -e
 }
 
 make_app_directory() {
 	set -e
-	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/re-encrypt-certs"
-	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/gitlab-badges"
-	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p apps/${NGINX_SERVER_NAME}/crawlers"
+	ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "mkdir -p apps/${NGINX_SERVER_NAME}/re-encrypt-certs"
+	ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "mkdir -p apps/${NGINX_SERVER_NAME}/gitlab-badges"
+	ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "mkdir -p apps/${NGINX_SERVER_NAME}/crawlers"
 	set +e
 }
 
 make_nginx_proxy_directories() {
 	set -e
-	ssh gitlab@$DEPLOY_SERVER_IP "mkdir -p nginx-proxy/config/template"
+	ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "mkdir -p nginx-proxy/config/template"
 	set +e
 }
 
 scp_start_script() {
 	make_nginx_proxy_directories
 	set -e
-	scp nginx-proxy/nginx-proxy.sh gitlab@"${DEPLOY_SERVER_IP}":~/nginx-proxy/
-	ssh gitlab@$DEPLOY_SERVER_IP "chmod 755 nginx-proxy/nginx-proxy.sh"
+	scp nginx-proxy/nginx-proxy.sh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/nginx-proxy/
+	ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "chmod 755 nginx-proxy/nginx-proxy.sh"
 	set +e
 }
 
 scp_docker_compose() {
 	make_nginx_proxy_directories
 	set -e
-	scp nginx-proxy/config/docker-compose.yml gitlab@"${DEPLOY_SERVER_IP}":~/nginx-proxy/config/
+	scp nginx-proxy/config/docker-compose.yml "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/nginx-proxy/config/
 	set +e
 }
 
 scp_template() {
 	make_nginx_proxy_directories
 	set -e
-	scp nginx-proxy/config/template/nginx.tmpl gitlab@"${DEPLOY_SERVER_IP}":~/nginx-proxy/config/template/
+	scp nginx-proxy/config/template/nginx.tmpl "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/nginx-proxy/config/template/
 	set +e
 }
 
 set +e
-nginx_proxy_found=$(ssh gitlab@$DEPLOY_SERVER_IP "ls -la" | grep -c "nginx-proxy")
+nginx_proxy_found=$(ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "ls -la" | grep -c "nginx-proxy")
 if [ ! $nginx_proxy_found -eq 0 ]; then
 	echo "Found nginx-proxy directory in home directory of gitlab user on remote server."
-	start_script_found=$(ssh gitlab@$DEPLOY_SERVER_IP "ls -la nginx-proxy/" | grep -c "nginx-proxy.sh")
+	start_script_found=$(ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "ls -la nginx-proxy/" | grep -c "nginx-proxy.sh")
 	if [ ! $start_script_found -eq 0 ]; then
 		echo "Found nginx-proxy-start-script."
 	else
@@ -68,10 +70,10 @@ if [ ! $nginx_proxy_found -eq 0 ]; then
 		scp_start_script
 	fi
 
-	config_folder_found=$(ssh gitlab@$DEPLOY_SERVER_IP "ls -la nginx-proxy/" | grep -c "config")
+	config_folder_found=$(ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "ls -la nginx-proxy/" | grep -c "config")
 	if [ ! $config_folder_found -eq 0 ]; then
 		echo "Found config folder of nginx-proxy."
-		docker_compose_found=$(ssh gitlab@$DEPLOY_SERVER_IP "ls -la nginx-proxy/config/" | grep -c "docker-compose.yml")
+		docker_compose_found=$(ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "ls -la nginx-proxy/config/" | grep -c "docker-compose.yml")
 		if [ ! $docker_compose_found -eq 0 ]; then
 			echo "Found docker-compose.yml of nginx-proxy."
 		else
@@ -79,10 +81,10 @@ if [ ! $nginx_proxy_found -eq 0 ]; then
 			scp_docker_compose
 		fi
 
-		template_folder_found=$(ssh gitlab@$DEPLOY_SERVER_IP "ls -la nginx-proxy/config/" | grep -c "template")
+		template_folder_found=$(ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "ls -la nginx-proxy/config/" | grep -c "template")
 		if [ ! $template_folder_found -eq 0 ]; then
 			echo "Found template directory of nginx-proxy."
-			template_found=$(ssh gitlab@$DEPLOY_SERVER_IP "ls -la nginx-proxy/config/template" | grep -c "nginx.tmpl")
+			template_found=$(ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "ls -la nginx-proxy/config/template" | grep -c "nginx.tmpl")
 			if [ ! $template_found -eq 0 ]; then
 				echo "Found nginx.tmpl of nginx-proxy."
 			else
@@ -108,8 +110,8 @@ set -e
 
 echo "Files copied or verified, now starting nginx-proxy if not running..."
 
-ssh gitlab@$DEPLOY_SERVER_IP "nginx-proxy/nginx-proxy.sh start"
-ssh gitlab@$DEPLOY_SERVER_IP "nginx-proxy/nginx-proxy.sh status"
+ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "nginx-proxy/nginx-proxy.sh start"
+ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "nginx-proxy/nginx-proxy.sh status"
 
 echo "Nginx-proxy should now be up and running. Copying app..."
 make_app_directory
@@ -124,14 +126,14 @@ chmod 755 ../util/*.sh
 ../util/inject_env_into_file.sh NGINX_IMAGE_NAME app/docker-compose.yml
 ../util/inject_env_into_file.sh POSTGRES_IMAGE_NAME app/docker-compose.yml
 delete_old_app_images_on_server
-scp app/docker-compose.yml gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
-scp app/app.sh gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
-scp app/re-encrypt-certs/* gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/re-encrypt-certs/
-scp app/crawlers/* gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/crawlers/
-ssh gitlab@$DEPLOY_SERVER_IP "chmod 755 apps/${NGINX_SERVER_NAME}/app.sh"
+scp app/docker-compose.yml "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
+scp app/app.sh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/
+scp app/re-encrypt-certs/* "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/re-encrypt-certs/
+scp app/crawlers/* "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/crawlers/
+ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "chmod 755 apps/${NGINX_SERVER_NAME}/app.sh"
 
 echo "Copied app configuration to server. Updating images and deploying now..."
-ssh gitlab@$DEPLOY_SERVER_IP "apps/${NGINX_SERVER_NAME}/app.sh update"
+ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "apps/${NGINX_SERVER_NAME}/app.sh update"
 
 echo "Deploy finished, your app should be reachable in a few seconds/minutes at ${NGINX_SERVER_NAME}"
 
