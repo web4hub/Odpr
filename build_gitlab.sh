@@ -11,9 +11,9 @@ cd "${CLIENT_DIRECTORY}"
 # pwd = ${CI_PROJECT_DIR}/${CLIENT_DIRECTORY} (/builds/dood/app/client)
 
 echo 'Inject debug flags and production/debug URLS into client javascript src-code...'
-../util/inject_env_into_file.sh PRODUCTION_URL src/_api/urls.js
-../util/inject_env_into_file.sh DEBUG_URL src/_api/urls.js
-../util/inject_env_into_file.sh VUE_DEBUG src/main.js
+../util/inject_env_into_file.sh PRODUCTION_URL src/_api/urls.js --force
+../util/inject_env_into_file.sh DEBUG_URL src/_api/urls.js --force
+../util/inject_env_into_file.sh VUE_DEBUG src/main.js --force
 
 echo 'Update npm'
 npm install -g npm
