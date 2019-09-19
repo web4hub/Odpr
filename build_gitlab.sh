@@ -10,12 +10,19 @@ set -eo pipefail
 cd "${CLIENT_DIRECTORY}"
 # pwd = ${CI_PROJECT_DIR}/${CLIENT_DIRECTORY} (/builds/dood/app/client)
 
-echo 'Run npm build'
+echo 'Inject debug flags and production/debug URLS into client javascript src-code...'
+../util/inject_env_into_file.sh PRODUCTION_URL src/_api/urls.js
+../util/inject_env_into_file.sh DEBUG_URL src/_api/urls.js
+../util/inject_env_into_file.sh VUE_DEBUG src/main.js
+
+echo 'Update npm'
 npm install -g npm
 npm set progress=false
 npm install -s --no-progress
+echo 'Fix security vulnerabilities of third party packages'
 npm audit fix
 mkdir -p static
+echo 'Run npm build'
 npm run build
 echo 'Done...'
 

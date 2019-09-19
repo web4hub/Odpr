@@ -67,7 +67,7 @@ variables:
   #
   # Vue/Webpack Settings
   #
-  VUE_DEBUG: "True" # (True or False)  (defined here)
+  VUE_DEBUG: "true" # (true or false)  (defined here and in jobs)
   #
   # Django Settings (some of them are defined in the gitlab variables page and are commented here)
   #
@@ -103,7 +103,7 @@ variables:
   HOST_PORT: 8000 # port of gitlab-ci runner container which runs cypress to test the app on app@localhost:HOST_PORT
   # NGINX_PRODUCTION_CONFIG  (defined in release-job locally).
   # PRODUCTION_URL  (defined in release-job locally. If defined, will overwrite DEBUG_URL. Should be in the format: "https://my.site.com/" (don't forget the trailing slash))
-  DEBUG_URL: "localhost:${GUNICORN_PORT}/"
+  DEBUG_URL: "http://localhost:${GUNICORN_PORT}/"
   NGINX_SERVER_NAME: "localhost"
   # NGINX_PERMANENT_REDIRECT_INSTRUCTION: "" # (defined in release-job locally). Leave empty for debug builds.
   #
@@ -220,7 +220,7 @@ test-release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
-    VUE_DEBUG: "True"
+    VUE_DEBUG: "true"
     DJANGO_DEBUG: "True"
     NGINX_PRODUCTION_CONFIG: "True"
     # PRODUCTION_URL: "https://${TEST_PRODUCTION_DOMAIN}/"
@@ -314,7 +314,7 @@ release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
-    VUE_DEBUG: "False"
+    VUE_DEBUG: "false"
     DJANGO_DEBUG: "False"
     NGINX_PRODUCTION_CONFIG: "True"
     NGINX_SERVER_NAME: "${PRODUCTION_DOMAIN}"
