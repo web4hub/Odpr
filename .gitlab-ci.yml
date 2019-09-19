@@ -288,7 +288,9 @@ test-release:
     - docker push $NGINX_IMAGE_NAME
     - docker push $POSTGRES_IMAGE_NAME
     - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
-    - scp ${BACKEND_DIRECTORY}/coverage.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/ || echo "Could not upload coverage report to server. Maybe your app has not been deployed yet? Not considering this as an error."
+    - chmod 755 util/scp_ssh_wrapper.sh
+    - source util/scp_ssh_wrapper.sh
+    - scp_proxy "${BACKEND_DIRECTORY}/coverage.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/" || echo "Could not upload coverage report to server. Maybe your app has not been deployed yet? Not considering this as an error."
   only:
     - tags
 
@@ -416,20 +418,22 @@ create_badges:
     - util/run_lighthouse.sh
   after_script:
     - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
-    - scp report.html "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp latest_release_tag.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp nginx_version.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp postgres_version.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp webpack_version.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp vue_version.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp django_version.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp performance.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp accessibility.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp best_practices.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp search_engine_results_ranking.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp outdated.html "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp outdated_pip.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp outdated_npm.svg "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
+    - chmod 755 util/scp_ssh_wrapper.sh
+    - source util/scp_ssh_wrapper.sh
+    - scp_proxy "report.html" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "latest_release_tag.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "nginx_version.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "postgres_version.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "webpack_version.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "vue_version.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "django_version.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "performance.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "accessibility.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "best_practices.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "search_engine_results_ranking.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "outdated.html" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "outdated_pip.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "outdated_npm.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
   only:
     - tags
 
@@ -447,8 +451,10 @@ update_dependency_badges:
     - util/update_dependency_badges.sh
   after_script:
     - eval $(ssh-agent -s) && ssh-add <(cat "$DEPLOY_SERVER_PRIVATE_KEY")
-    - scp outdated.html gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp outdated_pip.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
-    - scp outdated_npm.svg gitlab@"${DEPLOY_SERVER_IP}":~/apps/${NGINX_SERVER_NAME}/gitlab-badges/
+    - chmod 755 util/scp_ssh_wrapper.sh
+    - source util/scp_ssh_wrapper.sh
+    - scp_proxy "outdated.html" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "outdated_pip.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
+    - scp_proxy "outdated_npm.svg" "~/apps/${NGINX_SERVER_NAME}/gitlab-badges/"
   only:
     - schedules
