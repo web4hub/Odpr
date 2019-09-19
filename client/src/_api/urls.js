@@ -10,10 +10,10 @@
 * */
 let _URL_PROD = 'PRODUCTION_URL' // the String PRODUCTION_URL will be replaced by .gitlab-ci injections if needed. If not replaced, it will be replaced by an empty string below.
 let _URL_DEBUG = 'DEBUG_URL'
-if (_URL_PROD.includes('PRODUCTION_UR') && _URL_PROD.includes('RODUCTION_URL') ) { // hack to prevent the injection to overwrite the test string as well
+if (_URL_PROD.includes('PRODUCTION_UR') && _URL_PROD.includes('RODUCTION_URL')) { // hack to prevent the injection to overwrite the test string as well
 	_URL_PROD = ''
 }
-if (_URL_DEBUG.includes('DEBUG_UR') && _URL_DEBUG.includes('EBUG_URL') ) { // hack to prevent the injection to overwrite the test string as well
+if (_URL_DEBUG.includes('DEBUG_UR') && _URL_DEBUG.includes('EBUG_URL')) { // hack to prevent the injection to overwrite the test string as well
 	_URL_DEBUG = ''
 }
 
