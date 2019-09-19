@@ -14,7 +14,7 @@ ssh_proxy() {
 		ssh "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "${1}"
 	else
 		echo "proxy-server variable set, connecting via proxy server to deploy server..."
-		ssh -o "ProxyCommand ssh ${PROXY_SERVER_USER}@${PROXY_SERVER_IP} -W ${DEPLOY_SERVER_IP}:22" "${1}" "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}"
+		ssh -o "ProxyCommand ssh ${PROXY_SERVER_USER}@${PROXY_SERVER_IP} -W ${DEPLOY_SERVER_IP}:22" "${DEPLOY_SERVER_USER}@${DEPLOY_SERVER_IP}" "${1}"
 	fi
 }
 
