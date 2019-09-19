@@ -5,11 +5,6 @@ cd "$(dirname "$0")"
 
 source ../util/scp_ssh_wrapper.sh
 
-# TODO: add proxy-server support and use the variables PROXY_SERVER_IP, PROXY_SERVER_USER, PROXY_SERVER_PRIVATE_KEY
-
-# TODO: add ssh key to agent for proxy here (or how to solve?) - force users to add a .ssh/config entry with IdentityFile,
-# so they do not even have to add the private key here but prepare it on the intermediate server.
-
 help() {
 	echo "Usage: $0"
 	echo "  Remote-scp and remote-ssh to (production) deploy-server to copy the nginx-proxy files if not already there,"
