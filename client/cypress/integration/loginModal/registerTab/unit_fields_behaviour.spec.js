@@ -1,15 +1,13 @@
 import {
 	wait_time,
-	visit, closeModalWindow
+	closeModalWindow
 } from '../../_util/loginModal/loginModalUtil'
-
 import {
 	getLoginPasswordInputField,
 	getLoginUsernameOrEmailInputField,
 	openAndVerifyLoginTab,
 	verifyLoginUsernameEmailRequiredErrorVisible,
 } from '../../_util/loginModal/loginModal_loginTabUtil'
-
 import {
 	fillRegisterInputfieldsWithValidTestdata,
 	getRegisterEmailInputField,
@@ -26,6 +24,7 @@ import {
 	openAndVerifyPasswordResetTab,
 	verifyPasswordResetEmailErrorVisible
 } from "../../_util/loginModal/loginModal_pwResetTabUtil";
+import {visit} from '../../_util/utils'
 
 describe('Register Field Input and warning message clearing/reset behaviour', () => {
 	beforeEach(function () {

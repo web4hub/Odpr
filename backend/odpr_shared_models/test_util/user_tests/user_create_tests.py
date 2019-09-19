@@ -1,5 +1,5 @@
-from .test_util import perform_post_and_retrieve_and_analyze
-from .test_data import create_user_test_data
+from odpr_shared_models.test_util.user_tests.test_util import perform_post_and_retrieve_and_analyze
+from odpr_shared_models.test_util.user_tests.test_data import create_user_test_data
 from odpr_shared_models.test_util.test_util import AUTHOR, ADMIN
 
 def verify_unauthenticated_user_create_succeeds(self):

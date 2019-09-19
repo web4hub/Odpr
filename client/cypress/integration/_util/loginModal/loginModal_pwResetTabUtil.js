@@ -1,29 +1,13 @@
 import {
-	assertEqualsRegisterTabState,
-	generateRandomEmail,
-	generateRandomPassword,
-	generateRandomUsername,
 	getModalLoginTab,
 	getModalPWResetTab,
 	getModalRegisterTab,
 	getModalSwitcherLoginButton,
 	getModalSwitcherRegisterButton,
 	getModalVisibleFrame,
-	openPasswordResetTab,
-	openRegisterTab
+	openPasswordResetTab
 } from './loginModalUtil'
 import i18n from '../../../../src/_localization/localization'
-import {
-	getRegisterEmailErrorMessageField,
-	getRegisterEmailInputField, getRegisterSubmitButton, getRegisterTabGeneralErrorField,
-	getRegisterUsernameInputField, verifyInRegisterTab, verifyRegisterEmailErrorVisible,
-	verifyRegisterSubmitButtonDisabled
-} from "./loginModal_registerTabUtil";
-import {
-	getLoginPasswordInputField,
-	getLoginTabGeneralSuccessField,
-	getLoginUsernameOrEmailInputField
-} from "./loginModal_loginTabUtil";
 
 export const assertEqualsPasswordResetTabState = () => {
 	getModalSwitcherRegisterButton().should('not.have.class', 'active')

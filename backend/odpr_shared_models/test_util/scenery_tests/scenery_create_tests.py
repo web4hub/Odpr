@@ -1,6 +1,6 @@
-from .test_util import post_scenery_test_data_and_verify_status_code, \
+from odpr_shared_models.test_util.scenery_tests.test_util import post_scenery_test_data_and_verify_status_code, \
 	perform_post_and_retrieve_and_analyze
-from .test_data import create_scenery_test_data, create_complex_test_data
+from odpr_shared_models.test_util.scenery_tests.test_data import create_scenery_test_data, create_complex_test_data
 
 def verify_unauthenticated_scenery_create_fails(self):
 	post_scenery_test_data_and_verify_status_code(

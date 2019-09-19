@@ -147,6 +147,10 @@ class SceneryImageDetailView(NestedRetrieveUpdateDestroyAPIView):
 
 	def put(self, request, *args, **kwargs):
 		try:
+			# temp = request.data
+			# Note: currently, django tests with multipart/form-data do not fill the request.FILES field, but requests by
+			# the Vue frontend with axios DO. That's weird, and I do not know the reason for this, but it works and I'll
+			# leave it for now.
 			if len(request.FILES) != 2 or 'file' not in request.FILES or 'scenery' not in request.FILES:
 				raise UploadException('Bad file request. Need to contain file and scenery ID.')
 

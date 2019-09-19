@@ -1,6 +1,5 @@
 import {
 	getModalDiv,
-	visit,
 	verifyModalInactive,
 	getModalRegisterTab,
 	closeModalWindow,
@@ -9,6 +8,7 @@ import {
 import {
 	openAndVerifyRegisterTab
 } from '../_util/loginModal/loginModal_registerTabUtil'
+import {visit} from '../_util/utils'
 
 describe('LoginModal', () => {
 	beforeEach(visit)

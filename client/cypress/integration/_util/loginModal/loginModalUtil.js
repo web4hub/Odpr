@@ -1,4 +1,5 @@
 import i18n from '../../../../src/_localization/localization'
+import {getApp, getStore} from '../utils'
 
 export const makeid = (length) => {
 	let text = ''
@@ -23,7 +24,6 @@ export const generateRandomPassword = () => {
 	return makeid(7) + 'Aa1$'
 }
 
-export const visit = () => cy.visit('/')
 export const openRegisterTab = () => getStore().then(store => {
 	store.dispatch('loginModal/flipModal', 'register', { root: true })
 })
@@ -53,8 +53,6 @@ export const assertEqualsLoginTabState = () => {
 	getModalLoginTab().should('have.class', 'active')
 	getModalRegisterTab().should('not.have.class', 'active')
 }
-export const getApp = () => cy.get('div#app')
-export const getStore = () => cy.window().its('app.$store')
 export const getModalDiv = () => getApp().get('div#login-modal')
 export const getModalVisibleFrame = () => getModalDiv().get('div[name="login_modal_frame"]')
 

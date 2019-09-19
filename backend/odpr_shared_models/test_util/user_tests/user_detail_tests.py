@@ -1,4 +1,4 @@
-from ..test_util import make_get_request, assert_response_200, \
+from odpr_shared_models.test_util.test_util import make_get_request, assert_response_200, \
 	assert_detail_response_matches_whitelist, authenticate_admin, authenticate_author_user, authenticate_staff, \
 	authenticate_viewer_user, assert_has_data_field
 from accounts.permissions import UNAUTHENTICATED_USER_DETAIL_DATA_ACCESS_FULL, \
@@ -7,7 +7,7 @@ from accounts.permissions import UNAUTHENTICATED_USER_DETAIL_DATA_ACCESS_FULL, \
 	STAFF_USER_DETAIL_DATA_ACCESS_FULL, \
 	ADMIN_USER_DETAIL_DATA_ACCESS_FULL
 from accounts.views import UserDetailView
-from .test_util import get_first_testuser_instance
+from odpr_shared_models.test_util.user_tests.test_util import get_first_testuser_instance
 
 def verify_userdetail_request_returns_expected_data(self, request, whitelist):
 	user_detail_view = UserDetailView.as_view()

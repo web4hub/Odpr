@@ -1,8 +1,6 @@
 import {
-	wait_time,
-	visit
+	wait_time
 } from '../../_util/loginModal/loginModalUtil'
-
 import {
 	getRegisterPasswordConfirmationInputField,
 	getRegisterPasswordInputField,
@@ -13,6 +11,7 @@ import {
 	verifyRegisterPasswordConfirmationAccepted,
 	verifyRegisterSubmitDisabledAndErrorMatchesPasswordConfirmationDoesNotMatch
 } from '../../_util/loginModal/loginModal_registerTabUtil'
+import {visit} from '../../_util/utils'
 
 
 describe('Password validator', () => {

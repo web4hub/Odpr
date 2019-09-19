@@ -16,6 +16,7 @@ from odpr_shared_models.serializers import TextWithHistorySerializer, FilterProp
 from odpr_shared_models.serializer_util import NestedModelSerializer
 from rest_framework.fields import empty
 
+
 class ScenerySerializer(NestedModelSerializer):
 	ADMIN, STAFF, AUTHOR, VIEWER, GUEST = range(0, 5)
 	permission_type = GUEST  # defined by request.user (type and authentication=True/False)
@@ -133,6 +134,7 @@ class ScenerySerializer(NestedModelSerializer):
 	def get_patch_fields(cls):
 		return cls.get_post_fields()
 
+
 class SceneryRelationshipSerializer(NestedModelSerializer):  # TODO: write tests
 	""" Here are scenery votes stored/created/updated. A vote is the 'type' """
 	scenery = ScenerySerializer()
@@ -147,6 +149,7 @@ class SceneryRelationshipSerializer(NestedModelSerializer):  # TODO: write tests
 	class Meta:
 		model = SceneryRelationship
 		# fields and read_only_fields are set in NestedModelSerializer!
+
 
 class SceneryTagRelationshipSerializer(NestedModelSerializer):  # TODO: write tests
 	tag = TagSerializer()
@@ -163,6 +166,7 @@ class SceneryTagRelationshipSerializer(NestedModelSerializer):  # TODO: write te
 		model = SceneryTagRelationship
 		# fields and read_only_fields are set in NestedModelSerializer!
 
+
 class SceneryImageSerializer(NestedModelSerializer):  # TODO: write tests
 	scenery = ScenerySerializer()
 	image = ImageSerializer()
@@ -177,6 +181,7 @@ class SceneryImageSerializer(NestedModelSerializer):  # TODO: write tests
 	class Meta:
 		model = SceneryImage
 		# fields and read_only_fields are set in NestedModelSerializer!
+
 
 class SceneryFileSerializer(NestedModelSerializer):  # TODO: write tests
 	scenery = ScenerySerializer()

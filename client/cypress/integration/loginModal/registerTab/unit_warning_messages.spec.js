@@ -1,13 +1,10 @@
 import {
 	wait_time,
-	visit,
 	closeModalWindow,
 } from '../../_util/loginModal/loginModalUtil'
-
 import {
 	openAndVerifyLoginTab,
 } from '../../_util/loginModal/loginModal_loginTabUtil'
-
 import {
 	getRegisterEmailInputField,
 	getRegisterPasswordConfirmationInputField,
@@ -28,6 +25,7 @@ import {
 	verifyRegisterSubmitDisabledAndErrorMatchesPasswordConfirmationRequired,
 	verifyRegisterSubmitDisabledAndErrorMatchesPasswordConfirmationDoesNotMatch
 } from '../../_util/loginModal/loginModal_registerTabUtil'
+import {visit} from '../../_util/utils'
 
 describe('Register Tab Warning messages', () => {
 	beforeEach(function () {

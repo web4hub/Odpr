@@ -192,7 +192,7 @@ build-images:
   except:
     - schedules
 
-run-tests:
+.run-tests:
   stage: test
   image: $BUILDER_IMAGE
   before_script:

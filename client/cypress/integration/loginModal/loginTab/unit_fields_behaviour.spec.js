@@ -1,8 +1,7 @@
 import {
 	wait_time,
-	visit, closeModalWindow
+	closeModalWindow
 } from '../../_util/loginModal/loginModalUtil'
-
 import {
 	openAndVerifyLoginTab,
 	getLoginUsernameOrEmailInputField,
@@ -12,7 +11,6 @@ import {
 	verifyLoginSubmitButtonEnabled,
 	fillLoginInputFieldsWithValidTestData,
 } from '../../_util/loginModal/loginModal_loginTabUtil'
-
 import {
 	getRegisterEmailInputField,
 	openAndVerifyRegisterTab,
@@ -23,6 +21,7 @@ import {
 	openAndVerifyPasswordResetTab,
 	verifyPasswordResetEmailErrorVisible
 } from "../../_util/loginModal/loginModal_pwResetTabUtil";
+import {visit} from '../../_util/utils'
 
 
 describe('Login Field Input and warning message clearing/reset behaviour', () => {

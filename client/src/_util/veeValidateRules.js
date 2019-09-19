@@ -1,11 +1,11 @@
 // Code from http://frankclark.xyz/veevalidate-strong-password-and-confirmation-validation
 
-import { extend, localize } from 'vee-validate'
+import VeeValidate from 'vee-validate'
 // import Globalize from 'globalize'
 import i18n from '@/_localization/localization'
 
 function applyCustomRules () {
-	extend('verify_password', {
+	VeeValidate.Validator.extend('verify_password', {
 		//getMessage: field => `The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc)`,
 		validate: value => {
 			let strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[\\^°!"²§³$%&\\/{([)\\]=}?ß\\\\´üÜ`+*öÖäÄÀÁÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕ×ØÙÚÛÝÞàáâãåæçèéêëìíîïðñòóôõ÷øùúûýþÿ#\',;.:\\-_~<>|€@])(?=.{8,})')
@@ -49,7 +49,7 @@ function applyCustomFieldNames () {
 		}
 	}
 
-	localize(dictionary)
+	VeeValidate.Validator.localize(dictionary)
 }
 
 const veeValidateRules = {

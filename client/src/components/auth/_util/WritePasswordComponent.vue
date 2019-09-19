@@ -76,8 +76,9 @@ export default {
 			required: true
 		},
 		submitIfUserInputValid: { // = "submitRegisterIfUserInputValid"
-			type: String,
-			required: true
+			type: Function,
+			required: false,
+			default: function () {}
 		},
 		namespace: { // e.g. 'loginModal/register'
 			type: String,

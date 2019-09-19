@@ -123,9 +123,9 @@ export default {
 	},
 	methods: {
 		...mapActions([
-			[actionCloseModal],
-			[actionFlipModal],
-			[actionSubmitPasswordReset]
+			actionCloseModal,
+			actionFlipModal,
+			actionSubmitPasswordReset
 		]),
 		close: function (e) {
 			e.preventDefault()

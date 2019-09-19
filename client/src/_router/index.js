@@ -51,6 +51,7 @@ const router = new Router({
 	routes: [
 		{
 			path: '/',
+			name: 'home',
 			redirect: '/sceneries'
 		},
 		{
@@ -62,7 +63,7 @@ const router = new Router({
 		},
 		{
 			path: ROUTE_SCENERY_DETAIL,
-			name: 'sceneries',
+			name: 'scenery',
 			component: () => import('@/components/sceneries/SceneryDetail')
 		},
 		{
@@ -109,7 +110,7 @@ const router = new Router({
 		},
 		{
 			path: ROUTE_PW_RESET_NEW_PW,
-			name: 'password-reset',
+			name: 'password-reset-2',
 			meta: {
 				showPasswordResetModal: 'new_pw'
 			}
@@ -165,5 +166,15 @@ router.beforeEach((to, from, next) => {
 	}
 	next()
 })
+
+const originalPush = Router.prototype.push
+Router.prototype.push = function push (location, onResolve, onReject) {
+	if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+	try {
+		return originalPush.call(this, location).catch(err => err)
+	} catch (error) {
+		console.log(error)
+	}
+}
 
 export default router

@@ -260,11 +260,11 @@ export default {
 	},
 	methods: {
 		...mapActions([
-			[actionCloseModal],
-			[actionFlipModal],
-			[actionSubmitLogin],
-			[actionSubmitRegister],
-			[actionSubmitPasswordReset]
+			actionCloseModal,
+			actionFlipModal,
+			actionSubmitLogin,
+			actionSubmitRegister,
+			actionSubmitPasswordReset
 		]),
 		close: function (e) {
 			e.preventDefault()
