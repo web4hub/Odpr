@@ -89,7 +89,7 @@
 								<div class="odpr-grid__cell scenery-detail-description odpr--bt-p-large odpr--lr-p-xxlarge">
 									<div>
 										{{ i18nJson().sceneryUpload.inputFields.placeholders.title }}
-										<BFormInput
+										<b-form-input
 											v-model="inputTitle"
 											class="odpr--t-m-mid odpr--b-m-min"
 											type="text"
@@ -100,17 +100,17 @@
 										/>
 
 										<!-- This will only be shown if the preceeding input has an invalid state -->
-										<BFormInvalidFeedback id="scenery-upload-userinput-title-feedback">
+										<b-form-invalid-feedback id="scenery-upload-userinput-title-feedback">
 											{{ titleErrorMessage }}
-										</BFormInvalidFeedback>
+										</b-form-invalid-feedback>
 
 										<!-- This is a form text block (formerly known as help block) -->
-										<BFormText
+										<b-form-text
 											id="scenery-upload-userinput-title-help"
 											class="odpr--b-m-mid"
 										>
 											{{ i18nJson().sceneryUpload.inputFields.help.title }}
-										</BFormText>
+										</b-form-text>
 									</div>
 
 									<div>
@@ -447,20 +447,21 @@ import {
 	NON_SIGNIFICANT_ROUTES
 } from '@/_router/routes'
 import _ from 'lodash'
+// import { BFormInput } from 'bootstrap-vue'
 
 export default {
 	name: 'SceneryUpload',
 	components: {
 		UploadFileFeedback: () => import('./UploadFileFeedback'),
-		BFormValidFeedback: () => import('bootstrap-vue/src/components/form/form-valid-feedback'),
-		BButton: () => import('bootstrap-vue/src/components/button/button'),
-		BFormFile: () => import('bootstrap-vue/src/components/form-file/form-file'),
-		BFormGroup: () => import('bootstrap-vue/src/components/form-group/form-group'),
-		BFormRadioGroup: () => import('bootstrap-vue/src/components/form-radio/form-radio-group'),
-		BFormText: () => import('bootstrap-vue/src/components/form/form-text'),
-		BFormInvalidFeedback: () => import('bootstrap-vue/src/components/form/form-invalid-feedback'),
-		BFormInput: () => import('bootstrap-vue/src/components/form-input/form-input'),
-		BFormTextarea: () => import('bootstrap-vue/src/components/form-textarea/form-textarea')
+		BFormValidFeedback: () => import('bootstrap-vue').then(({ BFormValidFeedback }) => BFormValidFeedback),
+		BButton: () => import('bootstrap-vue').then(({ BButton }) => BButton),
+		BFormFile: () => import('bootstrap-vue').then(({ BFormFile }) => BFormFile),
+		BFormGroup: () => import('bootstrap-vue').then(({ BFormGroup }) => BFormGroup),
+		BFormRadioGroup: () => import('bootstrap-vue').then(({ BFormRadioGroup }) => BFormRadioGroup),
+		BFormText: () => import('bootstrap-vue').then(({ BFormText }) => BFormText),
+		BFormInvalidFeedback: () => import('bootstrap-vue').then(({ BFormInvalidFeedback }) => BFormInvalidFeedback),
+		BFormInput: () => import('bootstrap-vue').then(({ BFormInput }) => BFormInput),
+		BFormTextarea: () => import('bootstrap-vue').then(({ BFormTextarea }) => BFormTextarea)
 	},
 	mixins: [I18N, Util, SceneryUploads],
 	props: {
@@ -502,7 +503,8 @@ export default {
 				{ text: 'Simple', value: 1 },
 				{ text: 'Intermediate', value: 2 },
 				{ text: 'Complex', value: 3 }
-			]
+			],
+			text: ''
 		}
 	},
 	computed: {

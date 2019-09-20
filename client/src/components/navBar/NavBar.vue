@@ -142,20 +142,6 @@
 </template>
 
 <script>
-import {
-	BNavbar,
-	BNavbarBrand,
-	BNavbarToggle,
-	BCollapse,
-	BNavbarNav,
-	BNavItem,
-	BNavForm,
-	BFormInput,
-	BButtonGroup,
-	BButton,
-	BNavItemDropdown,
-	BDropdownItem
-} from 'bootstrap-vue'
 import I18N from '@/_mixins/I18N.mixin'
 import getByKey from '@/_util/getObjectByKey'
 import {
@@ -184,18 +170,18 @@ import {
 export default {
 	name: 'NavBar',
 	components: {
-		BNavbar,
-		BNavbarBrand,
-		BNavbarToggle,
-		BCollapse,
-		BNavbarNav,
-		BNavItem,
-		BNavForm,
-		BFormInput,
-		BButtonGroup,
-		BButton,
-		BNavItemDropdown,
-		BDropdownItem
+		BNavbar: () => import('bootstrap-vue').then(({ BNavbar }) => BNavbar),
+		BNavbarBrand: () => import('bootstrap-vue').then(({ BNavbarBrand }) => BNavbarBrand),
+		BNavbarToggle: () => import('bootstrap-vue').then(({ BNavbarToggle }) => BNavbarToggle),
+		BCollapse: () => import('bootstrap-vue').then(({ BCollapse }) => BCollapse),
+		BNavbarNav: () => import('bootstrap-vue').then(({ BNavbarNav }) => BNavbarNav),
+		BNavItem: () => import('bootstrap-vue').then(({ BNavItem }) => BNavItem),
+		BNavForm: () => import('bootstrap-vue').then(({ BNavForm }) => BNavForm),
+		BFormInput: () => import('bootstrap-vue').then(({ BFormInput }) => BFormInput),
+		BButtonGroup: () => import('bootstrap-vue').then(({ BButtonGroup }) => BButtonGroup),
+		BButton: () => import('bootstrap-vue').then(({ BButton }) => BButton),
+		BNavItemDropdown: () => import('bootstrap-vue').then(({ BNavItemDropdown }) => BNavItemDropdown),
+		BDropdownItem: () => import('bootstrap-vue').then(({ BDropdownItem }) => BDropdownItem)
 	},
 	mixins: [I18N],
 	data: function () {
