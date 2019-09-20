@@ -273,6 +273,7 @@ server {
 	{{ end }}
 
 	location / {
+		client_max_body_size 100M;
 		{{ if eq $proto "uwsgi" }}
 		include uwsgi_params;
 		uwsgi_pass {{ trim $proto }}://{{ trim $upstream_name }};
@@ -320,6 +321,7 @@ server {
 	{{ end }}
 
 	location / {
+		client_max_body_size 100M;
 		{{ if eq $proto "uwsgi" }}
 		include uwsgi_params;
 		uwsgi_pass {{ trim $proto }}://{{ trim $upstream_name }};
