@@ -21,7 +21,8 @@ describe('Password Reset Integration Tests', () => {
 			logout()
 		})
 
-		context('Success', function () {
+		// TODO: Cannot test this now as emails are not supported yet.
+		/*context('Success', function () {
 			beforeEach(function () {
 				openAndVerifyRegisterTab()
 				cy.wait(wait_time)
@@ -38,7 +39,7 @@ describe('Password Reset Integration Tests', () => {
 				verifyPasswordResetSendMailSuccessMessageVisible()
 				verifyPasswordResetSendMailErrorMessageInvisible()
 			})
-		})
+		})*/
 
 		context('Error Messages', function () {
 			beforeEach(function () {

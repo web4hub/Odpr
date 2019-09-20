@@ -86,11 +86,11 @@ export const verifyRegisterInputFieldsNotEmpty = () => {
 
 
 export const verifyRegisterPasswordAccepted = () => {
-	getRegisterPasswordErrorMessageField().should('be.empty')
+	getRegisterPasswordErrorMessageField().invoke('text').then((text1) => {expect(text1).to.match(/^\s*$/)})
 	verifyRegisterPasswordErrorInvisible()
 }
 export const verifyRegisterPasswordConfirmationAccepted = () => {
-	getRegisterPasswordConfirmationErrorMessageField().should('be.empty')
+	getRegisterPasswordConfirmationErrorMessageField().invoke('text').then((text1) => {expect(text1).to.match(/^\s*$/)})
 	verifyRegisterPasswordConfirmationErrorInvisible()
 }
 
