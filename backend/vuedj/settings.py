@@ -165,7 +165,7 @@ ROOT_URLCONF = 'vuedj.urls'
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': ['static_templates/', '../static_templates', '../client/templates'],
+		'DIRS': ['static_templates/', '../static_templates', 'templates/', '../templates', '../client/templates'],
 		'APP_DIRS': True,
 		'OPTIONS': {
 			'context_processors': [
