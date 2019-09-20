@@ -90,18 +90,7 @@ describe('Password validator', () => {
 		})
 	})
 
-	context('Accepts all special characters', function () {
-		// TOO SLOW!
-		// it('Accepts all special characters ^°!"²§³$%&/{([)]=}?ß\\´üÜ`+*öÖäÄÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕ×ØÙÚÛÝÞàáâãåæçèéêëìíîïðñòóôõ÷øùúûýþÿ#\',;.:-_~<>|€@', () => {
-		// 	const special_characters = '^°!"²§³$%&/{([)]=}?ß\\´üÜ\`+*öÖäÄÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕ×ØÙÚÛÝÞàáâãåæçèéêëìíîïðñòóôõ÷øùúûýþÿ#\',;.:-_~<>|€@'
-		// 	for (let i = 0; i < special_characters.length; i++) {
-		// 		getRegisterPasswordInputField().type('12345aA')
-		// 		getRegisterPasswordInputField().type(special_characters.charAt(i))
-		// 		verifyRegisterPasswordAccepted()
-		// 		getRegisterPasswordInputField().clear()
-		// 	}
-		// })
-
+	context('Accepts all special characters 1/11', function () {
 		beforeEach(function () {
 			getRegisterPasswordInputField().type('12345aA')
 		})
@@ -155,6 +144,12 @@ describe('Password validator', () => {
 			getRegisterPasswordInputField().type('&')
 			verifyRegisterPasswordAccepted()
 		})
+	})
+
+	context('Accepts all special characters 2/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
+		})
 
 		it('Accepts /', function () {
 			getRegisterPasswordInputField().type('/')
@@ -204,6 +199,12 @@ describe('Password validator', () => {
 		it('Accepts ß', function () {
 			getRegisterPasswordInputField().type('ß')
 			verifyRegisterPasswordAccepted()
+		})
+	})
+
+	context('Accepts all special characters 3/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
 		})
 
 		it('Accepts \\', function () {
@@ -255,6 +256,12 @@ describe('Password validator', () => {
 			getRegisterPasswordInputField().type('ä')
 			verifyRegisterPasswordAccepted()
 		})
+	})
+
+	context('Accepts all special characters 4/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
+		})
 
 		it('Accepts Ä', function () {
 			getRegisterPasswordInputField().type('Ä')
@@ -304,6 +311,12 @@ describe('Password validator', () => {
 		it('Accepts È', function () {
 			getRegisterPasswordInputField().type('È')
 			verifyRegisterPasswordAccepted()
+		})
+	})
+
+	context('Accepts all special characters 5/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
 		})
 
 		it('Accepts É', function () {
@@ -355,6 +368,12 @@ describe('Password validator', () => {
 			getRegisterPasswordInputField().type('Ò')
 			verifyRegisterPasswordAccepted()
 		})
+	})
+
+	context('Accepts all special characters 6/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
+		})
 
 		it('Accepts Ó', function () {
 			getRegisterPasswordInputField().type('Ó')
@@ -404,6 +423,12 @@ describe('Password validator', () => {
 		it('Accepts Þ', function () {
 			getRegisterPasswordInputField().type('Þ')
 			verifyRegisterPasswordAccepted()
+		})
+	})
+
+	context('Accepts all special characters 7/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
 		})
 
 		it('Accepts à', function () {
@@ -455,6 +480,12 @@ describe('Password validator', () => {
 			getRegisterPasswordInputField().type('ê')
 			verifyRegisterPasswordAccepted()
 		})
+	})
+
+	context('Accepts all special characters 8/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
+		})
 
 		it('Accepts ë', function () {
 			getRegisterPasswordInputField().type('ë')
@@ -504,6 +535,12 @@ describe('Password validator', () => {
 		it('Accepts ô', function () {
 			getRegisterPasswordInputField().type('ô')
 			verifyRegisterPasswordAccepted()
+		})
+	})
+
+	context('Accepts all special characters 9/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
 		})
 
 		it('Accepts õ', function () {
@@ -555,6 +592,12 @@ describe('Password validator', () => {
 			getRegisterPasswordInputField().type('#')
 			verifyRegisterPasswordAccepted()
 		})
+	})
+
+	context('Accepts all special characters 10/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
+		})
 
 		it('Accepts \'', function () {
 			getRegisterPasswordInputField().type('\'')
@@ -604,6 +647,12 @@ describe('Password validator', () => {
 		it('Accepts >', function () {
 			getRegisterPasswordInputField().type('>')
 			verifyRegisterPasswordAccepted()
+		})
+	})
+
+	context('Accepts all special characters 11/11', function () {
+		beforeEach(function () {
+			getRegisterPasswordInputField().type('12345aA')
 		})
 
 		it('Accepts |', function () {
