@@ -133,7 +133,13 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 		- `TEST_PRODUCTION_DOMAIN` the domain under which you want to deploy your test app. It is the same as the production app, but has its own gitlab jobs and docker images. This is to provide you a way to manually review your deployed app, before you actually update the production app.
 		- `PROXY_SERVER_IP` Optional: If you cannot ssh to your deploy server directly but need to connect to an intermediate server instead, use this extra variable.
 		- `PROXY_SERVER_USER` Optional: Use this if you also use `PROXY_SERVER_IP`. The user with which gitlab will try to login to the proxy server.
-		- `PROXY_SERVER_PRIVATE_KEY` Optional: Use this if you also use `PROXY_SERVER_IP`. The private key which is accepted by `PROXY_SERVER_USER` on the server `PROXY_SERVER_IP`. The corresponding public key needs to be added to the `authorized_keys` of the proxy server.
+		- `PROXY_SERVER_PRIVATE_KEY` (Type: `File`) Optional: Use this if you also use `PROXY_SERVER_IP`. The private key which is accepted by `PROXY_SERVER_USER` on the server `PROXY_SERVER_IP`. The corresponding public key needs to be added to the `authorized_keys` of the proxy server.
+		- `TEST_DEPLOY_SERVER_IP` Optional: If your test-server has a different IP than your production server, you will need to use these variables below. If they are not set, the test-server will default to the production-server settings (ip, user, private key).
+		- `TEST_DEPLOY_SERVER_USER` Optional: Username for the test server with which gitlab can login with the provided `TEST_DEPLOY_SERVER_PRIVATE_KEY`.
+		- `TEST_DEPLOY_SERVER_PRIVATE_KEY` (Type: `File`) Optional: Needed if the above two variables are set.
+		- `TEST_PROXY_SERVER_IP` Optional: Same as Proxy-Variables above: If your test-server also cannot be accessed directly but via an intermediate proxy server, use this variable and the two below.
+		- `TEST_PROXY_SERVER_USER` Optional: Username for the proxy server of your test server.
+		- `TEST_PROXY_SERVER_PRIVATE_KEY` (Type: `File`) Optional: Private key for the proxy server of your test server.
 		![Variables in Gitlab UI](documentation/media/all_variables.png?raw=true)
 		(Important: Not all variables are shown in the screenshot)
 4. Edit the URLs in this README.md for the badges. Yes! You can re-use the badges, because they are meant to be part of the project!
