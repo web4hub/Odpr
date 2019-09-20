@@ -93,7 +93,7 @@ variables:
   #
   DJANGO_STATICFILES_RELATIVE_TO_BACKEND_DIRECTORY: "../${CLIENT_DIRECTORY}/${STATICFILES_DIRNAME}" #  (default = '../client/static-vuedj')
   DJANGO_STATIC_ROOT_RELATIVE_TO_BACKEND_DIRECTORY: "../${STATICFILES_DIRNAME}/static" #  (default = '../staticfiles/static')
-  DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY: "../${STATICFILES_DIRNAME}/media" #  (default = '../staticfiles/media')
+  DJANGO_MEDIA_ROOT_RELATIVE_TO_BACKEND_DIRECTORY: "../media" #  (default = '../staticfiles/media')
   DJANGO_STATIC_URL: "/${STATICFILES_DIRNAME}/" #     (default = '/static-vuedj/')
   DJANGO_MEDIA_URL: "/${MEDIAFILES_DIRNAME}/" #       (default = '/media/')
   #
