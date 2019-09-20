@@ -129,7 +129,7 @@ variables:
 services:
   - $BASE_IMAGE
 
-.update-base-image:
+update-base-image:
   stage: update
   image: $BASE_IMAGE
   before_script:
@@ -141,7 +141,7 @@ services:
   except:
     - schedules
 
-.build-images:
+build-images:
   stage: build
   image: $BUILDER_IMAGE
   before_script:
@@ -216,7 +216,7 @@ run-tests:
   except:
     - schedules
 
-.test-release:
+test-release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
@@ -293,7 +293,7 @@ run-tests:
   only:
     - tags
 
-.test-deploy:
+test-deploy:
   stage: deploy
   image: $BUILDER_IMAGE
   variables:
@@ -311,7 +311,7 @@ run-tests:
   only:
     - tags
 
-.release:
+release:
   stage: release
   image: $BUILDER_IMAGE
   variables:
@@ -383,7 +383,7 @@ run-tests:
   only:
     - tags
 
-.deploy:
+deploy:
   stage: deploy
   image: $BUILDER_IMAGE
   variables:
@@ -401,7 +401,7 @@ run-tests:
     - tags
   when: manual
 
-.create_badges:
+create_badges:
   stage: analyze
   image: $BUILDER_IMAGE
   variables:
@@ -435,7 +435,7 @@ run-tests:
   only:
     - tags
 
-.update_dependency_badges:
+update_dependency_badges:
   stage: analyze
   image: $BUILDER_IMAGE
   variables:
