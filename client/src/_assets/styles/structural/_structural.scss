@@ -408,7 +408,8 @@ $min-width-dyn-collapse: 767px;
  * Used for wrapping main content in the middle which can have anything inside. This controls the width.
  */
 .odpr-grid {
-	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
 	width: $main-content-min-width;
 }
 

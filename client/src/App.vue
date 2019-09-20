@@ -110,7 +110,7 @@ export default {
 	}
 
 	.main-content {
-		margin: 75px 1.4em 3.53em;
+		margin: 1em 1em 5em;
 	}
 
 	#main a {

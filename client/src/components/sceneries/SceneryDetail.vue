@@ -319,12 +319,12 @@ import {
 export default {
 	name: 'SceneryDetail',
 	components: {
-		BFormTextarea: () => import('bootstrap-vue/src/components/form-textarea/form-textarea'),
-		BFormInput: () => import('bootstrap-vue/src/components/form-input/form-input'),
-		BModal: () => import('bootstrap-vue/src/components/modal/modal'),
-		BButton: () => import('bootstrap-vue/src/components/button/button'),
-		BCarouselSlide: () => import('bootstrap-vue/src/components/carousel/carousel-slide'),
-		BCarousel: () => import('bootstrap-vue/src/components/carousel/carousel'),
+		BFormTextarea: () => import('bootstrap-vue').then(({ BFormTextarea }) => BFormTextarea),
+		BFormInput: () => import('bootstrap-vue').then(({ BFormInput }) => BFormInput),
+		BModal: () => import('bootstrap-vue').then(({ BModal }) => BModal),
+		BButton: () => import('bootstrap-vue').then(({ BButton }) => BButton),
+		BCarouselSlide: () => import('bootstrap-vue').then(({ BCarouselSlide }) => BCarouselSlide),
+		BCarousel: () => import('bootstrap-vue').then(({ BCarousel }) => BCarousel),
 		DetailRow: () => import('@/components/sceneries/DetailRow'),
 		StatisticsBox: () => import('@/components/sceneries/StatisticsBox'),
 		FileRow: () => import('@/components/sceneries/FileRow')

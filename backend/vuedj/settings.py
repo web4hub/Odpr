@@ -67,6 +67,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
 CORS_ALLOW_CREDENTIALS = True
 
+DATA_UPLOAD_MAX_MEMORY_SIZE = None
+
 # Application definition
 INSTALLED_APPS = [
 	'django.contrib.admin',

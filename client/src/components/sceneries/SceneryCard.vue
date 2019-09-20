@@ -3,13 +3,12 @@
 		<div class="card mb-4 common-shadow">
 			<!--Card image-->
 			<div class="view overlay">
-				<img
-					class="card-img-top image-scale"
-					:src="getFirstImage"
-					alt="Card image cap"
-				>
 				<router-link :to="sceneryUrl">
-					<div class="mask rgba-white-slight" />
+					<img
+						class="card-img-top image-scale"
+						:src="getFirstImage"
+						alt="Card image cap"
+					>
 				</router-link>
 				<!--<a :href="sceneryUrl">-->
 				<!--<div class="mask rgba-white-slight"></div>-->
