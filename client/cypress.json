@@ -3,5 +3,7 @@
 	"viewportWidth": 1200,
 	"viewportHeight": 900,
 	"video": false,
-	"testFiles": "**/*.spec.js"
+	"testFiles": "**/*.spec.js",
+	"defaultCommandTimeout": 10000,
+	"requestTimeout": 10000
 }

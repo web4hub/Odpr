@@ -1,0 +1,106 @@
+[
+  {
+    "model": "documentation.documentationtag",
+    "pk": 1,
+    "fields": {
+      "author": 2,
+			"tag": "Tutorial"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 2,
+    "fields": {
+      "author": 3,
+			"tag": "Community"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 3,
+    "fields": {
+      "author": 3,
+			"tag": "Rules"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 4,
+    "fields": {
+      "author": 3,
+			"tag": "Help"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 5,
+    "fields": {
+      "author": 3,
+			"tag": "FAQ"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 6,
+    "fields": {
+      "author": 3,
+			"tag": "Sceneries"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 7,
+    "fields": {
+      "author": 5,
+			"tag": "Requests"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 8,
+    "fields": {
+      "author": 3,
+			"tag": "Answers"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 9,
+    "fields": {
+      "author": 3,
+			"tag": "Badges"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 10,
+    "fields": {
+      "author": 3,
+			"tag": "Comments"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 11,
+    "fields": {
+      "author": 3,
+			"tag": "Points"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 12,
+    "fields": {
+      "author": 4,
+			"tag": "Votes"
+    }
+  },
+  {
+    "model": "documentation.documentationtag",
+    "pk": 13,
+    "fields": {
+      "author": 2,
+			"tag": "Contact"
+    }
+  }
+]

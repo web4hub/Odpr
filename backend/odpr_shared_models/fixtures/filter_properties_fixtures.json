@@ -1,0 +1,162 @@
+[
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 1,
+    "fields": {
+      "scenery_complexity": 0,
+			"effects": [1, 2],
+			"materials": [3],
+			"lights": [4]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 2,
+    "fields": {
+      "scenery_complexity": 0,
+			"effects": [1, 5],
+			"materials": [3, 6],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 3,
+    "fields": {
+      "scenery_complexity": 1,
+			"effects": [1],
+			"materials": [3, 6],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 4,
+    "fields": {
+      "scenery_complexity": 3,
+			"effects": [1, 3, 4],
+			"materials": [4, 7],
+			"lights": [2, 3, 4]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 5,
+    "fields": {
+      "scenery_complexity": 2,
+			"effects": [1, 5],
+			"materials": [3, 6],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 6,
+    "fields": {
+      "scenery_complexity": 3,
+			"effects": [1, 5],
+			"materials": [3, 6],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 7,
+    "fields": {
+      "scenery_complexity": 1,
+			"effects": [2, 3, 4],
+			"materials": [3, 6],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 8,
+    "fields": {
+      "scenery_complexity": 3,
+			"effects": [1],
+			"materials": [3, 6],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 9,
+    "fields": {
+      "scenery_complexity": 3,
+			"effects": [1, 2, 5, 6, 7, 8],
+			"materials": [3, 6, 4, 1, 7, 8],
+			"lights": [2, 3, 4, 5, 6, 7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 10,
+    "fields": {
+      "scenery_complexity": 0,
+			"effects": [1, 5],
+			"materials": [3, 6],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 11,
+    "fields": {
+      "scenery_complexity": 0,
+			"effects": [1, 3, 4, 5, 6, 7],
+			"materials": [3, 6],
+			"lights": [7, 6]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 12,
+    "fields": {
+      "scenery_complexity": 3,
+			"effects": [2, 4],
+			"materials": [3, 6, 4, 5, 7],
+			"lights": [7, 1, 2]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 13,
+    "fields": {
+      "scenery_complexity": 0,
+			"effects": [1, 5],
+			"materials": [3, 6],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 14,
+    "fields": {
+      "scenery_complexity": 1,
+			"effects": [1],
+			"materials": [1, 4],
+			"lights": [3, 5, 7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 15,
+    "fields": {
+      "scenery_complexity": 2,
+			"effects": [2, 5],
+			"materials": [2, 3],
+			"lights": [7]
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperties",
+    "pk": 16,
+    "fields": {
+      "scenery_complexity": 0,
+			"effects": [3, 6],
+			"materials": [1, 2],
+			"lights": [4, 7, 2]
+    }
+	}
+]

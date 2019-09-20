@@ -1,20 +1,26 @@
 <!-- Badges are (except for pipeline status and coverage report) created in util/run_lighthouse.sh, there they will also be uploaded to the URLs listed below. -->
-[![version](https://test.gitlab.electrocnic.com/gitlab-badges/latest_release_tag.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
+[![version](https://test.odpr.electrocnic.com/gitlab-badges/latest_release_tag.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
 [![pipeline status](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/badges/master/pipeline.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
-[![coverage report](https://test.gitlab.electrocnic.com/gitlab-badges/coverage.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
-[![webpack version](https://test.gitlab.electrocnic.com/gitlab-badges/webpack_version.svg)](https://www.npmjs.com/package/webpack)
-[![vue version](https://test.gitlab.electrocnic.com/gitlab-badges/vue_version.svg)](https://www.npmjs.com/package/vue)
-[![django version](https://test.gitlab.electrocnic.com/gitlab-badges/django_version.svg)](https://www.djangoproject.com/download/)
-[![nginx version](https://test.gitlab.electrocnic.com/gitlab-badges/nginx_version.svg)](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/)
-[![postgres version](https://test.gitlab.electrocnic.com/gitlab-badges/postgres_version.svg)](https://www.postgresql.org/download/linux/ubuntu/)
-[![lighthouse performance](https://test.gitlab.electrocnic.com/gitlab-badges/performance.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse accessibility](https://test.gitlab.electrocnic.com/gitlab-badges/accessibility.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse best practices](https://test.gitlab.electrocnic.com/gitlab-badges/best_practices.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
-[![lighthouse search engine results ranking](https://test.gitlab.electrocnic.com/gitlab-badges/search_engine_results_ranking.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/report.html)
-[![pip dependencies](https://test.gitlab.electrocnic.com/gitlab-badges/outdated_pip.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/outdated.html)
-[![npm dependencies](https://test.gitlab.electrocnic.com/gitlab-badges/outdated_npm.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/outdated.html)
+[![coverage report](https://test.odpr.electrocnic.com/gitlab-badges/coverage.svg)](https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/commits/master)
+[![webpack version](https://test.odpr.electrocnic.com/gitlab-badges/webpack_version.svg)](https://www.npmjs.com/package/webpack)
+[![vue version](https://test.odpr.electrocnic.com/gitlab-badges/vue_version.svg)](https://www.npmjs.com/package/vue)
+[![django version](https://test.odpr.electrocnic.com/gitlab-badges/django_version.svg)](https://www.djangoproject.com/download/)
+[![nginx version](https://test.odpr.electrocnic.com/gitlab-badges/nginx_version.svg)](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-open-source/)
+[![postgres version](https://test.odpr.electrocnic.com/gitlab-badges/postgres_version.svg)](https://www.postgresql.org/download/linux/ubuntu/)
+[![lighthouse performance](https://test.odpr.electrocnic.com/gitlab-badges/performance.svg)](https://test.odpr.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse accessibility](https://test.odpr.electrocnic.com/gitlab-badges/accessibility.svg)](https://test.odpr.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse best practices](https://test.odpr.electrocnic.com/gitlab-badges/best_practices.svg)](https://test.odpr.electrocnic.com/gitlab-badges/report.html)
+[![lighthouse search engine results ranking](https://test.odpr.electrocnic.com/gitlab-badges/search_engine_results_ranking.svg)](https://test.odpr.electrocnic.com/gitlab-badges/report.html)
+[![pip dependencies](https://test.odpr.electrocnic.com/gitlab-badges/outdated_pip.svg)](https://test.odpr.electrocnic.com/gitlab-badges/outdated.html)
+[![npm dependencies](https://test.odpr.electrocnic.com/gitlab-badges/outdated_npm.svg)](https://test.odpr.electrocnic.com/gitlab-badges/outdated.html)
 
-# Content
+# ODPR - Open Database for Physically Based Rendering
+
+A Vue-Django Webapp to provide user-provided scenes (3D Models and sceneries) for the public use.
+
+# vue-django-ci-cd-boilerplate
+
+## Content
 
 1. [What is this?](#what-is-this)
 2. [TL;DR](#tldr)
@@ -86,8 +92,8 @@ If you want to use this boilerplate you need at least:
 1. A **gitlab runner in privileged mode** (needed for the docker-runner to be able to build and start more docker containers)
 2. A **(private) docker registry** (if you run a private gitlab server instance, gitlab also provides a docker registry, or else you could use the public docker hub for example, if you don't care about your app being publicly available, but I don't recommend that as you will likely not want to share the secret keys which get embedded into the docker images when they are built)
 3. A **production server** (A server instance where you want to deploy your app(s). Therefore, you need the IP address of that server) (Gitlab Variable: `DEPLOY_SERVER_IP`)
-4. A **user named `gitlab` on your production server** which is in the `docker` group (`sudo gpasswd -a gitlab docker`)
-5. A **public/private-key-pair (rsa):** Add the public key to the `authorized_keys` of your `gitlab` user on your deploy-server and add the private key (the content of the key-file) as String to the Gitlab-Variable `DEPLOY_SERVER_PRIVATE_KEY` under `Settings -> CI/CD -> Variables` and set the `Type` of the Variable to `File`
+4. A **user named `$DEPLOY_SERVER_USER` on your production server** which is in the `docker` group (`sudo gpasswd -a DEPLOY_SERVER_USER docker`). Set the `DEPLOY_SERVER_USER` as a variable in the gitlab settings.
+5. A **public/private-key-pair (rsa):** Add the public key to the `authorized_keys` of your `DEPLOY_SERVER_USER` user on your deploy-server and add the private key (the content of the key-file) as String to the Gitlab-Variable `DEPLOY_SERVER_PRIVATE_KEY` under `Settings -> CI/CD -> Variables` and set the `Type` of the Variable to `File`
 ![Private Key Variable in Gitlab UI](documentation/media/private_key_variable.png?raw=true)
 6. **`docker` and `docker-compose`** must be installed on the production server. I also highly recommend using Ubuntu on x86 for the server, I did not test the setup on `ARM` nor can I guarantee anything on a different environment.
 7. **2 domains**: One **production domain**, where your app will finally be available to the public, and one **test-domain**, which is currently also available to the public, because I did not implement VPN for this purpose yet, but I am sure you can set it up yourself if you need a VPN for testing. The test domain is meant to be available from everywhere but not shared or advertised, so only you will know the URL. Examples: For the development of this boilerplate App I used the domains `production.gitlab.electrocnic.com` and `test.gitlab.electrocnic.com`. Currently they will both be deployed to the same IP, if you need to deploy them to two different IPs, just add another IP-Variable and use that variable in the `.gitlab-ci.yml`
@@ -118,7 +124,8 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 3. Setup your gitlab account for that repo:
 	* Add the following variables to your gitlab CI/CD Settings (all but the private key are of Type `Variable`):
 		- `CERTBOT_EMAIL` (Your email address for certbot, optional)
-		- `DEPLOY_SERVER_IP` e.g. `123.45.678.9`
+		- `DEPLOY_SERVER_IP` e.g. `123.45.678.9` (should also be possible to use a domain instead as it is used for ssh and scp)
+		- `DEPLOY_SERVER_USER` e.g. `gitlab`. The user must exist on the deploy server and the public key must be added to the `authorized_keys`.
 		- `DEPLOY_SERVER_PRIVATE_KEY` (Type: `File`) paste the content of your private key as String
 		- `DJANGO_DATABASE_HOST` e.g. `database1`
 		- `DJANGO_DATABASE_NAME` e.g. `database1`
@@ -130,7 +137,17 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 		- `DOCKER_USER` the user of your docker registry to which the password belongs
 		- `PRODUCTION_DOMAIN` the domain under which you want to deploy your app. Note, that the app will be deployed using the `DEPLOY_SERVER_IP`, but this domain will be used for nginx to deliver the app when requests are made with that domain. Therefore, you have to make a DNS entry on your domain-provider to make it point to `DEPLOY_SERVER_IP`
 		- `TEST_PRODUCTION_DOMAIN` the domain under which you want to deploy your test app. It is the same as the production app, but has its own gitlab jobs and docker images. This is to provide you a way to manually review your deployed app, before you actually update the production app.
+		- `PROXY_SERVER_IP` Optional: If you cannot ssh to your deploy server directly but need to connect to an intermediate server instead, use this extra variable.
+		- `PROXY_SERVER_USER` Optional: Use this if you also use `PROXY_SERVER_IP`. The user with which gitlab will try to login to the proxy server.
+		- `PROXY_SERVER_PRIVATE_KEY` (Type: `File`) Optional: Use this if you also use `PROXY_SERVER_IP`. The private key which is accepted by `PROXY_SERVER_USER` on the server `PROXY_SERVER_IP`. The corresponding public key needs to be added to the `authorized_keys` of the proxy server.
+		- `TEST_DEPLOY_SERVER_IP` Optional: If your test-server has a different IP than your production server, you will need to use these variables below. If they are not set, the test-server will default to the production-server settings (ip, user, private key).
+		- `TEST_DEPLOY_SERVER_USER` Optional: Username for the test server with which gitlab can login with the provided `TEST_DEPLOY_SERVER_PRIVATE_KEY`.
+		- `TEST_DEPLOY_SERVER_PRIVATE_KEY` (Type: `File`) Optional: Needed if the above two variables are set.
+		- `TEST_PROXY_SERVER_IP` Optional: Same as Proxy-Variables above: If your test-server also cannot be accessed directly but via an intermediate proxy server, use this variable and the two below.
+		- `TEST_PROXY_SERVER_USER` Optional: Username for the proxy server of your test server.
+		- `TEST_PROXY_SERVER_PRIVATE_KEY` (Type: `File`) Optional: Private key for the proxy server of your test server.
 		![Variables in Gitlab UI](documentation/media/all_variables.png?raw=true)
+		(Important: Not all variables are shown in the screenshot)
 4. Edit the URLs in this README.md for the badges. Yes! You can re-use the badges, because they are meant to be part of the project!
 You just have to use your `TEST_PRODUCTION_DOMAIN` for the svg badge-links (but hardcoded as the readme sadly does not substitute any variables). Just replace each occurrence of `test.gitlab.electrocnic.com` with your own `TEST_PRODUCTION_DOMAIN`. The badges will be created during the CI pipeline-jobs and will be deployed together with the test-instance (but not with the production instance). Lighthouse performance analysis will be ran and the badges will show the result and link to a in-depth lighthouse-report. Isn't that great?
 5. Add a runner to your gitlab instance under `Settings -> CI/CD -> Runners`.
@@ -374,6 +391,10 @@ except that you need to install npm and python3 on your system yourself before y
 compress the files during build, but that will not work together with chunks, and chunks are more important, and nginx-compression
 works very well.
 * **preload-assets:** Preload the chunks in the `index.html` file.
+* **Proxy-server for deployment:** If you cannot access your deployment server directly, but need to first ssh to an intermediate server,
+you can add the optional variables `PROXY_SERVER_IP`, `PROXY_SERVER_USER` and `PROXY_SERVER_PRIVATE_KEY` to let the deploy job
+first connect to your intermediate server and then to the deploy server. If not provided, the deploy job will directly connect to
+the provided deploy-server ip and user.
 
 ## FAQ / Troubleshooting
 

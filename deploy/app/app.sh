@@ -64,8 +64,8 @@ case "$1" in
 		;;
 	restart|reload)
 		echo "Restart"
-		"$0" stop
-		"$0" start
+		stop_compose
+		start_compose
 		;;
 	status)
 		echo "Status:"

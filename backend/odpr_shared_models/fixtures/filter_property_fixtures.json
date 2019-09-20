@@ -1,0 +1,73 @@
+[
+	{
+		"model": "odpr_shared_models.filterproperty",
+    "pk": 1,
+    "fields": {
+      "author": 6,
+			"description": 2,
+			"name": "Transparency"
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperty",
+    "pk": 2,
+    "fields": {
+      "author": 6,
+			"description": 3,
+			"name": "Reflection"
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperty",
+    "pk": 3,
+    "fields": {
+      "author": 6,
+			"description": 4,
+			"name": "Diffuse"
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperty",
+    "pk": 4,
+    "fields": {
+      "author": 6,
+			"description": 5,
+			"name": "White Sun"
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperty",
+    "pk": 5,
+    "fields": {
+      "author": 6,
+			"description": 7,
+			"name": "Translucency"
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperty",
+    "pk": 6,
+    "fields": {
+      "author": 6,
+			"description": 8,
+			"name": "Translucent"
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperty",
+    "pk": 7,
+    "fields": {
+      "author": 6,
+			"description": 9,
+			"name": "Realistic Sun"
+    }
+	},
+	{
+		"model": "odpr_shared_models.filterproperty",
+    "pk": 8,
+    "fields": {
+      "author": 6,
+			"name": "None"
+    }
+	}
+]

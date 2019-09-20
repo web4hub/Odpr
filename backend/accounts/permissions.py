@@ -1,6 +1,271 @@
 from rest_framework import permissions
 from django.contrib.auth import get_user_model
 
+#class RequestSenderIsOwnerOrAdmin(permissions.BasePermission):
+
+ADMIN_USER_DETAIL_DATA_ACCESS = (
+	'username',
+	'email',
+	'bio',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'user_type',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count',
+	'get_blocking_count',
+	'get_blocked_count',
+	'get_reported_users_count',
+	'get_reported_sceneries_count',
+	'get_reported_requests_count',
+	'get_reported_comments_count',
+	'get_reports_count',
+	'get_reported_by_count'
+)
+ADMIN_USER_DETAIL_READ_ONLY_DATA_ACCESS = (
+	'id',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count',
+	'get_blocking_count',
+	'get_blocked_count',
+	'get_reported_users_count',
+	'get_reported_sceneries_count',
+	'get_reported_requests_count',
+	'get_reported_comments_count',
+	'get_reports_count',
+	'get_reported_by_count'
+)
+ADMIN_USER_DETAIL_DATA_ACCESS_FULL = (
+	'id',
+) + ADMIN_USER_DETAIL_DATA_ACCESS
+ADMIN_USER_LIST_DATA_ACCESS_FULL = (
+	'id',
+	'username',
+	'email',
+	'bio',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'user_type',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count',
+	'get_blocking_count',
+	'get_blocked_count',
+	'get_reported_users_count',
+	'get_reported_sceneries_count',
+	'get_reported_requests_count',
+	'get_reported_comments_count',
+	'get_reports_count',
+	'get_reported_by_count'
+)
+ADMIN_USER_LIST_READ_ONLY_DATA_ACCESS = ADMIN_USER_LIST_DATA_ACCESS_FULL
+
+STAFF_USER_DETAIL_DATA_ACCESS = (
+	'username',
+	'email',
+	'bio',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'user_type',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count',
+	'get_blocking_count',
+	'get_blocked_count',
+	'get_reported_users_count',
+	'get_reported_sceneries_count',
+	'get_reported_requests_count',
+	'get_reported_comments_count',
+	'get_reports_count',
+	'get_reported_by_count'
+)
+STAFF_USER_DETAIL_READ_ONLY_DATA_ACCESS = (
+	'id',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count',
+	'get_blocking_count',
+	'get_blocked_count',
+	'get_reported_users_count',
+	'get_reported_sceneries_count',
+	'get_reported_requests_count',
+	'get_reported_comments_count',
+	'get_reports_count',
+	'get_reported_by_count'
+)
+STAFF_USER_DETAIL_DATA_ACCESS_FULL = (
+	'id',
+) + STAFF_USER_DETAIL_DATA_ACCESS
+STAFF_USER_LIST_DATA_ACCESS_FULL = (
+	'id',
+	'username',
+	'email',
+	'bio',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'user_type',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count',
+	'get_blocking_count',
+	'get_blocked_count',
+	'get_reported_users_count',
+	'get_reported_sceneries_count',
+	'get_reported_requests_count',
+	'get_reported_comments_count',
+	'get_reports_count',
+	'get_reported_by_count'
+)
+STAFF_USER_LIST_READ_ONLY_DATA_ACCESS = STAFF_USER_LIST_DATA_ACCESS_FULL
+
+AUTHENTICATED_SELF_USER_DETAIL_DATA_ACCESS = (
+	'username',
+	'email',
+	'bio',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'user_type',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count',
+	'get_blocking_count',
+	'get_blocked_count',
+	'get_reported_users_count',
+	'get_reported_sceneries_count',
+	'get_reported_requests_count',
+	'get_reported_comments_count',
+	'get_reports_count',
+	'get_reported_by_count'
+)
+AUTHENTICATED_SELF_USER_DETAIL_READ_ONLY_DATA_ACCESS = (
+	'id',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'user_type',
+	'points',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count',
+	'get_blocking_count',
+	'get_blocked_count',
+	'get_reported_users_count',
+	'get_reported_sceneries_count',
+	'get_reported_requests_count',
+	'get_reported_comments_count',
+	'get_reports_count',
+	'get_reported_by_count'
+)
+AUTHENTICATED_SELF_USER_DETAIL_DATA_ACCESS_FULL = (
+	'id',
+) + AUTHENTICATED_SELF_USER_DETAIL_DATA_ACCESS
+AUTHENTICATED_USER_LIST_DATA_ACCESS_FULL = (
+	'id',
+	'username',
+	'bio',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'user_type',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count',
+	'get_following_count',
+	'get_followers_count'
+)
+AUTHENTICATED_USER_LIST_READ_ONLY_DATA_ACCESS = AUTHENTICATED_USER_LIST_DATA_ACCESS_FULL
+
+AUTHENTICATED_OTHER_USER_DETAIL_DATA_ACCESS = (
+	'username',
+	'bio',
+	'is_staff',
+	'is_admin',
+	'is_active',
+	'date_joined',
+	'user_type',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count'
+)
+AUTHENTICATED_OTHER_USER_DETAIL_DATA_ACCESS_FULL = (
+	'id',
+) + AUTHENTICATED_OTHER_USER_DETAIL_DATA_ACCESS
+AUTHENTICATED_OTHER_USER_DETAIL_READ_ONLY_DATA_ACCESS = AUTHENTICATED_OTHER_USER_DETAIL_DATA_ACCESS_FULL
+
+UNAUTHENTICATED_USER_DETAIL_DATA_ACCESS = (
+	'username',
+	'bio',
+	'points',
+	'profile_image_id',
+	'get_bronze_badge_count',
+	'get_silver_badge_count',
+	'get_gold_badge_count'
+)
+UNAUTHENTICATED_USER_DETAIL_DATA_ACCESS_FULL = (
+	'id',
+) + UNAUTHENTICATED_USER_DETAIL_DATA_ACCESS
+UNAUTHENTICATED_USER_DETAIL_READ_ONLY_DATA_ACCESS = UNAUTHENTICATED_USER_DETAIL_DATA_ACCESS_FULL
+UNAUTHENTICATED_USER_LIST_DATA_ACCESS_FULL = (
+	'id',
+	'username',
+	'bio',
+	'points',
+	'profile_image_id'
+)
+UNAUTHENTICATED_USER_LIST_READ_ONLY_DATA_ACCESS = UNAUTHENTICATED_USER_LIST_DATA_ACCESS_FULL
+
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
 	"""
@@ -16,13 +281,11 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 		# Write permissions are only allowed to the owner of the snippet.
 		return obj.author == request.user
 
-
 class IsOwnerOrAdminOrReadOnly(permissions.BasePermission):
 	def has_object_permission(self, request, view, obj):
 		if request.method in permissions.SAFE_METHODS:
 			return True
 		return obj.author == request.user or request.user.is_admin
-
 
 class IsOwnerOrAdminOrStaffOrReadOnly(permissions.BasePermission):
 	def has_object_permission(self, request, view, obj):

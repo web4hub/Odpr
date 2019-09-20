@@ -1,0 +1,7 @@
+'use strict'
+export const stateActive = 'active'
+export const stateSubmitted = 'submitted'
+export const pwResetToken = 'pwResetToken'
+export const statePasswordResetSuccess = 'passwordResetSuccess'
+export const statePasswordResetError = 'passwordResetError'
+export const statePasswordResetSubmit = 'passwordResetSubmit'

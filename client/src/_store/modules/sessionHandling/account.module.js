@@ -25,8 +25,8 @@ import {
 } from './_util/account/accountStateTypes'
 
 function isEmpty (obj) {
-	for (let key in obj) {
-		if (obj.hasOwnProperty(key)) {
+	for (const key in obj) {
+		if (Object.prototype.hasOwnProperty.call(obj, key)) {
 			return false
 		}
 	}

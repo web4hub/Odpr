@@ -1,21 +1,22 @@
 {
-  "name": "vue-django-with-tests",
-  "version": "0.0.1",
-  "description": "Vue-Django Gitlab CI/CD Setup with Docker Images and Cypress Tests (and Django Unit Tests)",
+  "name": "odpr",
+  "version": "1.0.0",
+  "description": "A database where everybody can upload their 3D Models and scenes to provide templates for experimental render-algorithms and to test and compare their outputs",
   "main": "src/main.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "test": "cypress run",
-    "test-ci": "cypress run --config baseUrl=http://docker:8000",
+    "test": "cypress run --browser chrome",
+    "test-ci": "cypress run --config baseUrl=http://docker:8000 --browser chrome",
     "build": "node build/build.js",
-    "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
+    "lint": "eslint --ext .js,.vue src",
+    "lint-fix": "eslint --fix --ext .js,.vue src"
   },
   "repository": {
     "type": "git",
-    "url": "git@gitlab.electrocnic.com:dood/app.git"
+    "url": "git@gitlab.com:electrocnic/odpr.git"
   },
   "keywords": [
     "Docker",
@@ -40,8 +41,10 @@
     "bootstrap": "^4.3.1",
     "bootstrap-sass": "^3.4.1",
     "bootstrap-vue": "^2.0.0",
+    "file-loader": "^4.2.0",
     "jquery": "^3.4.1",
     "lodash": "^4.17.15",
+    "vee-validate": "^2.1.0-beta.11",
     "vue": "^2.6.10",
     "vue-cookie-law": "^1.10.0",
     "vue-router": "^3.1.3",

@@ -1,0 +1,33 @@
+
+.legal-body {
+	text-align: justify;
+	max-width: 800px;
+	padding: 15px 50px;
+	margin: -20px auto 0;
+	box-shadow: 0 1px 1px 0 rgba(0,0,0,.06), 0 0 200px 0 rgb(168, 168, 168);
+
+	@media (max-width: 1000px) {
+		width: 50%;
+		overflow-wrap: break-word;
+	}
+}
+
+.legal-body > ol > li {
+	font-size: 2.55em;
+}
+
+.legal-body ol p, .legal-body li div {
+	font-size: 0.4em;
+}
+
+.legal-body > ol > li > ol > li {
+	font-size: 0.5em;
+}
+
+.legal-body > ol > li > ol > li p {
+	font-size: 0.8em;
+}
+
+//.legal-body li * {
+//	font-size: 0.4em;
+//}

@@ -51,6 +51,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY') or 'weak_default_secret_key__use_DJA
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = (os.getenv('DJANGO_DEBUG') or 'True') == 'True'
+FILER_DEBUG = (os.getenv('DJANGO_DEBUG') or 'True') == 'True'
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'docker']
 if os.environ.get('DJANGO_ALLOWED_HOST_1') is not None:
@@ -65,6 +66,8 @@ if os.environ.get('DJANGO_ALLOWED_HOST_4') is not None:
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r'^/api/.*$'
 CORS_ALLOW_CREDENTIALS = True
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = None
 
 # Application definition
 INSTALLED_APPS = [
@@ -85,9 +88,17 @@ INSTALLED_APPS = [
 	'allauth.socialaccount.providers.github',
 	'rest_auth',
 	'rest_auth.registration',
-	'api',
-	'app',
+	'easy_thumbnails',
+	'filer',
+	'mptt',
+	'simple_history',
+	'annoying',
+	'sceneries',
+	'scenery_requests',
 	'accounts',
+	'api',
+	'odpr_shared_models',
+	'documentation',
 	'django_nose',
 ]
 
@@ -103,15 +114,19 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_USER_EMAIL_FIELD = 'email'
 ACCOUNT_LOGOUT_ON_GET = True
-#  ACCOUNT_FORMS = {"login": "accounts.forms.UserLoginForm"}
+ACCOUNT_FORMS = {"login": "accounts.forms.UserLoginForm"}
 LOGIN_REDIRECT_URL = 'home'
-#  LOGIN_URL = 'api/v1/accounts/login/'
+LOGIN_URL = 'api/v1/accounts/login/'
 
 CSRF_COOKIE_NAME = "csrftoken"
 
+SIMPLE_HISTORY_HISTORY_CHANGE_REASON_USE_TEXT_FIELD = True
+FILER_CANONICAL_URL = 'public/'
+FILER_ENABLE_PERMISSIONS = True
+
 REST_AUTH_SERIALIZERS = {
 	"USER_DETAILS_SERIALIZER": "accounts.serializers.UserSerializer",
-	#	 "LOGIN_SERIALIZER": "accounts.serializers.CustomUserLoginSerializer",
+	"LOGIN_SERIALIZER": "accounts.serializers.CustomUserLoginSerializer",
 	"PASSWORD_RESET_SERIALIZER": "accounts.serializers.CustomPasswordResetSerializer"
 }
 
@@ -128,6 +143,11 @@ AUTHENTICATION_BACKENDS = (
 	"allauth.account.auth_backends.AuthenticationBackend",
 )
 
+FILE_UPLOAD_HANDLERS = [
+	'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+FILE_UPLOAD_PERMISSIONS = 0o644
+
 MIDDLEWARE = [
 	'corsheaders.middleware.CorsMiddleware',
 	'django.middleware.security.SecurityMiddleware',
@@ -137,6 +157,7 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'vuedj.urls'
@@ -144,7 +165,7 @@ ROOT_URLCONF = 'vuedj.urls'
 TEMPLATES = [
 	{
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': ['templates/','../templates','../client/templates'],
+		'DIRS': ['static_templates/', '../static_templates', '../client/templates'],
 		'APP_DIRS': True,
 		'OPTIONS': {
 			'context_processors': [
@@ -243,6 +264,6 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 # Tell nose to measure coverage on the apps
 NOSE_ARGS = [
-	'--with-coverage', # disable if tests cannot be breakpointed
-	'--cover-package=accounts, api',  # For multiple apps use '--cover-package=foo, bar'
+	'--with-coverage',  # disable if tests cannot be breakpointed
+	'--cover-package=accounts, api, documentation, odpr_shared_models, sceneries, scenery_requests',  # For multiple apps use '--cover-package=foo, bar'
 ]
