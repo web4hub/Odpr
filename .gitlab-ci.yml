@@ -298,6 +298,7 @@ test-deploy:
   image: $BUILDER_IMAGE
   variables:
     NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
+    TEST_DEPLOYMENT: "True"
   before_script:
     - export APP_IMAGE_NAME=$(resolve_nested.sh APP_IMAGE_PRODUCTION_TEST) # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
     - export NGINX_IMAGE_NAME=$(resolve_nested.sh NGINX_IMAGE_PRODUCTION_TEST) # If nested variables are not used directly in .gitlab-ci.yml, they will not be substituted completely. Workaround: USE them in .gitlab-ci.yml by this command, instead of just defining a new variable in the variables section of the job (where no "usage" happens, thus no substitution)
@@ -405,6 +406,7 @@ create_badges:
   image: $BUILDER_IMAGE
   variables:
     NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
+    TEST_DEPLOYMENT: "True" # The badges should always go to the testserver, and if the test-server variables are not defined, this has no effects.
   before_script:
     - echo $DOCKER_PW | docker login -u $DOCKER_USER --password-stdin $DOCKER_REGISTRY
     - chmod 755 util/run_lighthouse.sh
@@ -438,6 +440,7 @@ update_dependency_badges:
   image: $BUILDER_IMAGE
   variables:
     NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
+    TEST_DEPLOYMENT: "True" # The badges should always go to the testserver, and if the test-server variables are not defined, this has no effects.
   before_script:
     - echo $DOCKER_PW | docker login -u $DOCKER_USER --password-stdin $DOCKER_REGISTRY
     - chmod 755 util/update_dependency_badges.sh
