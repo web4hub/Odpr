@@ -143,6 +143,11 @@ AUTHENTICATION_BACKENDS = (
 	"allauth.account.auth_backends.AuthenticationBackend",
 )
 
+FILE_UPLOAD_HANDLERS = [
+	'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+]
+FILE_UPLOAD_PERMISSIONS = 0o644
+
 MIDDLEWARE = [
 	'corsheaders.middleware.CorsMiddleware',
 	'django.middleware.security.SecurityMiddleware',
