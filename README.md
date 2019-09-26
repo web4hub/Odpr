@@ -113,7 +113,18 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 
 ## Installation/Setup
 
-1. Fork or clone the repo. You will likely want to setup your own repo, I will skip the instructions of how to do this. (see https://stackoverflow.com/questions/18200248/cloning-a-repo-from-someone-elses-github-and-pushing-it-to-a-repo-on-my-github for example)
+1. Fork or clone the repo. You will likely want to setup your own repo, therefore you could possibly perform the following steps (below is my own workflow as an example, there are more possible ways to do this). (see https://stackoverflow.com/questions/18200248/cloning-a-repo-from-someone-elses-github-and-pushing-it-to-a-repo-on-my-github for another example)
+        
+        fork repo on gitlab to your new project path (and rename paths in project settings)
+        git clone your-new-repo-on-gitlab # on your local machine
+        git remote add upstream git@gitlab.com:electrocnic/vue-django-ci-cd-boilerplate.git
+        git checkout -b vue-django-ci-cd-boilerplate # make new branch where you pull updates from this repo
+        git fetch upstream # update the new configuration
+        git branch --set-upstream-to=upstream/master # modify the remote url for the new branch
+        git remote set-url --push upstream no-push # but disallow push
+        git checkout -b merge-updates-from-boilerplate # make new branch where you merge the updates and your app's changes
+        git push -u # this branch will be pushed to your own repo (origin)
+        git checkout master # go back to master and have fun
 2. When you added a new empty gitlab-repo as the remote origin to your new local git repo from step 1, push it. The pipeline should be triggered but should fail.
 3. Setup your gitlab account for that repo:
 	* Add the following variables to your gitlab CI/CD Settings (all but the private key are of Type `Variable`):

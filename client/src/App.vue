@@ -15,7 +15,6 @@
 			<router-view />
 			<p>
 				Welcome to your Django - Vue.js app!
-				Now also with auto-deploy (and supporting re-deploying the same version with updates)
 			</p>
 		</div>
 		<footer>
