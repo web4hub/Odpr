@@ -10,7 +10,7 @@ import router from './_router'
 * production image does not activate debug settings.
 * */
 let _VUE_DEBUG = 'VUE_DEBUG' // the String VUE_DEBUG will be replaced by .gitlab-ci injections if needed. If not replaced, it will be replaced by an empty string below.
-if (_VUE_DEBUG.includes('VUE_DEBU') && _VUE_DEBUG.includes('UE_DEBUG') ) { // hack to prevent the injection to overwrite the test string as well
+if (_VUE_DEBUG.includes('VUE_DEBU') && _VUE_DEBUG.includes('UE_DEBUG')) { // hack to prevent the injection to overwrite the test string as well
 	_VUE_DEBUG = 'true'
 }
 Vue.config.productionTip = (_VUE_DEBUG === 'true')
