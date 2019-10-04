@@ -5,7 +5,9 @@ let fs = require('fs')
 axios.defaults.baseURL = urls.SERVER_URL + urls.API_URL
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 axios.defaults.xsrfCookieName = 'csrftoken'
+
 
 export const visit = () => cy.visit('/')
 export const getApp = () => cy.get('div#app')

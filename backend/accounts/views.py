@@ -30,6 +30,7 @@ from .models import User
 from django import forms
 from filer.models import FolderRoot, Folder
 from django.core.exceptions import ObjectDoesNotExist
+import os
 
 class NewFolderForm(forms.ModelForm):
 	class Meta(object):
