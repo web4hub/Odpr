@@ -119,7 +119,18 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 
 ## Installation/Setup
 
-1. Fork or clone the repo. You will likely want to setup your own repo, I will skip the instructions of how to do this. (see https://stackoverflow.com/questions/18200248/cloning-a-repo-from-someone-elses-github-and-pushing-it-to-a-repo-on-my-github for example)
+1. Fork or clone the repo. You will likely want to setup your own repo, therefore you could possibly perform the following steps (below is my own workflow as an example, there are more possible ways to do this). (see https://stackoverflow.com/questions/18200248/cloning-a-repo-from-someone-elses-github-and-pushing-it-to-a-repo-on-my-github for another example)
+        
+        fork repo on gitlab to your new project path (and rename paths in project settings)
+        git clone your-new-repo-on-gitlab # on your local machine
+        git remote add upstream git@gitlab.com:electrocnic/vue-django-ci-cd-boilerplate.git
+        git checkout -b vue-django-ci-cd-boilerplate # make new branch where you pull updates from this repo
+        git fetch upstream # update the new configuration
+        git branch --set-upstream-to=upstream/master # modify the remote url for the new branch
+        git remote set-url --push upstream no-push # but disallow push
+        git checkout -b merge-updates-from-boilerplate # make new branch where you merge the updates and your app's changes
+        git push -u # this branch will be pushed to your own repo (origin)
+        git checkout master # go back to master and have fun
 2. When you added a new empty gitlab-repo as the remote origin to your new local git repo from step 1, push it. The pipeline should be triggered but should fail.
 3. Setup your gitlab account for that repo:
 	* Add the following variables to your gitlab CI/CD Settings (all but the private key are of Type `Variable`):
@@ -129,9 +140,13 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 		- `DEPLOY_SERVER_PRIVATE_KEY` (Type: `File`) paste the content of your private key as String
 		- `DJANGO_DATABASE_HOST` e.g. `database1`
 		- `DJANGO_DATABASE_NAME` e.g. `database1`
-		- `DJANGO_DATABASE_PASSWORD` (Masked: `true`) a good password for your postgres instance (mine are 30 chars long and randomly generated using Enpass)
+		- `DJANGO_DATABASE_PASSWORD_DEBUG` (Masked: `true`) same as below for the debug image (use a different password!)
+		- `DJANGO_DATABASE_PASSWORD_TEST` (Masked: `true`) same as below for the test-deploy image (use a different password!)
+		- `DJANGO_DATABASE_PASSWORD` (Masked: `true`) (for production images) a good password for your postgres instance (mine are 30 chars long and randomly generated using Enpass)
 		- `DJANGO_DATABASE_USERNAME` e.g. `postgres_django`
-		- `DJANGO_SECRET_KEY` (Masked: `true`) a good secret key for your django instance (mine is 50 chars long, as somebody stated in a Stackoverflow answer somewhere, that Django Secret keys should always be exactly 50 characters, and also randomly generated using Enpass)
+		- `DJANGO_SECRET_KEY_DEBUG` (Masked: `true`) same as below for the debug image (use a different password!)
+		- `DJANGO_SECRET_KEY_TEST` (Masked: `true`) same as below for the test-deploy image (use a different password!)
+		- `DJANGO_SECRET_KEY` (Masked: `true`) (for production images) a good secret key for your django instance (mine is 50 chars long, as somebody stated in a Stackoverflow answer somewhere, that Django Secret keys should always be exactly 50 characters, and also randomly generated using Enpass)
 		- `DOCKER_REGISTRY` The domain to your docker registry (mine was of my gitlab instance, e.g. `docker.gitlab.electrocnic.com`)
 		- `DOCKER_PW` (Masked: `true`) the login credential to your docker registry
 		- `DOCKER_USER` the user of your docker registry to which the password belongs

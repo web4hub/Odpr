@@ -71,6 +71,8 @@ variables:
   #
   # Django Settings (some of them are defined in the gitlab variables page and are commented here)
   #
+  # DJANGO_SECRET_KEY_DEBUG  (defined in gitlab)
+  # DJANGO_SECRET_KEY_TEST  (defined in gitlab)
   # DJANGO_SECRET_KEY  (defined in gitlab)
   DJANGO_DEBUG: "True" # (True or False)  (defined here)
   #
@@ -78,6 +80,8 @@ variables:
   #
   # DJANGO_DATABASE_NAME  (e.g. 'database1')  (defined in gitlab variables)
   # DJANGO_DATABASE_USERNAME  (defined in gitlab variables)
+  # DJANGO_DATABASE_PASSWORD_DEBUG  (defined in gitlab variables)
+  # DJANGO_DATABASE_PASSWORD_TEST  (defined in gitlab variables)
   # DJANGO_DATABASE_PASSWORD  (defined in gitlab variables)
   DJANGO_DATABASE_PORT: 5432
   # DJANGO_DATABASE_HOST  (must be the same name as the docker-compose service, e.g 'database1')  (defined in gitlab)
@@ -155,11 +159,11 @@ build-images:
       --build-arg BACKEND_DIRECTORY
       --build-arg APP_IMAGE_BACKEND_DIRECTORY
       --build-arg APP_INDEX_HTML_TEMPLATE_DIRECTORY
-      --build-arg DJANGO_SECRET_KEY
+      --build-arg DJANGO_SECRET_KEY_DEBUG
       --build-arg DJANGO_DEBUG
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
-      --build-arg DJANGO_DATABASE_PASSWORD
+      --build-arg DJANGO_DATABASE_PASSWORD_DEBUG
       --build-arg DJANGO_DATABASE_PORT
       --build-arg DJANGO_DATABASE_HOST
       --build-arg DJANGO_ALLOWED_HOST_1
@@ -225,7 +229,7 @@ test-release:
     NGINX_PRODUCTION_CONFIG: "True"
     # PRODUCTION_URL: "https://${TEST_PRODUCTION_DOMAIN}/"
     NGINX_SERVER_NAME: "${TEST_PRODUCTION_DOMAIN}"
-    VIRTUAL_HOST: "${TEST_PRODUCTION_DOMAIN}"
+    VIRTUAL_HOST: "${TEST_PRODUCTION_DOMAIN},www.${TEST_PRODUCTION_DOMAIN}"
     DJANGO_ALLOWED_HOST_1: "${TEST_PRODUCTION_DOMAIN}"
     DJANGO_ALLOWED_HOST_2: "www.${TEST_PRODUCTION_DOMAIN}"
     # NGINX_PERMANENT_REDIRECT_INSTRUCTION: "return 301 ${PRODUCTION_URL}$$request_uri;"
@@ -248,11 +252,11 @@ test-release:
       --build-arg BACKEND_DIRECTORY
       --build-arg APP_IMAGE_BACKEND_DIRECTORY
       --build-arg APP_INDEX_HTML_TEMPLATE_DIRECTORY
-      --build-arg DJANGO_SECRET_KEY
+      --build-arg DJANGO_SECRET_KEY_TEST
       --build-arg DJANGO_DEBUG
       --build-arg DJANGO_DATABASE_NAME
       --build-arg DJANGO_DATABASE_USERNAME
-      --build-arg DJANGO_DATABASE_PASSWORD
+      --build-arg DJANGO_DATABASE_PASSWORD_TEST
       --build-arg DJANGO_DATABASE_PORT
       --build-arg DJANGO_DATABASE_HOST
       --build-arg DJANGO_ALLOWED_HOST_1
@@ -320,7 +324,7 @@ release:
     DJANGO_DEBUG: "False"
     NGINX_PRODUCTION_CONFIG: "True"
     NGINX_SERVER_NAME: "${PRODUCTION_DOMAIN}"
-    VIRTUAL_HOST: "${PRODUCTION_DOMAIN}"
+    VIRTUAL_HOST: "${PRODUCTION_DOMAIN},www.${PRODUCTION_DOMAIN}"
     DJANGO_ALLOWED_HOST_1: "${PRODUCTION_DOMAIN}"
     DJANGO_ALLOWED_HOST_2: "www.${PRODUCTION_DOMAIN}"
     HOST_PORT: 80
