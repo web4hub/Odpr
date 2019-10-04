@@ -134,9 +134,13 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 		- `DEPLOY_SERVER_PRIVATE_KEY` (Type: `File`) paste the content of your private key as String
 		- `DJANGO_DATABASE_HOST` e.g. `database1`
 		- `DJANGO_DATABASE_NAME` e.g. `database1`
-		- `DJANGO_DATABASE_PASSWORD` (Masked: `true`) a good password for your postgres instance (mine are 30 chars long and randomly generated using Enpass)
+		- `DJANGO_DATABASE_PASSWORD_DEBUG` (Masked: `true`) same as below for the debug image (use a different password!)
+		- `DJANGO_DATABASE_PASSWORD_TEST` (Masked: `true`) same as below for the test-deploy image (use a different password!)
+		- `DJANGO_DATABASE_PASSWORD` (Masked: `true`) (for production images) a good password for your postgres instance (mine are 30 chars long and randomly generated using Enpass)
 		- `DJANGO_DATABASE_USERNAME` e.g. `postgres_django`
-		- `DJANGO_SECRET_KEY` (Masked: `true`) a good secret key for your django instance (mine is 50 chars long, as somebody stated in a Stackoverflow answer somewhere, that Django Secret keys should always be exactly 50 characters, and also randomly generated using Enpass)
+		- `DJANGO_SECRET_KEY_DEBUG` (Masked: `true`) same as below for the debug image (use a different password!)
+		- `DJANGO_SECRET_KEY_TEST` (Masked: `true`) same as below for the test-deploy image (use a different password!)
+		- `DJANGO_SECRET_KEY` (Masked: `true`) (for production images) a good secret key for your django instance (mine is 50 chars long, as somebody stated in a Stackoverflow answer somewhere, that Django Secret keys should always be exactly 50 characters, and also randomly generated using Enpass)
 		- `DOCKER_REGISTRY` The domain to your docker registry (mine was of my gitlab instance, e.g. `docker.gitlab.electrocnic.com`)
 		- `DOCKER_PW` (Masked: `true`) the login credential to your docker registry
 		- `DOCKER_USER` the user of your docker registry to which the password belongs
