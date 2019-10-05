@@ -16,9 +16,9 @@ rm -rf ../backend/app/migrations
 echo ".../app/migrations"
 
 echo "Making migrations..."
-python ../backend/manage.py makemigrations accounts api app
+PYTHON ../backend/manage.py makemigrations accounts api app
 
 echo "Migrating..."
-python ../backend/manage.py migrate
+PYTHON ../backend/manage.py migrate
 
 echo "Finished. You can now create a new superuser by registering a user at localhost:8000/api/v1/auth/register/ (don't forget the trailing slash/)"
