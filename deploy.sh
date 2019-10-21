@@ -13,4 +13,4 @@ cd backend
 
 export PORT=8000
 echo 'Server runnning on port ' $PORT
-PYTHON manage.py runserver
+$PYTHON manage.py runserver

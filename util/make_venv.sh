@@ -11,6 +11,6 @@ set -e
 
 if [ 0$MAKE_VENV -eq 1 ]; then
 	echo "No .venv found, thus python3 -m venv .venv..."
-	PYTHON -m venv backend/.venv
+	$PYTHON -m venv backend/.venv
 fi
 
