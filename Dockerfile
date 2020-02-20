@@ -52,7 +52,7 @@ RUN chmod 755 /docker-entrypoint.sh
 
 WORKDIR "${APP_IMAGE_BACKEND_DIRECTORY}"
 RUN pip3 install --upgrade pip \
-    	&& pip3 install -r requirements.txt
+      && pip3 install -r requirements.txt
 
 EXPOSE ${GUNICORN_PORT}
 

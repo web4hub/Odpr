@@ -132,6 +132,7 @@ for f in app/re-encrypt-certs/*; do
 	scp_proxy "${f}" "~/apps/${NGINX_SERVER_NAME}/re-encrypt-certs/"
 done
 for f in app/crawlers/*; do
+	../util/inject_env_into_file.sh PRODUCTION_URL "${f}"
 	scp_proxy "${f}" "~/apps/${NGINX_SERVER_NAME}/crawlers/"
 done
 ssh_proxy "chmod 755 apps/${NGINX_SERVER_NAME}/app.sh"
