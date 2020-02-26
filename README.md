@@ -114,7 +114,7 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 ## Installation/Setup
 
 1. Fork or clone the repo. You will likely want to setup your own repo, therefore you could possibly perform the following steps (below is my own workflow as an example, there are more possible ways to do this). (see https://stackoverflow.com/questions/18200248/cloning-a-repo-from-someone-elses-github-and-pushing-it-to-a-repo-on-my-github for another example)
-        
+
         fork repo on gitlab to your new project path (and rename paths in project settings)
         git clone your-new-repo-on-gitlab # on your local machine
         git remote add upstream git@gitlab.com:electrocnic/vue-django-ci-cd-boilerplate.git
@@ -210,7 +210,7 @@ This boilerplate is meant to be as focused as possible to the simple use case wh
 
 ## Continuous Integration (CI)
 
-The CI pipeline is designes as following:
+The CI pipeline is designed to do the following:
 
 1. `update-base-image` - The images `debian-dind` and `builder` get checked if updates are needed and will eventually be updated. An update might take 15 to 30 minutes. If no update is needed, this job should finish within 4 minutes.
 2. `build-images` - aka "verify-build" will build the app and run django nose tests. The coverage result only depends on the output of these tests, as I did not add coverage for frontend tests. Here, the three images `app:latest`, `nginx:latest` and `postgres:latest` are created and pushed to the docker registry you configured in the gitlab variables.
