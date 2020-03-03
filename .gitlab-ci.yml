@@ -239,6 +239,7 @@ test-release:
     DJANGO_DATABASE_PASSWORD: "${DJANGO_DATABASE_PASSWORD_TEST}"
     DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY_TEST}"
     HOST_PORT: 80
+    TEST_DEPLOYMENT: "True"
   before_script:
     - cd $CI_PROJECT_DIR
     - echo $DOCKER_PW | docker login -u $DOCKER_USER --password-stdin $DOCKER_REGISTRY

@@ -1,6 +1,22 @@
 'use strict'
 import Vue from 'vue'
 import router from './_router'
+import store from './_store'
+import VeeValidate from 'vee-validate'
+import Axios from 'axios'
+import veeValidateRules from './_util/veeValidateRules.js'
+import {
+	stateToken
+} from './_store/modules/sessionHandling/_util/account/accountStateTypes'
+
+Vue.prototype.$http = Axios
+const token = localStorage.getItem(stateToken)
+if (token) {
+	Vue.prototype.$http.defaults.headers.common.Authorization = token
+}
+
+Vue.use(VeeValidate)
+veeValidateRules.applyCustomRules()
 
 /* This nasty hack is an ugly workaround to provide the following feature:
 * 1. If app is built locally without any docker or environment variable being injected below, _DEBUG
@@ -19,11 +35,15 @@ Vue.config.devtools = (_DEBUG === 'true')
 Vue.use(() => import('bootstrap-vue'))
 
 /* eslint-disable no-new */
-new Vue({
-	el: '#App',
+const v = new Vue({
+	el: '#app',
 	router,
 	components: {
 		App: () => import('./App')
 	},
-	template: '<App/>'
+	template: '<App/>',
+	store: store
 })
+if (window.Cypress) {
+	window.app = v
+}

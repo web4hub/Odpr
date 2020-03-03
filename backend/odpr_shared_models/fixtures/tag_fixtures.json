@@ -1,0 +1,106 @@
+[
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 1,
+    "fields": {
+      "author": 2,
+			"tag": "Nature"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 2,
+    "fields": {
+      "author": 3,
+			"tag": "Urban"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 3,
+    "fields": {
+      "author": 3,
+			"tag": "Reflection"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 4,
+    "fields": {
+      "author": 3,
+			"tag": "Biology"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 5,
+    "fields": {
+      "author": 3,
+			"tag": "Water"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 6,
+    "fields": {
+      "author": 3,
+			"tag": "Sky"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 7,
+    "fields": {
+      "author": 5,
+			"tag": "Wood"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 8,
+    "fields": {
+      "author": 3,
+			"tag": "Glass"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 9,
+    "fields": {
+      "author": 3,
+			"tag": "Plastics"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 10,
+    "fields": {
+      "author": 3,
+			"tag": "Metal"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 11,
+    "fields": {
+      "author": 3,
+			"tag": "Fluids"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 12,
+    "fields": {
+      "author": 4,
+			"tag": "Chemicals"
+    }
+  },
+  {
+    "model": "odpr_shared_models.tag",
+    "pk": 13,
+    "fields": {
+      "author": 2,
+			"tag": "Gas"
+    }
+  }
+]

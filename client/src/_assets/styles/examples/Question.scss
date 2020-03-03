@@ -1,0 +1,101 @@
+.post-title {
+  font-size: 24px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #dedede;
+  padding-bottom: 12px;
+}
+
+.post-title-container {
+  position: relative;
+
+  .attribution-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+.post-content {
+  display: flex;
+
+  @media (max-width: 425px) {
+    display: block;
+  }
+}
+
+.post-body-container {
+  flex: 1;
+}
+
+.post-body {
+  word-break: break-word;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+.post-vote-container {
+  width: 50px;
+
+  @media (max-width: 425px) {
+    float: left;
+    margin-right: 20px;
+  }
+}
+
+.post-vote {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.vote-btn {
+  font-size: 22px;
+  color: gainsboro;
+
+  &.voted {
+    color: #f44336;
+  }
+
+  &:hover {
+    color: #f44336;
+  }
+  &.voted {
+    &:active {
+      color: #f44336;
+    }
+    &:focus {
+      color: #f44336;
+    }
+  }
+  &:not(.voted) {
+    &:active {
+      color: gainsboro;
+    }
+    &:focus {
+      color: gainsboro;
+    }
+  }
+}
+
+.post {
+  padding: 20px 7px;
+
+  &.answer {
+    border-bottom: 1px solid #dedede;
+  }
+}
+
+.related-question-item {
+  margin-bottom: 6px;
+
+  .related-question-score {
+    padding: 4px 8px;
+    border: 1px solid gray;
+    border-radius: 3px;
+    color: black;
+    font-size: 13px;
+    margin-right: 3px;
+  }
+}

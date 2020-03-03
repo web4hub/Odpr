@@ -1,0 +1,69 @@
+.heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px 12px 0px;
+  border-bottom: 1px solid #d8d8d8;
+
+  @media (max-width: 425px) {
+    display: block;
+    padding: 0;
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 21px;
+    }
+  }
+}
+
+.tab-navigation {
+  margin: 0;
+  list-style: none;
+  padding-left: 0;
+}
+
+.tab-item {
+  display: inline-block;
+  margin-right: 5px;
+  margin-bottom: -1px;
+}
+
+.tab-link {
+  display: block;
+  padding: 12px 12px;
+  color: #9c9c9c;
+  font-size: 14px;
+  letter-spacing: 0.8px;
+
+  &.active {
+    color: #545454;
+    border: 1px solid #d8d8d8;
+    border-bottom-color: white;
+  }
+
+  &:hover {
+    text-decoration: none;
+    color: #545454;
+  }
+
+  &:focus {
+    text-decoration: none;
+  }
+
+  @media (max-width: 320px) {
+    font-size: 9px;
+  }
+}
+
+h2 {
+  font-size: 18px;
+}
+
+.question-action {
+  text-align: right;
+  margin: 0px 6px 9px;
+}
+
+.login-needed-alert {
+  font-size: 2em;
+}

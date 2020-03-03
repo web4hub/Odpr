@@ -1,0 +1,5 @@
+'use strict'
+export const incFocusCounter = 'incFocusCounter'
+export const resetToDefaultState = 'resetToDefaultState'
+export const resetFocusCounter = 'resetFocusCounter'
+export const clearInputData = 'clearInputData'

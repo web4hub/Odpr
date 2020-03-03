@@ -12,11 +12,18 @@ rm -rf ../backend/accounts/migrations
 echo ".../accounts/migrations"
 rm -rf ../backend/api/migrations
 echo ".../api/migrations"
-rm -rf ../backend/app/migrations
-echo ".../app/migrations"
+rm -rf ../backend/odpr_shared_models/migrations
+echo ".../odpr_shared_models/migrations"
+rm -rf ../backend/sceneries/migrations
+echo ".../sceneries/migrations"
+rm -rf ../backend/scenery_requests/migrations
+echo ".../scenery_requests/migrations"
+rm -rf ../backend/documentation/migrations
+echo ".../documentation/migrations"
 
 echo "Making migrations..."
-$PYTHON ../backend/manage.py makemigrations accounts api app
+$PYTHON ../backend/manage.py makemigrations accounts odpr_shared_models documentation sceneries scenery_requests
+$PYTHON ../backend/manage.py makemigrations
 
 echo "Migrating..."
 $PYTHON ../backend/manage.py migrate

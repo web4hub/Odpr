@@ -1,0 +1,51 @@
+@mixin odpr--left-right-margin($padding-amount) {
+	margin-left: $padding-amount;
+	margin-right: $padding-amount;
+}
+
+@mixin odpr--top-bottom-margin($padding-amount) {
+	margin-bottom: $padding-amount;
+	margin-top: $padding-amount;
+}
+
+@mixin odpr--left-margin($padding-amount) {
+	margin-left: $padding-amount;
+}
+
+@mixin odpr--right-margin($padding-amount) {
+	margin-right: $padding-amount;
+}
+
+@mixin odpr--top-margin($padding-amount) {
+	margin-top: $padding-amount;
+}
+
+@mixin odpr--bottom-margin($padding-amount) {
+	margin-bottom: $padding-amount;
+}
+
+@mixin odpr--top-bottom-padding($padding-amount) {
+	padding-bottom: $padding-amount;
+	padding-top: $padding-amount;
+}
+
+@mixin odpr--left-right-padding($padding-amount) {
+	padding-left: $padding-amount;
+	padding-right: $padding-amount;
+}
+
+@mixin odpr--left-padding($padding-amount) {
+	padding-left: $padding-amount;
+}
+
+@mixin odpr--right-padding($padding-amount) {
+	padding-right: $padding-amount;
+}
+
+@mixin odpr--bottom-padding($padding-amount) {
+	padding-bottom: $padding-amount;
+}
+
+@mixin odpr--top-padding($padding-amount) {
+	padding-top: $padding-amount;
+}

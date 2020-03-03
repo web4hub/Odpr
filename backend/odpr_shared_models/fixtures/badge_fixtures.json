@@ -1,0 +1,128 @@
+[
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 1,
+    "fields": {
+			"type": 0,
+			"title": "First Scenery",
+			"description": "Congratulations! You posted your first Scenery!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 2,
+    "fields": {
+			"type": 0,
+			"title": "First private Scenery",
+			"description": "Congratulations! You used the privacy feature for the first time!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 3,
+    "fields": {
+			"type": 0,
+			"title": "First public Post",
+			"description": "Congratulations! You posted your first public Content!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 4,
+    "fields": {
+			"type": 0,
+			"title": "First Request",
+			"description": "Congratulations! You posted your first Request!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 5,
+    "fields": {
+			"type": 0,
+			"title": "First Comment",
+			"description": "Congratulations! You made your first Comment!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 6,
+    "fields": {
+			"type": 0,
+			"title": "First Follow",
+			"description": "Congratulations! You are now a follower of another user!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 7,
+    "fields": {
+			"type": 0,
+			"title": "First Block",
+			"description": "Congratulations! You blocked your first user!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 8,
+    "fields": {
+			"type": 1,
+			"title": "First Request Upvote Received",
+			"description": "Congratulations! Somebody upvoted your Request, and this is the first upvote you received for Requests!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 9,
+    "fields": {
+			"type": 1,
+			"title": "First Scenery Upvote Received",
+			"description": "Congratulations! Somebody upvoted your Scenery, and this is the first upvote you received for Sceneries!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 10,
+    "fields": {
+			"type": 1,
+			"title": "First Comment Upvote Received",
+			"description": "Congratulations! Somebody upvoted your Comment, and this is the first upvote you received for Comments!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 11,
+    "fields": {
+			"type": 1,
+			"title": "First Starred Request or Scenery",
+			"description": "Congratulations! Somebody starred your Request or Scenery, and this is the first star you received!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 12,
+    "fields": {
+			"type": 2,
+			"title": "Famous Scenery",
+			"description": "Congratulations! You received over 100 Upvotes for one of your Sceneries, which means that you published really good shit! Thank you for the share of your work!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 13,
+    "fields": {
+			"type": 2,
+			"title": "Famous Request",
+			"description": "Congratulations! You received over 100 Upvotes for one of your Requests, which means that many other people share the same struggles! Thank you for helping the community!"
+		}
+	},
+	{
+		"model": "odpr_shared_models.badge",
+    "pk": 14,
+    "fields": {
+			"type": 2,
+			"title": "Famous Comment",
+			"description": "Congratulations! You received over 100 Upvotes for one of your Comments, which means that many other people agree with you!"
+		}
+	}
+]

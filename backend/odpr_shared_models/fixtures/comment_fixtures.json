@@ -1,0 +1,32 @@
+[
+	{
+		"model": "odpr_shared_models.comment",
+    "pk": 1,
+    "fields": {
+      "author": 13,
+      "type": 0,
+      "content": 11,
+      "parent_id": 1
+    }
+	},
+	{
+		"model": "odpr_shared_models.comment",
+    "pk": 2,
+    "fields": {
+      "author": 2,
+      "type": 2,
+      "content": 12,
+      "parent_id": 1
+    }
+	},
+	{
+		"model": "odpr_shared_models.comment",
+    "pk": 3,
+    "fields": {
+      "author": 2,
+      "type": 2,
+      "content": 13,
+      "parent_id": 1
+    }
+	}
+]

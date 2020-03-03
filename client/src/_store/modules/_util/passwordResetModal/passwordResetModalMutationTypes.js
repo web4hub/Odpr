@@ -1,0 +1,8 @@
+'use strict'
+export const FLIP = 'FLIP'
+export const CLOSE = 'CLOSE'
+export const SUBMIT = 'SUBMIT'
+export const SUBMIT_PASSWORD_RESET_REJECT = 'SUBMIT_PASSWORD_RESET_REJECT'
+export const SUBMIT_PASSWORD_RESET_SUCCESS = 'SUBMIT_PASSWORD_RESET_SUCCESS'
+export const REMEMBER_TOKEN = 'REMEMBER_TOKEN'
+export const CLEAR_TOKEN = 'CLEAR_TOKEN'

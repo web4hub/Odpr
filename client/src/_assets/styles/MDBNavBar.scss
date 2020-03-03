@@ -1,0 +1,47 @@
+// @import 'node_modules/mdbvue/build/css/mdb.css';
+//@import '../../../node_modules/mdbvue/build/css/mdb.css';
+//@import '../../../node_modules/mdbvue/build/css/style.css';
+@import '~bootstrap/scss/bootstrap';
+// @import '~mdbvue/build/scss/mdb';
+// @import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900");
+
+.nav-bar-icon {
+	@extend .mr-1;
+	width: 1.1em;
+	padding-bottom: 0.1em;
+}
+
+.nav-bar-buttons-color {
+	// background-color: #4a9eff !important;
+}
+
+.navbar {
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	font-weight: 400;
+}
+
+.dropdown-menu-fix {
+	left: -3em !important;
+}
+
+@media (max-width: 1084px) {
+	.navbar-dropdown-profile-button {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.navbar-search-field {
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.dropdown-menu-fix {
+		pointer-events: none;
+	}
+}
+
+@media (min-width: 1085px) {
+	.navbar-search-field {
+		margin-left: 0;
+	}
+}

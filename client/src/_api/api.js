@@ -29,7 +29,7 @@ function performAxios (url, request, method) {
 	}
 	if (token) {
 		headers = {
-			'Authorization': 'Token ' + token,
+			Authorization: 'Token ' + token,
 			'Content-Type': 'application/json'
 		}
 	}
@@ -73,7 +73,7 @@ function putImage (url, request) {
 	}
 	if (token) {
 		headers = {
-			'Authorization': 'Token ' + token,
+			Authorization: 'Token ' + token,
 			'Content-Type': 'multipart/form-data'
 		}
 	}
@@ -93,7 +93,7 @@ function putFile (url, request) {
 	}
 	if (token) {
 		headers = {
-			'Authorization': 'Token ' + token,
+			Authorization: 'Token ' + token,
 			'Content-Type': 'multipart/form-data'
 		}
 	}
