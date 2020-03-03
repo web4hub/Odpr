@@ -407,6 +407,14 @@ the provided deploy-server ip and user.
 
 ## FAQ / Troubleshooting
 
+### SSL (HTTPS) problems
+
+1. Did you add both, `example.com` AND `www.example.com` as a DNS-Entry to your provider? If one of them is missing, the ACME-challenge will not work.
+2. Did you use upper case characters in the project name? It might interfere with URLs in the nginx configuration and the other docker images (the project name and/or gitlab project-path is used as CI-variable during the build process)
+3. Are the addresses of your website in your DNS provider EQUAL to the ones in the gitlab variables?
+
+You can debug the ssl-challenge by stopping nginx-proxy on your host machine with `nginx-proxy/nginx-proxy.sh stop` and then start it by hand in the terminal with `docker-compose -f nginx-proxy/config/docker-compose.yml up`. This will give you the log output to the terminal. After you fixed the issue, stop the running process, and restart it in the background with the script again (`nginx-proxy/nginx-proxy.sh start`).
+
 ### CI Build problems
 
 1. Did you set all variables in `Gitlab -> Settings -> CI/CD -> Variables`?
@@ -439,6 +447,8 @@ I used:
 
 I cannot help you if you use a different environment.
 
+### If your configuration and deployment worked, your site should look like this:
+![Successfully deployed](documentation/media/working_deployment.png?raw=true)
 
 ## Uninstall
 
