@@ -47,7 +47,7 @@
 # Vue-Django CI/CD template using GitLab, Cypress and Django Unit Tests and Docker
 ## What is this?
 
-This is a Gitlab Boilerplate Vue-Django App to test frontend and backend unit- and integration-tests automated on a CI/CD system.
+This is a Gitlab Boilerplate Vue-Django App to run frontend and backend unit- and integration-tests automated on a CI/CD system.
 It is based on https://github.com/NdagiStanley/vue-django.git and meant to provide a boilerplate for continuous integration and continuous deploy.
 
 I wanted to be able to deliver my web-applications in time with no/minimal bugs, and learned from the last month before a delivery (where I had no CI/CD setup yet), that this can make huge headaches.
@@ -56,7 +56,7 @@ After it worked on linux, however, it did not work on the production server (als
 Luckily, I was able to deliver in the last minute, but I don't want to repeat this again, so I began with this project.
 
 Be aware, that a "meaty" "template" like this one has the disadvantage, that I chose most of the technologies forehand.
-So if you like to use this template, I recommend you read the list of main-frameworks and technologies, on which it is based:
+So if you like to use this template, I recommend you read the list of main-frameworks and technologies on which it is based:
 * Gitlab + Gitlab-Runner
 * Vue (+vuex, +bootstrap-vue, +axios, ...)
 * Django (python3)
