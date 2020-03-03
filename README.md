@@ -115,8 +115,8 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 
 1. Fork or clone the repo. You will likely want to setup your own repo, therefore you could possibly perform the following steps (below is my own workflow as an example, there are more possible ways to do this). (see https://stackoverflow.com/questions/18200248/cloning-a-repo-from-someone-elses-github-and-pushing-it-to-a-repo-on-my-github for another example)
 
-        fork repo on gitlab to your new project path 
-	rename paths in project settings: gitlab project-url, gitlab project name
+        fork repo on gitlab to your new project path
+        rename paths in project settings: gitlab project-url, gitlab project name
         git clone your-new-repo-on-gitlab # on your local machine
         git remote add upstream git@gitlab.com:electrocnic/vue-django-ci-cd-boilerplate.git
         git checkout -b vue-django-ci-cd-boilerplate # make new branch where you pull updates from this repo
