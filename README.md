@@ -115,7 +115,8 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 
 1. Fork or clone the repo. You will likely want to setup your own repo, therefore you could possibly perform the following steps (below is my own workflow as an example, there are more possible ways to do this). (see https://stackoverflow.com/questions/18200248/cloning-a-repo-from-someone-elses-github-and-pushing-it-to-a-repo-on-my-github for another example)
 
-        fork repo on gitlab to your new project path (and rename paths in project settings)
+        fork repo on gitlab to your new project path 
+	rename paths in project settings: gitlab project-url, gitlab project name
         git clone your-new-repo-on-gitlab # on your local machine
         git remote add upstream git@gitlab.com:electrocnic/vue-django-ci-cd-boilerplate.git
         git checkout -b vue-django-ci-cd-boilerplate # make new branch where you pull updates from this repo
@@ -165,7 +166,7 @@ I did not work with Kubernetes yet, so I have no idea if you could work with tha
 If you add a specific runner manually, like I used it for this project, configure the runner with privileged mode!
 For example I registered my new runner for this project with the following command (on a different server than on which my gitlab instance is running):
 `sudo gitlab-runner register -n --url https://YOUR_GITLAB_DOMAIN/ --registration-token YOUR_SETTINGS_CI_CD_RUNNERS_REGISTRATION_TOKEN --executor docker --description "YOUR DESCRIPTION" --docker-image "docker:stable" --docker-privileged`
-6. When you carefully followed them instructions, you can now commit your README.md, push it, and watch the first pipeline running. It may take quite some minutes per job (e.g. ~30 minutes for the first job to build the base images for the first time, they will be re-used for future jobs, but updated every time you add pip or npm packages)
+6. When you carefully followed the instructions, you can now commit your README.md, push it, and watch the first pipeline running. It may take quite some minutes per job (e.g. ~30 minutes for the first job to build the base images for the first time, they will be re-used for future jobs, but updated every time you add pip or npm packages)
 7. You can now also add your first tag (git tag) either with git manually or on gitlab `Repository -> Tags -> New Tag`. A new tag will trigger the tagged pipeline and will therefore build the test and production images and will deploy the test app to your production server. The configuration is by intention, that you have to trigger the production-deploy by hand (after you added a new tag), to avoid unintentional headaches.
 8. I highly recommend to add a scheduled pipeline on your master branch in gitlab under `CI/CD -> Schedules -> New schedule` on a `daily` basis, which will then update the badges daily, so they show up-to-date information about outdated packages and so on.
 9. You should be able to visit your deployed sites under the domains you provided for the variables. The production domain should only accept https, whilst the test domain should accept both, https and http (but will likely automatically always redirect to https).
