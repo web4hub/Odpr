@@ -53,7 +53,7 @@ A Vue-Django Webapp to provide user-provided scenes (3D Models and sceneries) fo
 # Vue-Django CI/CD template using GitLab, Cypress and Django Unit Tests and Docker
 ## What is this?
 
-This is a Gitlab Boilerplate Vue-Django App to test frontend and backend unit- and integration-tests automated on a CI/CD system.
+This is a Gitlab Boilerplate Vue-Django App to run frontend and backend unit- and integration-tests automated on a CI/CD system.
 It is based on https://github.com/NdagiStanley/vue-django.git and meant to provide a boilerplate for continuous integration and continuous deploy.
 
 I wanted to be able to deliver my web-applications in time with no/minimal bugs, and learned from the last month before a delivery (where I had no CI/CD setup yet), that this can make huge headaches.
@@ -62,7 +62,7 @@ After it worked on linux, however, it did not work on the production server (als
 Luckily, I was able to deliver in the last minute, but I don't want to repeat this again, so I began with this project.
 
 Be aware, that a "meaty" "template" like this one has the disadvantage, that I chose most of the technologies forehand.
-So if you like to use this template, I recommend you read the list of main-frameworks and technologies, on which it is based:
+So if you like to use this template, I recommend you read the list of main-frameworks and technologies on which it is based:
 * Gitlab + Gitlab-Runner
 * Vue (+vuex, +bootstrap-vue, +axios, ...)
 * Django (python3)
@@ -120,14 +120,14 @@ However, if you want to configure it, here is a step-by-step solution for Ubuntu
 ## Installation/Setup
 
 1. Fork or clone the repo. You will likely want to setup your own repo, therefore you could possibly perform the following steps (below is my own workflow as an example, there are more possible ways to do this). (see https://stackoverflow.com/questions/18200248/cloning-a-repo-from-someone-elses-github-and-pushing-it-to-a-repo-on-my-github for another example)
-        
-        fork repo on gitlab to your new project path (and rename paths in project settings)
+
+        fork repo on gitlab to your new project path
+        rename paths in project settings: gitlab project-url, gitlab project name
         git clone your-new-repo-on-gitlab # on your local machine
         git remote add upstream git@gitlab.com:electrocnic/vue-django-ci-cd-boilerplate.git
-        git checkout -b vue-django-ci-cd-boilerplate # make new branch where you pull updates from this repo
         git fetch upstream # update the new configuration
-        git branch --set-upstream-to=upstream/master # modify the remote url for the new branch
         git remote set-url --push upstream no-push # but disallow push
+        git checkout -b vue-django-ci-cd-boilerplate upstream/master# make new branch where you pull updates from this repo and modify the remote url for the new branch
         git checkout -b merge-updates-from-boilerplate # make new branch where you merge the updates and your app's changes
         git push -u # this branch will be pushed to your own repo (origin)
         git checkout master # go back to master and have fun
@@ -171,7 +171,7 @@ I did not work with Kubernetes yet, so I have no idea if you could work with tha
 If you add a specific runner manually, like I used it for this project, configure the runner with privileged mode!
 For example I registered my new runner for this project with the following command (on a different server than on which my gitlab instance is running):
 `sudo gitlab-runner register -n --url https://YOUR_GITLAB_DOMAIN/ --registration-token YOUR_SETTINGS_CI_CD_RUNNERS_REGISTRATION_TOKEN --executor docker --description "YOUR DESCRIPTION" --docker-image "docker:stable" --docker-privileged`
-6. When you carefully followed them instructions, you can now commit your README.md, push it, and watch the first pipeline running. It may take quite some minutes per job (e.g. ~30 minutes for the first job to build the base images for the first time, they will be re-used for future jobs, but updated every time you add pip or npm packages)
+6. When you carefully followed the instructions, you can now commit your README.md, push it, and watch the first pipeline running. It may take quite some minutes per job (e.g. ~30 minutes for the first job to build the base images for the first time, they will be re-used for future jobs, but updated every time you add pip or npm packages)
 7. You can now also add your first tag (git tag) either with git manually or on gitlab `Repository -> Tags -> New Tag`. A new tag will trigger the tagged pipeline and will therefore build the test and production images and will deploy the test app to your production server. The configuration is by intention, that you have to trigger the production-deploy by hand (after you added a new tag), to avoid unintentional headaches.
 8. I highly recommend to add a scheduled pipeline on your master branch in gitlab under `CI/CD -> Schedules -> New schedule` on a `daily` basis, which will then update the badges daily, so they show up-to-date information about outdated packages and so on.
 9. You should be able to visit your deployed sites under the domains you provided for the variables. The production domain should only accept https, whilst the test domain should accept both, https and http (but will likely automatically always redirect to https).
@@ -216,7 +216,7 @@ This boilerplate is meant to be as focused as possible to the simple use case wh
 
 ## Continuous Integration (CI)
 
-The CI pipeline is designes as following:
+The CI pipeline is designed to do the following:
 
 1. `update-base-image` - The images `debian-dind` and `builder` get checked if updates are needed and will eventually be updated. An update might take 15 to 30 minutes. If no update is needed, this job should finish within 4 minutes.
 2. `build-images` - aka "verify-build" will build the app and run django nose tests. The coverage result only depends on the output of these tests, as I did not add coverage for frontend tests. Here, the three images `app:latest`, `nginx:latest` and `postgres:latest` are created and pushed to the docker registry you configured in the gitlab variables.
@@ -413,6 +413,14 @@ the provided deploy-server ip and user.
 
 ## FAQ / Troubleshooting
 
+### SSL (HTTPS) problems
+
+1. Did you add both, `example.com` AND `www.example.com` as a DNS-Entry to your provider? If one of them is missing, the ACME-challenge will not work.
+2. Did you use upper case characters in the project name? It might interfere with URLs in the nginx configuration and the other docker images (the project name and/or gitlab project-path is used as CI-variable during the build process)
+3. Are the addresses of your website in your DNS provider EQUAL to the ones in the gitlab variables?
+
+You can debug the ssl-challenge by stopping nginx-proxy on your host machine with `nginx-proxy/nginx-proxy.sh stop` and then start it by hand in the terminal with `docker-compose -f nginx-proxy/config/docker-compose.yml up`. This will give you the log output to the terminal. After you fixed the issue, stop the running process, and restart it in the background with the script again (`nginx-proxy/nginx-proxy.sh start`).
+
 ### CI Build problems
 
 1. Did you set all variables in `Gitlab -> Settings -> CI/CD -> Variables`?
@@ -445,6 +453,8 @@ I used:
 
 I cannot help you if you use a different environment.
 
+### If your configuration and deployment worked, your site should look like this:
+![Successfully deployed](documentation/media/working_deployment.png?raw=true)
 
 ## Uninstall
 

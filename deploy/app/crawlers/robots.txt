@@ -10,5 +10,6 @@ User-agent: Googlebot-Video
 User-agent: AdsBot-Google-Mobile-Apps
 Allow: /
 Disallow: /gitlab-badges/
+Sitemap: PRODUCTION_URLsitemap.xml
 
 

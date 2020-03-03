@@ -14,6 +14,7 @@ echo 'Inject debug flags and production/debug URLS into client javascript src-co
 ../util/inject_env_into_file.sh PRODUCTION_URL src/_api/urls.js --force
 ../util/inject_env_into_file.sh DEBUG_URL src/_api/urls.js --force
 ../util/inject_env_into_file.sh VUE_DEBUG src/main.js --force
+../util/inject_env_into_file.sh VUE_DEBUG src/_store/index.js --force
 
 echo 'Update npm'
 npm install -g npm
