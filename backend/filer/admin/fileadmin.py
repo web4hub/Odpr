@@ -8,7 +8,8 @@ from django.utils.translation import ugettext as _
 
 from .. import settings
 from ..models import File
-from ..utils.compatibility import reverse, unquote
+from django.urls import reverse
+from django.contrib.admin.utils import unquote
 from .permissions import PrimitivePermissionAwareModelAdmin
 from .tools import AdminContext, admin_url_params_encoded, popup_status
 

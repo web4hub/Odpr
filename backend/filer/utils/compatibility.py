@@ -4,7 +4,7 @@ from __future__ import absolute_import, unicode_literals
 import sys
 
 import django
-from django.utils import six
+import six
 from django.utils.text import Truncator
 
 try:
@@ -61,25 +61,6 @@ def upath(path):
     if six.PY2 and not isinstance(path, six.text_type):
         return path.decode(fs_encoding)
     return path
-
-
-# copied from django-cms (for compatibility with Django 1.4)
-try:
-    from django.utils.encoding import force_unicode  # flake8: noqa
-    def python_2_unicode_compatible(klass):
-        """
-        A decorator that defines __unicode__ and __str__ methods under Python 2.
-        Under Python 3 it does nothing.
-
-        To support Python 2 and 3 with a single code base, define a __str__ method
-        returning text and apply this decorator to the class.
-        """
-        klass.__unicode__ = klass.__str__
-        klass.__str__ = lambda self: self.__unicode__().encode('utf-8')
-        return klass
-except ImportError:
-    force_unicode = lambda s: str(s)
-    from django.utils.encoding import python_2_unicode_compatible  # flake8: noqa
 
 
 def get_delete_permission(opts):
