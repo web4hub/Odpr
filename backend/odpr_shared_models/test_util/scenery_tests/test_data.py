@@ -1,6 +1,6 @@
 from odpr_shared_models.models import FilterProperty, Tag, TextWithHistory
 from odpr_shared_models.test_util.test_data import normalize_list, normalize_element
-from django.utils.six import BytesIO
+from six import BytesIO
 from django.core.files import File
 from PIL import Image
 from io import StringIO
