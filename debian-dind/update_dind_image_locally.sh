@@ -20,15 +20,17 @@ compare_images() {
 	fi
 }
 
+cd /project
+source util/local_docker_build/variables.sh
+
 set +e
-docker pull "${DIND_IMAGE}" 2>/dev/null
-if [ ! $? -eq 0 ]; then
+if [[ "$(docker images -q ${DIND_IMAGE} 2> /dev/null)" == "" ]]; then
 	NOT_FOUND=1
 fi
 set -e
 
 if [ 0$NOT_FOUND -eq 1 ]; then
-	echo "No docker image found in registry, building from scratch..."
+	echo "No docker image found locally, building from scratch..."
 	export BUILD=1
 else
 	set +e
@@ -49,5 +51,4 @@ if [ 0$BUILD -eq 1 ]; then
 		--build-arg DIND_VERSION_SCRIPTS_DIRECTORY \
 		-t "${DIND_IMAGE}" \
 		-f "${DIND_VERSION_SCRIPTS_SRC_DIRECTORY}"/Dockerfile .
-	docker push "${DIND_IMAGE}"
 fi
