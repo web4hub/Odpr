@@ -32,9 +32,6 @@ COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/Dockerfile ${BUILDER_VERSION_SCRIP
 COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/resolve_nested.sh /bin/resolve_nested.sh
 RUN chmod 755 /bin/resolve_nested.sh
 
-RUN pwd
-RUN ls -la
-
 RUN cd "${CI_PROJECT_DIR}/${BACKEND_DIRECTORY}" \
   && pip3 install anybadge \
   && python3 -m venv "${BUILDER_VENV_DIRECTORY}" \
