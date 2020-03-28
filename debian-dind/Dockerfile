@@ -24,15 +24,43 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   curl \
   gnupg2 \
   software-properties-common
+
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+
 RUN add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
    $(lsb_release -cs) \
    ${DOCKER_CHANNEL}"
+
 RUN apt-get update \
-	&& apt-get install -y --no-install-recommends bash docker-ce \
+  && apt-get install -y --no-install-recommends bash docker-ce \
   && docker -v \
   && dockerd -v
+
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-venv \
+    libgtk2.0-0 \
+    libnotify-dev \
+    libgconf-2-4 \
+    libnss3 \
+    libxss1 \
+    libasound2 \
+    libpq-dev \
+    xvfb \
+    curl \
+    software-properties-common \
+    wget \
+    openssh-client \
+    git \
+  && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+  && apt-get install -y nodejs \
+  && npm install -g npm \
+  && npm install -g lighthouse \
+  && node -v \
+  && npm -v \
+  && wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+  && apt install -y ./google-chrome-stable_current_amd64.deb
 
 
 #################
