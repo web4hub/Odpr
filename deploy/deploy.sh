@@ -48,7 +48,6 @@ scp_docker_compose() {
 	make_nginx_proxy_directories
 	set -e
 	scp_proxy "nginx-proxy/config/docker-compose.yml" "~/nginx-proxy/config/"
-	scp_proxy "nginx-proxy/config/Dockerfile" "~/nginx-proxy/config/"
 	set +e
 }
 
