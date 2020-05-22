@@ -437,6 +437,9 @@ owned by root or any other user?
 3. Try to build with `cd client && npm run dev`, maybe it has more detailed error messages.
 4. Is the variable you just used in the Vue-template-section a variable or a method?
 5. Did you define the method as a function or as a dictionary/object by mistake?
+6. Problems with npm-package "sharp" (e.g. `pkg_resources.DistributionNotFound: The 'gyp==0.1' distribution was not found and is required by the application` or `Error: gyp failed with exit code: 1` or `Failed at the sharp@x.x.x install script`):
+Run `cd client && npm install --unsafe-perm`
+
 
 ### OS and environment
 
