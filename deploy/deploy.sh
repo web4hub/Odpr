@@ -60,56 +60,12 @@ scp_template() {
 }
 
 set +e
-nginx_proxy_found=$(ssh_proxy "ls -la" | grep -c "nginx-proxy")
-if [ ! $nginx_proxy_found -eq 0 ]; then
-	echo "Found nginx-proxy directory in home directory of gitlab user on remote server."
-	start_script_found=$(ssh_proxy "ls -la nginx-proxy/" | grep -c "nginx-proxy.sh")
-	if [ ! $start_script_found -eq 0 ]; then
-		echo "Found nginx-proxy-start-script."
-	else
-		echo "Start script not found. Copying files..."
-		scp_start_script
-	fi
-
-	config_folder_found=$(ssh_proxy "ls -la nginx-proxy/" | grep -c "config")
-	if [ ! $config_folder_found -eq 0 ]; then
-		echo "Found config folder of nginx-proxy."
-		docker_compose_found=$(ssh_proxy "ls -la nginx-proxy/config/" | grep -c "docker-compose.yml")
-		if [ ! $docker_compose_found -eq 0 ]; then
-			echo "Found docker-compose.yml of nginx-proxy."
-		else
-			echo "docker-compose.yml of nginx-proxy not found. Copying files..."
-			scp_docker_compose
-		fi
-
-		template_folder_found=$(ssh_proxy "ls -la nginx-proxy/config/" | grep -c "template")
-		if [ ! $template_folder_found -eq 0 ]; then
-			echo "Found template directory of nginx-proxy."
-			template_found=$(ssh_proxy "ls -la nginx-proxy/config/template" | grep -c "nginx.tmpl")
-			if [ ! $template_found -eq 0 ]; then
-				echo "Found nginx.tmpl of nginx-proxy."
-			else
-				echo "nginx.tmpl of nginx-proxy not found. Copying files..."
-				scp_template
-			fi
-		else
-			echo "template directory of nginx-proxy not found. Copying files..."
-			scp_template
-		fi
-	else
-		echo "Config folder not found. Copying files..."
-		scp_docker_compose
-		scp_template
-	fi
-else
-	echo "nginx-proxy not found on remote server in home directory of gitlab user. Copying files to server..."
-	scp_start_script
-	scp_docker_compose
-	scp_template
-fi
+scp_start_script
+scp_docker_compose
+scp_template
 set -e
 
-echo "Files copied or verified, now starting nginx-proxy if not running..."
+echo "Files for nginx-proxy copied or updated, now starting nginx-proxy if not running..."
 
 ssh_proxy "nginx-proxy/nginx-proxy.sh start"
 ssh_proxy "nginx-proxy/nginx-proxy.sh status"
