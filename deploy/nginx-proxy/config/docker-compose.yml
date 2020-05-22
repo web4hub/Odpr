@@ -2,7 +2,6 @@ version: '2'
 services:
 
   nginx-proxy:
-    build: .
     image: nginx
     container_name: nginx-proxy
     ports:
