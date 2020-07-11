@@ -6,4 +6,5 @@ export POSTGRES_IMAGE="registry.gitlab.com/electrocnic/vue-django-ci-cd-boilerpl
 export PRERENDER_IMAGE="registry.gitlab.com/electrocnic/vue-django-ci-cd-boilerplate/prerender:latest"
 export HOST_PORT=8000
 
+docker-compose pull
 docker-compose up
