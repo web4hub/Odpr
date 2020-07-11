@@ -81,6 +81,7 @@ chmod 755 ../util/*.sh
 ../util/inject_env_into_file.sh APP_IMAGE_NAME app/docker-compose.yml
 ../util/inject_env_into_file.sh NGINX_IMAGE_NAME app/docker-compose.yml
 ../util/inject_env_into_file.sh POSTGRES_IMAGE_NAME app/docker-compose.yml
+../util/inject_env_into_file.sh PRERENDER_IMAGE_NAME app/docker-compose.yml
 delete_old_app_images_on_server
 scp_proxy "app/docker-compose.yml" "~/apps/${NGINX_SERVER_NAME}/"
 scp_proxy "app/app.sh" "~/apps/${NGINX_SERVER_NAME}/"
