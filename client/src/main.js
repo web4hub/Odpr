@@ -1,6 +1,7 @@
 'use strict'
 import Vue from 'vue'
 import router from './_router'
+import VueMeta from 'vue-meta'
 
 /* This nasty hack is an ugly workaround to provide the following feature:
 * 1. If app is built locally without any docker or environment variable being injected below, _DEBUG
@@ -16,6 +17,7 @@ if (_DEBUG.includes('VUE_DEBU') && _DEBUG.includes('UE_DEBUG')) { // hack to pre
 Vue.config.productionTip = (_DEBUG === 'true')
 Vue.config.devtools = (_DEBUG === 'true')
 
+Vue.use(VueMeta)
 Vue.use(() => import('bootstrap-vue'))
 
 /* eslint-disable no-new */

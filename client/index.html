@@ -106,6 +106,7 @@
 </head>
 <body>
 <script>
+	window.prerenderReady = false;
 	Element.prototype.remove = function() {
 		this.parentElement.removeChild(this);
 	}
@@ -118,6 +119,10 @@
 	}
 	window.onload = function () {
 		document.getElementById("loader-wrapper").remove();
+		const setPrerenderReadyAfterAWhile = function() {
+			window.prerenderReady = true;
+		}
+		setTimeout( setPrerenderReadyAfterAWhile, 3000 );
 	}
 </script>
 <div id="loader-wrapper">

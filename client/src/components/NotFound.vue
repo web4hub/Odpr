@@ -6,7 +6,15 @@
 
 <script>
 export default {
-	name: 'NotFound'
+	name: 'NotFound',
+	metaInfo: function () {
+		return {
+			meta: [
+				{ name: 'robots', content: 'noindex' },
+				{ name: 'prerender-status-code', content: '404'}
+			]
+		}
+	}
 }
 </script>
 
