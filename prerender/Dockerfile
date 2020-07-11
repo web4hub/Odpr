@@ -18,12 +18,18 @@ RUN apt-get update \
 	&& git clone https://github.com/prerender/prerender.git \
 	&& cd prerender \
 	&& npm install \
+	&& npm install prerender-memory-cache \
 	&& npm audit fix
 
 RUN echo 'alias google-chrome="google-chrome --no-sandbox"' >> ~/.bashrc
 
 WORKDIR /prerender
 RUN sed -i "s~scrollbars'~scrollbars', '--no-sandbox'~g" lib/browsers/chrome.js
+RUN sed -i "s~require('./lib');~require('./lib');\nconst cache = require('prerender-memory-cache');~g" server.js \
+		&& sed -i "s~httpHeaders());~httpHeaders());\nserver.use(cache);~g" server.js
+
+ENV CACHE_MAXSIZE 10000
+ENV CACHE_TTL 604800
 
 EXPOSE 3000
 
