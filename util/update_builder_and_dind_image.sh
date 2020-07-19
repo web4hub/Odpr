@@ -1,8 +1,8 @@
 #!/bin/bash
 set -eo pipefail
 
-sh debian-dind/update_dind_image.sh
-if [ ! $? -eq 0 ]; then
+result=$(sh debian-dind/update_dind_image.sh)
+if [ ${result} == "UPDATED" ]; then
 	echo "Debian-Dind needed an update so we also update builder..."
 	export BUILD=1
 fi
