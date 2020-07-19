@@ -50,5 +50,5 @@ if [ 0$BUILD -eq 1 ]; then
 		-t "${DIND_IMAGE}" \
 		-f "${DIND_VERSION_SCRIPTS_SRC_DIRECTORY}"/Dockerfile .
 	docker push "${DIND_IMAGE}"
-	echo "UPDATED"
+	return 1
 fi
