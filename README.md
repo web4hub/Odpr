@@ -180,6 +180,8 @@ The pipeline should be triggered but should fail.
 		- `DOCKER_USER` the user of your docker registry to which the password belongs
 		- `PRODUCTION_DOMAIN` the domain under which you want to deploy your app. Note, that the app will be deployed using the `DEPLOY_SERVER_IP`, but this domain will be used for nginx to deliver the app when requests are made with that domain. Therefore, you have to make a DNS entry on your domain-provider to make it point to `DEPLOY_SERVER_IP`
 		- `TEST_PRODUCTION_DOMAIN` the domain under which you want to deploy your test app. It is the same as the production app, but has its own gitlab jobs and docker images. This is to provide you a way to manually review your deployed app, before you actually update the production app.
+		- `TEST_PRODUCTION_DOMAIN_USER` the username under which you can login to the test-domain's basic auth system, so nobody else can visit the test-domain except authorized users
+		- `TEST_PRODUCTION_DOMAIN_PASSWORD` the password for the basic auth for the test-domain
 		- `PROXY_SERVER_IP` Optional: If you cannot ssh to your deploy server directly but need to connect to an intermediate server instead, use this extra variable.
 		- `PROXY_SERVER_USER` Optional: Use this if you also use `PROXY_SERVER_IP`. The user with which gitlab will try to login to the proxy server.
 		- `PROXY_SERVER_PRIVATE_KEY` (Type: `File`) Optional: Use this if you also use `PROXY_SERVER_IP`. The private key which is accepted by `PROXY_SERVER_USER` on the server `PROXY_SERVER_IP`. The corresponding public key needs to be added to the `authorized_keys` of the proxy server.

@@ -19,6 +19,7 @@ COPY ${DIND_VERSION_SCRIPTS_SRC_DIRECTORY}/image_checksum.sh ${DIND_VERSION_SCRI
 RUN chmod 755 ${DIND_VERSION_SCRIPTS_DIRECTORY}/image_checksum.sh
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
+  apache2-utils \
   apt-transport-https \
   ca-certificates \
   curl \
