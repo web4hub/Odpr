@@ -145,8 +145,7 @@ update-base-image:
     - cd $CI_PROJECT_DIR
     - echo $DOCKER_PW | docker login -u $DOCKER_USER --password-stdin $DOCKER_REGISTRY
   script:
-    - sh debian-dind/update_dind_image.sh
-    - sh builder/update_builder.sh
+    - sh util/update_builder_and_dind_image.sh
   except:
     - schedules
 

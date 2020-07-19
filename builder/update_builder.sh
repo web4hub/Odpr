@@ -39,26 +39,28 @@ compare_images() {
 	fi
 }
 
-set +e
-docker pull "${BUILDER_IMAGE}" 2>/dev/null
-if [ ! $? -eq 0 ]; then
-	NOT_FOUND=1
-fi
-set -e
-
-if [ 0$NOT_FOUND -eq 1 ]; then
-	echo "No docker image found in registry, building from scratch..."
-	BUILD=1
-else
+if [ 0$BUILD -eq 0 ]; then
 	set +e
-	compare_images
-	result=$?
+	docker pull "${BUILDER_IMAGE}" 2>/dev/null
+	if [ ! $? -eq 0 ]; then
+		NOT_FOUND=1
+	fi
 	set -e
-	if [ $result -eq 1 ]; then
-		echo "Builder out of date, updating image..."
+
+	if [ 0$NOT_FOUND -eq 1 ]; then
+		echo "No docker image found in registry, building from scratch..."
 		BUILD=1
 	else
-		echo "Builder up to date, nothing to do in this stage."
+		set +e
+		compare_images
+		result=$?
+		set -e
+		if [ $result -eq 1 ]; then
+			echo "Builder out of date, updating image..."
+			BUILD=1
+		else
+			echo "Builder up to date, nothing to do in this stage."
+		fi
 	fi
 fi
 
