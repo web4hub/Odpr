@@ -89,7 +89,7 @@ for f in app/re-encrypt-certs/*; do
 	scp_proxy "${f}" "~/apps/${NGINX_SERVER_NAME}/re-encrypt-certs/"
 done
 
-CURRENT_DATE="$(date -I)"
+export CURRENT_DATE="$(date -I)"
 ../util/inject_env_into_file.sh CURRENT_DATE app/crawlers/sitemap.xml
 for f in app/crawlers/*; do
 	../util/inject_env_into_file.sh PRODUCTION_URL "${f}"
