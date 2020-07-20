@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>PRODUCTION_URL</loc>
-		<lastmod>2020-02-20</lastmod>
+		<lastmod>CURRENT_DATE</lastmod>
 		<changefreq>weekly</changefreq>
 	</url>
 </urlset>
