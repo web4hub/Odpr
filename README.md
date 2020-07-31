@@ -14,6 +14,10 @@
 [![pip dependencies](https://test.gitlab.electrocnic.com/gitlab-badges/outdated_pip.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/outdated.html)
 [![npm dependencies](https://test.gitlab.electrocnic.com/gitlab-badges/outdated_npm.svg)](https://test.gitlab.electrocnic.com/gitlab-badges/outdated.html)
 
+In case you have found this and you are reading a forked repo, the original repo is hosted by @electrocnic here: https://gitlab.com/electrocnic/vue-django-ci-cd-boilerplate <br>
+Feel free to let a star at the original repo if you want to support me :)<br>
+Feel free to fork it from there if you want to support me :)
+
 # Content
 
 1. [What is this?](#what-is-this)
@@ -107,9 +111,9 @@ your deploy-server and add the private key (the content of the key-file) as Stri
 6. **`docker` and `docker-compose`** must be installed on the production server. I also highly recommend using Ubuntu on
 x86 for the server, I did not test the setup on `ARM` nor can I guarantee anything on a different environment.
 7. **2 domains**: One **production domain**, where your app will finally be available to the public, and one
-**test-domain**, which is currently also available to the public, because I did not implement VPN for this purpose yet,
-but I am sure you can set it up yourself if you need a VPN for testing. The test domain is meant to be available from
-everywhere but not shared or advertised, so only you will know the URL. Examples: For the development of this
+**test-domain**, which is guarded by basic-auth in the nginx-config. The username and password for this are also stored
+as gitlab CI variables. The test domain is meant to be available from
+everywhere. Examples: For the development of this
 boilerplate App I used the domains `production.gitlab.electrocnic.com` and `test.gitlab.electrocnic.com`. Currently they
 will both be deployed to the same IP, if you need to deploy them to two different IPs, just add another IP-Variable and
 use that variable in the `.gitlab-ci.yml`. The Variables for the domains should be added to the CI/CD Variables settings
