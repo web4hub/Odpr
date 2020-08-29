@@ -17,7 +17,6 @@ from ..fields.multistorage_file import MultiStorageFileField
 from ..utils.compatibility import (
     NoReverseMatch,
     is_authenticated,
-    python_2_unicode_compatible,
     reverse,
 )
 from .foldermodels import Folder
@@ -50,7 +49,6 @@ def is_public_default():
     return filer_settings.FILER_IS_PUBLIC_DEFAULT
 
 
-@python_2_unicode_compatible
 class File(PolymorphicModel, mixins.IconsMixin):
     file_type = 'File'
     _icon = "file"

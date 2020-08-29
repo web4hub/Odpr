@@ -36,13 +36,9 @@ from ..models import (
 )
 from ..settings import FILER_IMAGE_MODEL, FILER_PAGINATE_BY
 from ..thumbnail_processors import normalize_subject_location
-from ..utils.compatibility import (
-    capfirst,
-    get_delete_permission,
-    quote,
-    reverse,
-    unquote,
-)
+from ..utils.compatibility import get_delete_permission
+from django.urls import reverse
+from django.contrib.admin.utils import unquote, quote, capfirst
 from ..utils.filer_easy_thumbnails import FilerActionThumbnailer
 from ..utils.loader import load_model
 from .forms import CopyFilesAndFoldersForm, RenameFilesForm, ResizeImagesForm

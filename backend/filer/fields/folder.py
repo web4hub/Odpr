@@ -13,7 +13,8 @@ from django.utils.http import urlencode
 from django.utils.safestring import mark_safe
 
 from ..models import Folder
-from ..utils.compatibility import LTE_DJANGO_1_8, reverse, truncate_words
+from django.urls import reverse
+from ..utils.compatibility import LTE_DJANGO_1_8, truncate_words
 from ..utils.model_label import get_model_label
 
 
