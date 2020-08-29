@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "test": "cypress run --browser chrome",
+    "test": "cypress run --browser chromium",
     "test-ci": "cypress run --config baseUrl=http://docker:8000 --browser chrome",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src",
@@ -71,7 +71,7 @@
     "babel-loader": "^8.1.0",
     "copy-webpack-plugin": "^6.0.3",
     "css-loader": "^4.2.2",
-    "cypress": "^4.12.1",
+    "cypress": "^5.0.0",
     "eslint": "^7.7.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-friendly-formatter": "^4.0.1",

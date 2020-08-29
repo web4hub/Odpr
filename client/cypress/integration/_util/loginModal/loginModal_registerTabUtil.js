@@ -103,7 +103,10 @@ export const verifyRegisterSubmitDisabledAndErrorMatchesUsernameRequired = () =>
 export const verifyRegisterSubmitDisabledAndErrorMatchesEmailRequired = () => {
 	verifyRegisterSubmitButtonDisabled()
 	verifyRegisterEmailErrorVisible()
-	getRegisterEmailErrorMessageField().contains(i18n.json().loginModal.registerTab.warnings.email.required)
+	const messages = [i18n.json().loginModal.registerTab.warnings.email.required,
+		i18n.json().loginModal.registerTab.warnings.email.invalid]
+	const regex = new RegExp(`${messages.join('|')}`, 'g')
+	getRegisterEmailErrorMessageField().contains(regex)
 }
 export const verifyRegisterSubmitDisabledAndErrorMatchesEmailInvalid = () => {
 	verifyRegisterSubmitButtonDisabled()

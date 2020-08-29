@@ -75,7 +75,10 @@ export const triggerPasswordResetEmailRequiredError = () => {
 export const verifyPasswordResetSubmitDisabledAndErrorMatchesEmailRequired = () => {
 	verifyPasswordResetSubmitButtonDisabled()
 	verifyPasswordResetEmailErrorVisible()
-	getPasswordResetEmailErrorMessageField().contains(i18n.json().loginModal.passwordResetTab.warnings.email.required)
+	const messages = [i18n.json().loginModal.passwordResetTab.warnings.email.required,
+		i18n.json().loginModal.passwordResetTab.warnings.email.invalid]
+	const regex = new RegExp(`${messages.join('|')}`, 'g')
+	getPasswordResetEmailErrorMessageField().contains(regex)
 }
 
 export const verifyPasswordResetSubmitDisabledAndErrorMatchesEmailInvalid = () => {
