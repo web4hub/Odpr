@@ -2,7 +2,7 @@
 set -eo pipefail
 
 echo "Running lighthouse analysis..."
-lighthouse "https://${TEST_PRODUCTION_DOMAIN}" --quiet --chrome-flags="--headless --no-sandbox" --no-enable-error-reporting --output-path=./report.html
+lighthouse "https://${PRODUCTION_DOMAIN}" --quiet --chrome-flags="--headless --no-sandbox" --no-enable-error-reporting --output-path=./report.html
 
 echo "Parse lighthouse results from generated report.html..."
 performance=$(cat report.html | sed -rn 's~^.*("id":"performance","score":)([[:digit:]]\.?[[:digit:]]{0,2}).*$~\2~p')

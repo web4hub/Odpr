@@ -1,6 +1,7 @@
 'use strict'
 import Vue from 'vue'
 import router from './_router'
+import VueMeta from 'vue-meta'
 import store from './_store'
 import VeeValidate from 'vee-validate'
 import Axios from 'axios'
@@ -32,6 +33,7 @@ if (_DEBUG.includes('VUE_DEBU') && _DEBUG.includes('UE_DEBUG')) { // hack to pre
 Vue.config.productionTip = (_DEBUG === 'true')
 Vue.config.devtools = (_DEBUG === 'true')
 
+Vue.use(VueMeta)
 Vue.use(() => import('bootstrap-vue'))
 
 /* eslint-disable no-new */

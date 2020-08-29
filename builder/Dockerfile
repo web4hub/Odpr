@@ -20,7 +20,9 @@ ENV BUILDER_NODE_MODULES_SRC_DIRECTORY "${BUILDER_NODE_MODULES_SRC_DIRECTORY}"
 WORKDIR ${CI_PROJECT_DIR}
 
 COPY ${CLIENT_DIRECTORY}/package.json ${CLIENT_DIRECTORY}/
+COPY ${CLIENT_DIRECTORY}/package-lock.json ${CLIENT_DIRECTORY}/
 COPY ${CLIENT_DIRECTORY}/package.json ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
+COPY ${CLIENT_DIRECTORY}/package-lock.json ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
 COPY ${BACKEND_DIRECTORY}/requirements.txt ${BACKEND_DIRECTORY}/
 COPY ${BACKEND_DIRECTORY}/requirements.txt ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
 COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/node_modules_checksum.sh ${BUILDER_VERSION_SCRIPTS_DIRECTORY}/
@@ -30,43 +32,19 @@ COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/Dockerfile ${BUILDER_VERSION_SCRIP
 COPY ${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}/resolve_nested.sh /bin/resolve_nested.sh
 RUN chmod 755 /bin/resolve_nested.sh
 
-RUN apt-get update \
-	&& apt-get install -y \
-		python3-pip \
-		python3-venv \
-		libgtk2.0-0 \
-		libnotify-dev \
-		libgconf-2-4 \
-		libnss3 \
-		libxss1 \
-		libasound2 \
-		libpq-dev \
-		xvfb \
-		curl \
-		software-properties-common \
-		wget \
-		openssh-client \
-	&& curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-	&& apt-get install -y nodejs \
-	&& npm install -g npm \
-	&& npm install -g lighthouse \
-	&& node -v \
-	&& npm -v \
-	&& wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-	&& apt install -y ./google-chrome-stable_current_amd64.deb \
-	&& cd "${CI_PROJECT_DIR}/${BACKEND_DIRECTORY}" \
-        && pip3 install anybadge \
-	&& python3 -m venv "${BUILDER_VENV_DIRECTORY}" \
-	&& . "${BUILDER_VENV_DIRECTORY}/bin/activate" \
-	&& pip3 install --upgrade pip \
-	&& pip3 install -r requirements.txt \
-	&& pip3 install docker-compose \
-	&& mkdir -p ~/.ssh \
-	&& [ -f /.dockerenv ] && echo "Host *" > ~/.ssh/config && echo "StrictHostKeyChecking no" >> ~/.ssh/config && echo "" >> ~/.ssh/config
+RUN cd "${CI_PROJECT_DIR}/${BACKEND_DIRECTORY}" \
+  && pip3 install anybadge \
+  && python3 -m venv "${BUILDER_VENV_DIRECTORY}" \
+  && . "${BUILDER_VENV_DIRECTORY}/bin/activate" \
+  && pip3 install --upgrade pip \
+  && pip3 install -r requirements.txt \
+  && pip3 install docker-compose \
+  && mkdir -p ~/.ssh \
+  && [ -f /.dockerenv ] && echo "Host *" > ~/.ssh/config && echo "StrictHostKeyChecking no" >> ~/.ssh/config && echo "" >> ~/.ssh/config
 
 RUN cd ${CI_PROJECT_DIR}/${CLIENT_DIRECTORY} \
 	&& npm set progress=false \
-	&& npm install -s --no-progress \
+	&& npm install \
 	&& npm audit fix \
 	&& node_modules/.bin/cypress verify \
 	&& mv node_modules "${BUILDER_NODE_MODULES_SRC_DIRECTORY}"

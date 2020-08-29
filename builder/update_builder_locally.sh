@@ -39,28 +39,28 @@ compare_images() {
 	fi
 }
 
-if [ 0$BUILD -eq 0 ]; then
-	set +e
-	docker pull "${BUILDER_IMAGE}" 2>/dev/null
-	if [ ! $? -eq 0 ]; then
-		NOT_FOUND=1
-	fi
-	set -e
+cd /project
+source util/local_docker_build/variables.sh
 
-	if [ 0$NOT_FOUND -eq 1 ]; then
-		echo "No docker image found in registry, building from scratch..."
+set +e
+if [[ "$(docker images -q ${BUILDER_IMAGE} 2> /dev/null)" == "" ]]; then
+	NOT_FOUND=1
+fi
+set -e
+
+if [ 0$NOT_FOUND -eq 1 ]; then
+	echo "No docker image found in registry, building from scratch..."
+	BUILD=1
+else
+	set +e
+	compare_images
+	result=$?
+	set -e
+	if [ $result -eq 1 ]; then
+		echo "Builder out of date, updating image..."
 		BUILD=1
 	else
-		set +e
-		compare_images
-		result=$?
-		set -e
-		if [ $result -eq 1 ]; then
-			echo "Builder out of date, updating image..."
-			BUILD=1
-		else
-			echo "Builder up to date, nothing to do in this stage."
-		fi
+		echo "Builder up to date, nothing to do in this stage."
 	fi
 fi
 
@@ -76,5 +76,4 @@ if [ 0$BUILD -eq 1 ]; then
 		--build-arg BUILDER_NODE_MODULES_SRC_DIRECTORY \
 		-t "${BUILDER_IMAGE}" \
 		-f "${BUILDER_VERSION_SCRIPTS_SRC_DIRECTORY}"/Dockerfile .
-	docker push "${BUILDER_IMAGE}"
 fi
