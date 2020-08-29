@@ -59,56 +59,12 @@ scp_template() {
 }
 
 set +e
-nginx_proxy_found=$(ssh_proxy "ls -la" | grep -c "nginx-proxy")
-if [ ! $nginx_proxy_found -eq 0 ]; then
-	echo "Found nginx-proxy directory in home directory of gitlab user on remote server."
-	start_script_found=$(ssh_proxy "ls -la nginx-proxy/" | grep -c "nginx-proxy.sh")
-	if [ ! $start_script_found -eq 0 ]; then
-		echo "Found nginx-proxy-start-script."
-	else
-		echo "Start script not found. Copying files..."
-		scp_start_script
-	fi
-
-	config_folder_found=$(ssh_proxy "ls -la nginx-proxy/" | grep -c "config")
-	if [ ! $config_folder_found -eq 0 ]; then
-		echo "Found config folder of nginx-proxy."
-		docker_compose_found=$(ssh_proxy "ls -la nginx-proxy/config/" | grep -c "docker-compose.yml")
-		if [ ! $docker_compose_found -eq 0 ]; then
-			echo "Found docker-compose.yml of nginx-proxy."
-		else
-			echo "docker-compose.yml of nginx-proxy not found. Copying files..."
-			scp_docker_compose
-		fi
-
-		template_folder_found=$(ssh_proxy "ls -la nginx-proxy/config/" | grep -c "template")
-		if [ ! $template_folder_found -eq 0 ]; then
-			echo "Found template directory of nginx-proxy."
-			template_found=$(ssh_proxy "ls -la nginx-proxy/config/template" | grep -c "nginx.tmpl")
-			if [ ! $template_found -eq 0 ]; then
-				echo "Found nginx.tmpl of nginx-proxy."
-			else
-				echo "nginx.tmpl of nginx-proxy not found. Copying files..."
-				scp_template
-			fi
-		else
-			echo "template directory of nginx-proxy not found. Copying files..."
-			scp_template
-		fi
-	else
-		echo "Config folder not found. Copying files..."
-		scp_docker_compose
-		scp_template
-	fi
-else
-	echo "nginx-proxy not found on remote server in home directory of gitlab user. Copying files to server..."
-	scp_start_script
-	scp_docker_compose
-	scp_template
-fi
+scp_start_script
+scp_docker_compose
+scp_template
 set -e
 
-echo "Files copied or verified, now starting nginx-proxy if not running..."
+echo "Files for nginx-proxy copied or updated, now starting nginx-proxy if not running..."
 
 ssh_proxy "nginx-proxy/nginx-proxy.sh start"
 ssh_proxy "nginx-proxy/nginx-proxy.sh status"
@@ -125,12 +81,16 @@ chmod 755 ../util/*.sh
 ../util/inject_env_into_file.sh APP_IMAGE_NAME app/docker-compose.yml
 ../util/inject_env_into_file.sh NGINX_IMAGE_NAME app/docker-compose.yml
 ../util/inject_env_into_file.sh POSTGRES_IMAGE_NAME app/docker-compose.yml
+../util/inject_env_into_file.sh PRERENDER_IMAGE_NAME app/docker-compose.yml
 delete_old_app_images_on_server
 scp_proxy "app/docker-compose.yml" "~/apps/${NGINX_SERVER_NAME}/"
 scp_proxy "app/app.sh" "~/apps/${NGINX_SERVER_NAME}/"
 for f in app/re-encrypt-certs/*; do
 	scp_proxy "${f}" "~/apps/${NGINX_SERVER_NAME}/re-encrypt-certs/"
 done
+
+export CURRENT_DATE="$(date -I)"
+../util/inject_env_into_file.sh CURRENT_DATE app/crawlers/sitemap.xml
 for f in app/crawlers/*; do
 	../util/inject_env_into_file.sh PRODUCTION_URL "${f}"
 	scp_proxy "${f}" "~/apps/${NGINX_SERVER_NAME}/crawlers/"

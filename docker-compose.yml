@@ -36,6 +36,11 @@ services:
     volumes:
       - database1_volume:/var/lib/postgresql/data
 
+  prerender:
+    image: "${PRERENDER_IMAGE}"
+    networks:
+      - nginx_network
+
 networks:
   nginx_network:
     driver: bridge

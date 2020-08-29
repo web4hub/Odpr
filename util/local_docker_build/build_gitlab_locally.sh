@@ -2,6 +2,7 @@
 set -eo pipefail
 
 # Running in Builder Image Docker Container
+cd /project
 
 # pwd = $CI_PROJECT_DIR (/builds/dood/app)
 . "${BUILDER_VENV_DIRECTORY}/bin/activate"
@@ -22,6 +23,7 @@ npm set progress=false
 npm install -s --no-progress
 echo 'Fix security vulnerabilities of third party packages'
 npm audit fix
+mkdir -p static
 echo 'Run npm build'
 npm run build
 echo 'Done...'
