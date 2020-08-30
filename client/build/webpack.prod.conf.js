@@ -9,7 +9,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-const PreloadWebpackPlugin = require('preload-webpack-plugin')
+// const PreloadWebpackPlugin = require('preload-webpack-plugin')
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
@@ -68,7 +68,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 			outputPath: path.join(config.build.assetsSubDirectory, 'favicon'),
 			prefix: path.join(config.build.assetsSubDirectory, 'favicon'),
 		}),
-		new PreloadWebpackPlugin(),
+		// new PreloadWebpackPlugin(),
 		// keep module.id stable when vender modules does not change
 		new webpack.HashedModuleIdsPlugin(),
 		// copy custom static _assets
