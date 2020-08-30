@@ -8,8 +8,9 @@ User-agent: Googlebot-Image
 User-agent: Googlebot-News
 User-agent: Googlebot-Video
 User-agent: AdsBot-Google-Mobile-Apps
-Allow: /
+# Allow: /
+Disallow: /
 Disallow: /gitlab-badges/
-Sitemap: PRODUCTION_URLsitemap.xml
+# Sitemap: PRODUCTION_URLsitemap.xml
 
 
