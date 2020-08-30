@@ -5,6 +5,7 @@ import logging
 import warnings
 
 from django import forms
+from django.conf import settings
 from django.contrib.admin.sites import site
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget
 from django.core.exceptions import ObjectDoesNotExist
@@ -16,7 +17,7 @@ from django.utils.safestring import mark_safe
 from .. import settings as filer_settings
 from ..models import File
 from django.urls import reverse
-from ..utils.compatibility import LTE_DJANGO_1_8, truncate_words
+from ..utils.compatibility import truncate_words
 from ..utils.model_label import get_model_label
 
 logger = logging.getLogger(__name__)
@@ -62,10 +63,7 @@ class AdminFileWidget(ForeignKeyRawIdWidget):
             'object': obj,
             'lookup_name': name,
             'id': css_id,
-            'admin_icon_delete': (
-                'admin/img/icon_deletelink.gif' if LTE_DJANGO_1_8
-                else 'admin/img/icon-deletelink.svg'
-            ),
+            'admin_icon_delete': ('admin/img/icon-deletelink.svg'),
         }
         html = render_to_string('admin/filer/widgets/admin_file.html', context)
         return mark_safe(html)
@@ -75,23 +73,26 @@ class AdminFileWidget(ForeignKeyRawIdWidget):
         return '&nbsp;<strong>%s</strong>' % truncate_words(obj, 14)
 
     def obj_for_value(self, value):
-        try:
-            key = self.rel.get_related_field().name
-            if LTE_DJANGO_1_8:
-                obj = self.rel.to._default_manager.get(**{key: value})
-            else:
+        if value:
+            try:
+                key = self.rel.get_related_field().name
                 obj = self.rel.model._default_manager.get(**{key: value})
-        except ObjectDoesNotExist:
+            except ObjectDoesNotExist:
+                obj = None
+        else:
             obj = None
         return obj
 
     class Media(object):
+        extra = '' if settings.DEBUG else '.min'
         css = {
             'all': [
                 'filer/css/admin_filer.css',
             ]
         }
         js = (
+            'admin/js/vendor/jquery/jquery%s.js' % extra,
+            'admin/js/jquery.init.js',
             'filer/js/libs/dropzone.min.js',
             'filer/js/addons/dropzone.init.js',
             'filer/js/addons/popup_handling.js',

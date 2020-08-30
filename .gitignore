@@ -51,8 +51,10 @@ ENV/
 # Staticfiles
 staticfiles/
 static-vuedj/
-templates/
-static/
+./templates/
+client/templates/
+./static/
+client/static/
 
 accounts/migrations/
 api/migrations/

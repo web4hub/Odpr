@@ -14,7 +14,7 @@ from django.utils.safestring import mark_safe
 
 from ..models import Folder
 from django.urls import reverse
-from ..utils.compatibility import LTE_DJANGO_1_8, truncate_words
+from ..utils.compatibility import truncate_words
 from ..utils.model_label import get_model_label
 
 
@@ -73,12 +73,11 @@ class AdminFolderWidget(ForeignKeyRawIdWidget):
         return '&nbsp;<strong>%s</strong>' % truncate_words(obj, 14)
 
     def obj_for_value(self, value):
+        if not value:
+            return None
         try:
             key = self.rel.get_related_field().name
-            if LTE_DJANGO_1_8:
-                obj = self.rel.to._default_manager.get(**{key: value})
-            else:
-                obj = self.rel.model._default_manager.get(**{key: value})
+            obj = self.rel.model._default_manager.get(**{key: value})
         except ObjectDoesNotExist:
             obj = None
         return obj
